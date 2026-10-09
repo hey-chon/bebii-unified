@@ -23,9 +23,9 @@ export function Terminal({ onOpenBirthday }: Props) {
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [draft, setDraft] = useState('');
-  const [installed, setInstalled] = useState(false);
-  const [artInstalled, setArtInstalled] = useState(false);
-  const [label, setLabel] = useState('bebii@termux:~ $');
+  const [installed, setInstalled] = useState(() => localStorage.getItem('birthday_installed') === 'true');
+  const [artInstalled, setArtInstalled] = useState(() => localStorage.getItem('art_installed') === 'true');
+  const [label, setLabel] = useState(() => localStorage.getItem('birthday_installed') === 'true' ? 'bebii@birthday-os:~ $' : 'bebii@termux:~ $');
   const [busy, setBusy] = useState(false);
   const screenRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -58,9 +58,11 @@ export function Terminal({ onOpenBirthday }: Props) {
         jobRef.current = null;
         if (kind === 'install-art') {
           setArtInstalled(true);
+          localStorage.setItem('art_installed', 'true');
           append(ART_HELP, 'output success');
         } else if (kind === 'install') {
           setInstalled(true);
+          localStorage.setItem('birthday_installed', 'true');
           append(ASCII, 'ascii');
           append('open birthday', 'output muted');
           setLabel('bebii@birthday-os:~ $');
@@ -104,12 +106,19 @@ export function Terminal({ onOpenBirthday }: Props) {
       clearScreen();
       return;
     }
-    if (result.kind === 'reboot') {
+    if (result.kind === 'dev-reset') {
       setInstalled(false);
       setArtInstalled(false);
+      localStorage.removeItem('birthday_installed');
+      localStorage.removeItem('art_installed');
       setLabel('bebii@termux:~ $');
       clearScreen();
-      append('System rebooted. Installation state cleared, bebii.', 'output muted');
+      append('System factory reset. Developer mode activated.', 'output muted');
+      return;
+    }
+    if (result.kind === 'reboot') {
+      clearScreen();
+      append('System rebooted.', 'output muted');
       return;
     }
     if (result.kind === 'install' || result.kind === 'install-art' || result.kind === 'update') {
@@ -149,7 +158,7 @@ export function Terminal({ onOpenBirthday }: Props) {
           '  countdown | neofetch',
           '  cat letter.txt | ls',
           '  whoami | date | love',
-          '  clear | reboot | history',
+          '  clear | history',
         ].join('\n'),
         'output',
       );

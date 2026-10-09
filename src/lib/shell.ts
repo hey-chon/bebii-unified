@@ -2,7 +2,7 @@
 import { ARTWORKS } from './art';
 export const SITE_URL = 'internal';
 export const BIRTHDAY = '2026-10-17T00:00:00+08:00';
-export const COMMANDS = ['guide', 'help', 'neofetch', 'pkg install birthday-os', 'pkg install ascii.art', 'pkg list', 'countdown', 'ls', 'cat letter.txt', 'open birthday', 'whoami', 'date', 'pwd', 'clear', 'history', 'reboot', 'echo', 'uname', 'love'];
+export const COMMANDS = ['guide', 'help', 'neofetch', 'pkg install birthday-os', 'pkg install ascii.art', 'pkg list', 'countdown', 'ls', 'cat letter.txt', 'open birthday', 'whoami', 'date', 'pwd', 'clear', 'history', 'echo', 'uname', 'love'];
 export const ART_COMMANDS = ['ascii help', 'ascii list', 'ascii 1'];
 export const ART_HELP = 'ascii list     list ASCII artworks\nascii 1        show the first artwork: bebii\nascii help     show these commands';
 export const ASCII = String.raw`████  █████ ████  █████ █   █ ████   ███  █   █
@@ -54,6 +54,7 @@ export function runCommand(input, state = {}, now = new Date()) {
     case 'neofetch': case 'about': return state.installed ? { kind: 'neofetch' } : { lines: ['Install birthday-os first, bebii: pkg install birthday-os'], tone: 'plain' };
     case 'clear': return { kind: 'clear' };
     case 'reboot': return { kind: 'reboot' };
+    case 'dev-reset': return { kind: 'dev-reset' };
     case 'whoami': return { lines: ['bebii (Jera) — the birthday girl ♡'], tone: 'success' };
     case 'pwd': return { lines: ['/home/bebii'] };
     case 'ls': return { lines: [Object.keys(FILES).join('    ')], tone: 'cyan' };
