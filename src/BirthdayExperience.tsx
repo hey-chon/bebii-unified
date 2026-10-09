@@ -318,17 +318,18 @@ function LetterSection({ onOpenGift }: { onOpenGift: () => void }) {
     if (!isOpen) {
       setIsOpen(true);
       const tl = gsap.timeline();
-      tl.to(flapRef.current, { rotationX: 180, duration: 0.6, ease: 'power2.inOut', transformOrigin: 'top center' })
+      tl.to(flapRef.current, { rotationX: 180, duration: 0.6, ease: 'power2.inOut', transformOrigin: 'top center' }, 0)
+        .set(flapRef.current, { zIndex: 1 }, 0.3)
+        .to(paperRef.current, { y: '-60%', duration: 0.7, ease: 'power2.out' }, 0.4)
         .set(paperRef.current, { zIndex: 10 })
-        .to(paperRef.current, { y: '-40%', duration: 0.8, ease: 'power2.out' }, '-=0.2')
         .to(paperRef.current, { y: '5%', scale: 1.05, duration: 0.6, ease: 'power3.out' });
     } else {
-      setIsOpen(false);
-      const tl = gsap.timeline();
-      tl.to(paperRef.current, { y: '-40%', scale: 1, duration: 0.6, ease: 'power2.inOut' })
+      const tl = gsap.timeline({ onComplete: () => setIsOpen(false) });
+      tl.to(paperRef.current, { y: '-60%', scale: 1, duration: 0.6, ease: 'power2.inOut' }, 0)
         .set(paperRef.current, { zIndex: 2 })
-        .to(paperRef.current, { y: '0%', duration: 0.8, ease: 'power2.in' })
-        .to(flapRef.current, { rotationX: 0, duration: 0.6, ease: 'power2.inOut', transformOrigin: 'top center' }, '-=0.2');
+        .to(paperRef.current, { y: '0%', duration: 0.7, ease: 'power2.in' }, 0.6)
+        .set(flapRef.current, { zIndex: 4 }, 1.0)
+        .to(flapRef.current, { rotationX: 0, duration: 0.6, ease: 'power2.inOut', transformOrigin: 'top center' }, 1.0);
     }
   };
 
