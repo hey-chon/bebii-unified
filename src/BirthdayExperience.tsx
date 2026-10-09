@@ -312,34 +312,22 @@ function LetterSection({ onOpenGift }: { onOpenGift: () => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const envelopeRef = useRef<HTMLDivElement>(null);
   const flapRef = useRef<HTMLDivElement>(null);
-  const dummyPaperRef = useRef<HTMLDivElement>(null);
-  const realLetterRef = useRef<HTMLDivElement>(null);
+  const paperRef = useRef<HTMLDivElement>(null);
 
   const toggleLetter = () => {
     if (!isOpen) {
       setIsOpen(true);
       const tl = gsap.timeline();
-      // Flap opens
       tl.to(flapRef.current, { rotationX: 180, duration: 0.6, ease: 'power2.inOut', transformOrigin: 'top center' })
-        // Dummy paper slides up
-        .set(dummyPaperRef.current, { zIndex: 10 })
-        .to(dummyPaperRef.current, { y: '-80%', duration: 0.6, ease: 'power2.out' }, '-=0.2')
-        // Hide dummy, show and scale up real letter
-        .set(dummyPaperRef.current, { opacity: 0 })
-        .fromTo(realLetterRef.current, 
-          { opacity: 0, scale: 0.5, y: 50 }, 
-          { opacity: 1, scale: 1, y: -80, duration: 0.8, ease: 'back.out(1.2)' }
-        );
+        .set(paperRef.current, { zIndex: 10 })
+        .to(paperRef.current, { y: '-40%', duration: 0.8, ease: 'power2.out' }, '-=0.2')
+        .to(paperRef.current, { y: '5%', scale: 1.05, duration: 0.6, ease: 'power3.out' });
     } else {
       setIsOpen(false);
       const tl = gsap.timeline();
-      // Shrink and hide real letter
-      tl.to(realLetterRef.current, { opacity: 0, scale: 0.5, y: 50, duration: 0.5, ease: 'power2.in' })
-        // Show dummy paper and slide it down
-        .set(dummyPaperRef.current, { opacity: 1 })
-        .to(dummyPaperRef.current, { y: '0%', duration: 0.6, ease: 'power2.inOut' })
-        .set(dummyPaperRef.current, { zIndex: 2 })
-        // Close flap
+      tl.to(paperRef.current, { y: '-40%', scale: 1, duration: 0.6, ease: 'power2.inOut' })
+        .set(paperRef.current, { zIndex: 2 })
+        .to(paperRef.current, { y: '0%', duration: 0.8, ease: 'power2.in' })
         .to(flapRef.current, { rotationX: 0, duration: 0.6, ease: 'power2.inOut', transformOrigin: 'top center' }, '-=0.2');
     }
   };
@@ -348,28 +336,26 @@ function LetterSection({ onOpenGift }: { onOpenGift: () => void }) {
     <section className="letter-section" id="letter">
       <Floaties />
       
-      <div className="envelope-scene" style={{ position: 'relative', width: '100%', display: 'grid', placeItems: 'center', marginTop: '60px' }}>
-        <div className="envelope-wrapper" ref={envelopeRef} onClick={!isOpen ? toggleLetter : undefined}>
+      <div className="envelope-scene" style={{ position: 'relative', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '180px' }}>
+        <div className="envelope-wrapper" ref={envelopeRef} onClick={toggleLetter}>
           <div className="envelope-back"></div>
-          <div className="envelope-dummy-paper" ref={dummyPaperRef}></div>
+          <div className="envelope-paper-wrap" ref={paperRef}>
+            <article className={`beautiful-letter ${isOpen ? 'is-expanded' : ''}`}>
+              {isOpen && <button className="envelope-close-btn" aria-label="Close letter" onClick={(e) => { e.stopPropagation(); toggleLetter(); }}>&times;</button>}
+              <p className="letter-label">{birthdayContent.messageLabel}</p>
+              <h2 className="letter-title">{birthdayContent.messageTitle}</h2>
+              <p className="letter-copy">{birthdayContent.message}</p>
+              <p className="letter-signature">{birthdayContent.signature}</p>
+            </article>
+          </div>
           <div className="envelope-front"></div>
           <div className="envelope-flap" ref={flapRef}>
              <div className="envelope-flap-seal">♥</div>
           </div>
         </div>
-
-        <div className="real-letter-overlay" ref={realLetterRef} style={{ position: 'absolute', pointerEvents: isOpen ? 'auto' : 'none', opacity: 0 }}>
-          <article className="beautiful-letter">
-            {isOpen && <button className="envelope-close-btn" aria-label="Close letter" onClick={toggleLetter}>&times;</button>}
-            <p className="letter-label">{birthdayContent.messageLabel}</p>
-            <h2 className="letter-title">{birthdayContent.messageTitle}</h2>
-            <p className="letter-copy">{birthdayContent.message}</p>
-            <p className="letter-signature">{birthdayContent.signature}</p>
-          </article>
-        </div>
       </div>
 
-      <div style={{ textAlign: 'center', marginTop: '140px', opacity: isOpen ? 1 : 0, transition: 'opacity 1s, transform 1s', transform: isOpen ? 'translateY(0)' : 'translateY(20px)', pointerEvents: isOpen ? 'auto' : 'none' }}>
+      <div style={{ textAlign: 'center', marginTop: '80px', opacity: isOpen ? 1 : 0, transition: 'opacity 1s, transform 1s', transform: isOpen ? 'translateY(0)' : 'translateY(20px)', pointerEvents: isOpen ? 'auto' : 'none' }}>
         <button className="gift-button" onClick={onOpenGift}>{birthdayContent.sendGiftLabel}</button>
       </div>
       <p className="page-footer">{birthdayContent.pageFooter}</p>

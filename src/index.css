@@ -264,29 +264,29 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   font-size: 1.2rem;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
-.envelope-dummy-paper {
+.envelope-paper-wrap {
   position: absolute;
   bottom: 0;
   left: 5%;
   width: 90%;
-  height: 95%;
-  background: #fffdfa;
-  border-radius: 8px 8px 0 0;
   z-index: 2;
-  border: 1px solid rgba(191,143,128,.2);
-}
-.real-letter-overlay {
-  z-index: 20;
-  width: min(720px, 94vw);
+  transform-origin: bottom center;
 }
 .beautiful-letter {
   background: linear-gradient(135deg, #fffdfa, #fdf6ec);
   border: 1px solid #e3d2be;
   box-shadow: 0 30px 60px rgba(80, 50, 40, 0.15), inset 0 0 40px rgba(230, 210, 190, 0.2);
-  padding: clamp(40px, 6vw, 65px) clamp(25px, 5vw, 55px);
+  padding: clamp(30px, 5vw, 65px) clamp(25px, 5vw, 55px);
   border-radius: 4px;
   position: relative;
   text-align: center;
+  max-height: 250px;
+  overflow: hidden;
+  transition: max-height 0.8s ease, padding 0.8s ease;
+}
+.beautiful-letter.is-expanded {
+  max-height: 1500px;
+  overflow: visible;
 }
 .beautiful-letter::before {
   content: '';
