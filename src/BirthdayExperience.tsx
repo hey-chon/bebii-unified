@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
 import { birthdayContent } from './content';
 
 type Phase = 'opening' | 'wish' | 'story';
@@ -294,6 +295,55 @@ function Memories() {
   </section>;
 }
 
+function LetterSection({ onOpenGift }: { onOpenGift: () => void }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const envelopeRef = useRef<HTMLDivElement>(null);
+  const flapRef = useRef<HTMLDivElement>(null);
+  const paperRef = useRef<HTMLDivElement>(null);
+
+  const toggleLetter = () => {
+    if (!isOpen) {
+      setIsOpen(true);
+      const tl = gsap.timeline();
+      tl.to(flapRef.current, { rotateX: 180, duration: 0.6, ease: 'power2.inOut' })
+        .to(paperRef.current, { y: '-60%', zIndex: 10, duration: 0.8, ease: 'power2.out' }, '-=0.2')
+        .to(paperRef.current, { y: '-5%', scale: 1.05, duration: 0.6, ease: 'power3.out' });
+    } else {
+      setIsOpen(false);
+      const tl = gsap.timeline();
+      tl.to(paperRef.current, { y: '-60%', scale: 1, duration: 0.6, ease: 'power2.inOut' })
+        .to(paperRef.current, { y: '0%', zIndex: 2, duration: 0.8, ease: 'power2.in' })
+        .to(flapRef.current, { rotateX: 0, duration: 0.6, ease: 'power2.inOut' }, '-=0.2');
+    }
+  };
+
+  return (
+    <section className="letter-section" id="letter">
+      <Floaties />
+      <div className="envelope-wrapper" ref={envelopeRef} onClick={!isOpen ? toggleLetter : undefined}>
+        <div className="envelope-back"></div>
+        <div className="envelope-paper-wrap" ref={paperRef}>
+          <article className="envelope-letter-card">
+            {isOpen && <button className="envelope-close-btn" aria-label="Close letter" onClick={(e) => { e.stopPropagation(); toggleLetter(); }}>&times;</button>}
+            <p className="letter-label">{birthdayContent.messageLabel}</p>
+            <h2 className="letter-title">{birthdayContent.messageTitle}</h2>
+            <p className="letter-copy">{birthdayContent.message}</p>
+            <p className="letter-signature">{birthdayContent.signature}</p>
+          </article>
+        </div>
+        <div className="envelope-front"></div>
+        <div className="envelope-flap" ref={flapRef}>
+           <div className="envelope-flap-seal">♥</div>
+        </div>
+      </div>
+      <div style={{ textAlign: 'center', marginTop: '60px', opacity: isOpen ? 1 : 0, transition: 'opacity 1s, transform 1s', transform: isOpen ? 'translateY(0)' : 'translateY(20px)', pointerEvents: isOpen ? 'auto' : 'none' }}>
+        <button className="gift-button" onClick={onOpenGift}>{birthdayContent.sendGiftLabel}</button>
+      </div>
+      <p className="page-footer">{birthdayContent.pageFooter}</p>
+    </section>
+  );
+}
+
 function BirthdayExperience() {
   const [phase, setPhase] = useState<Phase>('opening');
   const [treeRevealed, setTreeRevealed] = useState(false);
@@ -336,19 +386,7 @@ function BirthdayExperience() {
         <a className="scroll-cue" href="#memories">{birthdayContent.tree.scrollCue}</a>
       </section>
       <Memories />
-      <section className="letter-section" id="letter">
-        <Floaties />
-        <div className="letter-wrap">
-          <article className="letter-card">
-            <p className="letter-label">{birthdayContent.messageLabel}</p>
-            <h2 className="letter-title">{birthdayContent.messageTitle}</h2>
-            <p className="letter-copy">{birthdayContent.message}</p>
-            <p className="letter-signature">{birthdayContent.signature}</p>
-          </article>
-          <div style={{ textAlign: 'center' }}><button className="gift-button" onClick={() => setGiftOpen(true)}>{birthdayContent.sendGiftLabel}</button></div>
-          <p className="page-footer">{birthdayContent.pageFooter}</p>
-        </div>
-      </section>
+      <LetterSection onOpenGift={() => setGiftOpen(true)} />
     </>}
     {giftOpen && <GiftModal onClose={() => setGiftOpen(false)} />}
   </main>;
