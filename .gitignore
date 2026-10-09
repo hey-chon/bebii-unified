@@ -1,0 +1,54 @@
+# Dependencies — NEVER commit these
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+**/dist/
+build/
+**/build/
+.out/
+.output/
+
+# Vite / caches
+.vite/
+*.local
+.cache/
+.turbo/
+.parcel-cache/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.code-workspace
+
+# TypeScript / coverage
+*.tsbuildinfo
+coverage/
+.nyc_output/
+
+# Replit
+.replit
+.replit-artifact/
+.config/
+
+# Git (safety)
+.git/
+**/.git/
