@@ -199,12 +199,25 @@ function Opening({ onRelease }: { onRelease: (origin: RevealOrigin) => void }) {
       <p className="intro-kicker">{birthdayContent.opener}</p>
       <div className={`hero-heart-wrap ${hit ? 'heart-hit' : ''}`} ref={heartRef} aria-hidden="true">
         <span className="heart-aura" />
-        <span className="hero-heart"><span className="heart-glint" /></span>
+        <div className="hero-heart">
+          <svg viewBox="0 0 24 24" width="100%" height="100%">
+            <defs>
+              <radialGradient id="heartGrad" cx="35%" cy="28%">
+                <stop offset="0%" stopColor="#ffffff" />
+                <stop offset="38%" stopColor="#fff7b0" />
+                <stop offset="72%" stopColor="#ffd700" />
+                <stop offset="100%" stopColor="#e6ac00" />
+              </radialGradient>
+            </defs>
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="url(#heartGrad)" />
+          </svg>
+          <span className="heart-glint" />
+        </div>
         {hit && <>
           <span className="heart-shockwave shockwave-one" />
           <span className="heart-shockwave shockwave-two" />
           <span className="impact-flash" />
-          <span className="heart-burst">{Array.from({ length: 24 }, (_, index) => <i key={index} style={{ '--angle': `${index * 15}deg`, '--distance': `${92 + (index % 5) * 15}px`, '--tone': ['#c96c80','#e5ad83','#db8294','#f0c992'][index % 4], '--wait': `${(index % 4) * .035}s` } as React.CSSProperties}>{index % 4 === 0 ? <b>✦</b> : <HeartMark />}</i>)}</span>
+          <span className="heart-burst">{Array.from({ length: 24 }, (_, index) => <i key={index} style={{ '--angle': `${index * 15}deg`, '--distance': `${92 + (index % 5) * 15}px`, '--tone': ['#ffffff','#ffeb3b','#ffd700','#fff3e0'][index % 4], '--wait': `${(index % 4) * .035}s` } as React.CSSProperties}>{index % 4 === 0 ? <b>✦</b> : <HeartMark />}</i>)}</span>
         </>}
       </div>
       <div className="bow-stage">
@@ -305,22 +318,24 @@ function LetterSection({ onOpenGift }: { onOpenGift: () => void }) {
     if (!isOpen) {
       setIsOpen(true);
       const tl = gsap.timeline();
-      tl.to(flapRef.current, { rotateX: 180, duration: 0.6, ease: 'power2.inOut' })
-        .to(paperRef.current, { y: '-60%', zIndex: 10, duration: 0.8, ease: 'power2.out' }, '-=0.2')
+      tl.to(flapRef.current, { rotationX: 180, duration: 0.6, ease: 'power2.inOut', transformOrigin: 'top center' })
+        .set(paperRef.current, { zIndex: 10 })
+        .to(paperRef.current, { y: '-60%', duration: 0.8, ease: 'power2.out' }, '-=0.2')
         .to(paperRef.current, { y: '-5%', scale: 1.05, duration: 0.6, ease: 'power3.out' });
     } else {
       setIsOpen(false);
       const tl = gsap.timeline();
       tl.to(paperRef.current, { y: '-60%', scale: 1, duration: 0.6, ease: 'power2.inOut' })
-        .to(paperRef.current, { y: '0%', zIndex: 2, duration: 0.8, ease: 'power2.in' })
-        .to(flapRef.current, { rotateX: 0, duration: 0.6, ease: 'power2.inOut' }, '-=0.2');
+        .set(paperRef.current, { zIndex: 2 })
+        .to(paperRef.current, { y: '0%', duration: 0.8, ease: 'power2.in' })
+        .to(flapRef.current, { rotationX: 0, duration: 0.6, ease: 'power2.inOut', transformOrigin: 'top center' }, '-=0.2');
     }
   };
 
   return (
     <section className="letter-section" id="letter">
       <Floaties />
-      <div className="envelope-wrapper" ref={envelopeRef} onClick={!isOpen ? toggleLetter : undefined}>
+      <div className="envelope-wrapper" ref={envelopeRef} onClick={toggleLetter}>
         <div className="envelope-back"></div>
         <div className="envelope-paper-wrap" ref={paperRef}>
           <article className="envelope-letter-card">

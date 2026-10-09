@@ -50,10 +50,7 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   min-height: 100svh;
   display: grid;
   place-items: center;
-  background:
-    radial-gradient(ellipse at 66% 44%, rgba(255,226,225,.78), transparent 34%),
-    radial-gradient(ellipse at 12% 93%, rgba(242,190,158,.48), transparent 42%),
-    linear-gradient(145deg,#fff4df 0%,#f8e4d5 49%,#f1d1cb 100%);
+  background: radial-gradient(circle at 60% 40%, #ffffff 0%, #fff5aa 45%, #ffe666 100%);
   isolation: isolate;
 }
 .opening::before, .wish-interlude::before, .tree-section::before, .memories::before, .letter-section::before {
@@ -69,25 +66,21 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 .intro-kicker { position:absolute; top:12.5%; width:100%; text-align:center; color:#865c60; font: italic 400 clamp(1.15rem,2vw,1.55rem) var(--app-font-serif); letter-spacing:.025em; }
 .hero-heart-wrap { position:relative; width:min(38vw,380px); min-width:250px; aspect-ratio:1; display:grid; place-items:center; margin-left:15%; }
 .hero-heart {
-  width: 68%; height:68%; position:relative; transform:rotate(-45deg);
-  background: radial-gradient(circle at 35% 28%,#ffd2d8 0,#f68fa3 38%,#dc637e 72%,#bc506b 100%);
-  filter: drop-shadow(0 30px 35px rgba(153,67,82,.19));
+  width: 90%; height: 90%; position:relative;
+  filter: drop-shadow(0 30px 35px rgba(230,172,0,.19));
   animation: heart-breathe 3.8s ease-in-out infinite;
 }
-.hero-heart::before,.hero-heart::after { content:''; position:absolute; width:100%;height:100%;border-radius:50%;background:inherit; }
-.hero-heart::before { top:-50%;left:0; }
-.hero-heart::after { left:50%;top:0; }
-.heart-aura { position:absolute; width:100%; height:100%; border-radius:50%; background:radial-gradient(circle,rgba(255,155,174,.28),transparent 65%); filter:blur(15px); }
-.heart-glint { position:absolute; z-index:1; top:28%;left:31%; width:18%;height:10%;border-radius:50%;background:rgba(255,255,255,.34);filter:blur(7px);transform:rotate(-40deg); }
+.heart-aura { position:absolute; width:100%; height:100%; border-radius:50%; background:radial-gradient(circle,rgba(255,235,155,.38),transparent 65%); filter:blur(15px); }
+.heart-glint { position:absolute; z-index:1; top:20%;left:25%; width:15%;height:10%;border-radius:50%;background:rgba(255,255,255,.6);filter:blur(6px);transform:rotate(-30deg); }
 .heart-hit .hero-heart { animation:heart-impact .95s cubic-bezier(.2,.8,.2,1) both; }
 .heart-hit .heart-aura { animation:aura-kick 1.5s cubic-bezier(.16,.75,.22,1) both; }
-.heart-shockwave { position:absolute;z-index:2;left:50%;top:50%;width:38%;aspect-ratio:1;border:1px solid rgba(255,244,222,.9);border-radius:50%;pointer-events:none;animation:impact-ring 1.2s cubic-bezier(.12,.68,.2,1) both; }
-.shockwave-two { border-color:rgba(232,178,137,.72);animation-delay:.11s; }
-.impact-flash { position:absolute;z-index:3;left:50%;top:50%;width:42%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,249,223,.96) 0,rgba(250,207,176,.58) 18%,rgba(243,148,160,.18) 48%,transparent 72%);pointer-events:none;animation:impact-flash .78s ease-out both; }
+.heart-shockwave { position:absolute;z-index:2;left:50%;top:50%;width:38%;aspect-ratio:1;border:1px solid rgba(255,225,120,.9);border-radius:50%;pointer-events:none;animation:impact-ring 1.2s cubic-bezier(.12,.68,.2,1) both; }
+.shockwave-two { border-color:rgba(255,200,80,.72);animation-delay:.11s; }
+.impact-flash { position:absolute;z-index:3;left:50%;top:50%;width:42%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,255,220,.96) 0,rgba(255,215,100,.58) 18%,rgba(255,180,50,.18) 48%,transparent 72%);pointer-events:none;animation:impact-flash .78s ease-out both; }
 .heart-burst {position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;}
 .heart-burst i {position:absolute;width:17px;height:17px;color:var(--tone);animation:burst 1.05s cubic-bezier(.1,.72,.22,1) var(--wait) both;}
 .heart-burst svg {width:100%;height:100%;}
-.heart-burst b {display:block;color:#fff4d8;font:normal 18px/1 var(--app-font-serif);text-shadow:0 2px 12px rgba(181,106,104,.45);}
+.heart-burst b {display:block;color:#ffffff;font:normal 18px/1 var(--app-font-serif);text-shadow:0 2px 12px rgba(255,215,0,.45);}
 .opening.is-flying .bow-wood { transform-box:fill-box;transform-origin:right center;animation:bow-release .82s cubic-bezier(.18,.72,.2,1) both; }
 .opening.is-flying .arrow-trail { animation:arrow-streak .82s ease-out both; }
 .arrow-trail { opacity:0;stroke:#f2cda9;stroke-width:8;stroke-linecap:round;filter:blur(5px); }
@@ -184,8 +177,8 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 .floaties {position:absolute;inset:0;overflow:hidden;pointer-events:none;}
 .floaty {position:absolute;left:var(--left);top:var(--top);opacity:.26;animation:drift var(--dur) ease-in-out infinite alternate;animation-delay:var(--delay);color:#cc7d83;}
 .floaty svg {width:var(--size);height:var(--size);}
-@keyframes heart-breathe {0%,100%{transform:rotate(-45deg) scale(.98)}50%{transform:rotate(-45deg) scale(1.035)}}
-@keyframes heart-impact {0%{transform:rotate(-45deg) scale(1)}23%{transform:rotate(-45deg) scale(1.23)}42%{transform:rotate(-45deg) scale(.88)}62%{transform:rotate(-45deg) scale(1.08)}100%{transform:rotate(-45deg) scale(1)}}
+@keyframes heart-breathe {0%,100%{transform:scale(.98)}50%{transform:scale(1.035)}}
+@keyframes heart-impact {0%{transform:scale(1)}23%{transform:scale(1.23)}42%{transform:scale(.88)}62%{transform:scale(1.08)}100%{transform:scale(1)}}
 @keyframes impact-ring {0%{opacity:0;transform:translate(-50%,-50%) scale(.25)}12%{opacity:.95}100%{opacity:0;transform:translate(-50%,-50%) scale(3.7)}}
 @keyframes impact-flash {0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}19%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-50%) scale(2.5)}}
 @keyframes aura-kick {0%{opacity:.6;transform:scale(.8)}35%{opacity:1;transform:scale(1.28)}100%{opacity:.72;transform:scale(1.04)}}
@@ -220,7 +213,6 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   margin: 0 auto;
   cursor: pointer;
   perspective: 1500px;
-  transform-style: preserve-3d;
 }
 .envelope-back {
   position: absolute;
