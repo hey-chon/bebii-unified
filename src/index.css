@@ -264,29 +264,71 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   font-size: 1.2rem;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
-.envelope-paper-wrap {
+.envelope-dummy-paper {
   position: absolute;
   bottom: 0;
   left: 5%;
   width: 90%;
+  height: 95%;
+  background: #fffdfa;
+  border-radius: 8px 8px 0 0;
   z-index: 2;
-  transform-origin: bottom center;
+  border: 1px solid rgba(191,143,128,.2);
 }
-.envelope-letter-card {
-  background: rgba(255,250,241,1);
-  border: 1px solid rgba(191,143,128,.32);
-  box-shadow: 0 15px 40px rgba(104,59,58,.13);
-  padding: clamp(30px, 5vw, 60px);
-  text-align: center;
+.real-letter-overlay {
+  z-index: 20;
+  width: min(720px, 94vw);
+}
+.beautiful-letter {
+  background: linear-gradient(135deg, #fffdfa, #fdf6ec);
+  border: 1px solid #e3d2be;
+  box-shadow: 0 30px 60px rgba(80, 50, 40, 0.15), inset 0 0 40px rgba(230, 210, 190, 0.2);
+  padding: clamp(40px, 6vw, 65px) clamp(25px, 5vw, 55px);
+  border-radius: 4px;
   position: relative;
+  text-align: center;
 }
-.envelope-letter-card::before,.envelope-letter-card::after {content:'✦';position:absolute;color:#d6a77e;font-size:13px;}
-.envelope-letter-card::before {top:15px;left:20px} .envelope-letter-card::after {bottom:15px;right:20px}
-
+.beautiful-letter::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(214,183,158, 0.4);
+  pointer-events: none;
+}
+.beautiful-letter .letter-label {
+  font-size: .65rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: #b07e7a;
+  margin: 0 0 25px;
+}
+.beautiful-letter .letter-title {
+  font-family: var(--app-font-serif);
+  font-size: clamp(2.4rem, 6vw, 3.2rem);
+  color: #a85668;
+  margin-bottom: 30px;
+  line-height: 1.1;
+}
+.beautiful-letter .letter-copy {
+  font-family: var(--app-font-sans);
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  line-height: 1.85;
+  color: #725a5c;
+  margin: 0 auto 35px;
+  max-width: 520px;
+  white-space: pre-line;
+}
+.beautiful-letter .letter-signature {
+  font-family: var(--app-font-serif);
+  font-size: 1.8rem;
+  font-style: italic;
+  color: #a85668;
+  margin-top: 20px;
+}
 .envelope-close-btn {
   position: absolute;
-  top: 15px;
-  right: 20px;
+  top: 20px;
+  right: 25px;
   background: none;
   border: none;
   font-size: 1.5rem;
