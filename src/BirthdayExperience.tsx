@@ -572,6 +572,45 @@ function BirthdayExperience() {
     {phase === 'wish' && <WishInterlude onAutoAdvance={advanceToStory} revealOrigin={revealOrigin} />}
     {phase === 'story' && <>
       <section className="tree-section" ref={treeRef} aria-label="Birthday wishes and photo memories">
+        {/* Elegant ambient background layer */}
+        <div className="tree-bg-ornaments" aria-hidden="true">
+          <svg className="tree-bg-svg" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+            <defs>
+              <radialGradient id="haloGlow1" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#fff8dd" stopOpacity="0.8" />
+                <stop offset="50%" stopColor="#fdf0be" stopOpacity="0.3" />
+                <stop offset="100%" stopColor="#fff8da" stopOpacity="0" />
+              </radialGradient>
+              <radialGradient id="haloGlow2" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9" />
+                <stop offset="40%" stopColor="#fef3c7" stopOpacity="0.35" />
+                <stop offset="100%" stopColor="#fffdf5" stopOpacity="0" />
+              </radialGradient>
+              <linearGradient id="goldLineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#e5c05c" stopOpacity="0" />
+                <stop offset="50%" stopColor="#d4af37" stopOpacity="0.32" />
+                <stop offset="100%" stopColor="#c59b27" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            {/* Luminous orbital rings behind Section 1 */}
+            <circle cx="500" cy="240" r="280" fill="url(#haloGlow1)" />
+            <circle cx="500" cy="240" r="230" fill="none" stroke="url(#goldLineGrad)" strokeWidth="1.2" strokeDasharray="4 8" />
+            <circle cx="500" cy="240" r="310" fill="none" stroke="url(#goldLineGrad)" strokeWidth="0.8" strokeDasharray="8 14" />
+            <circle cx="500" cy="240" r="390" fill="none" stroke="url(#goldLineGrad)" strokeWidth="0.6" />
+            {/* Sunburst aura behind Tree Section 2 */}
+            <circle cx="500" cy="740" r="340" fill="url(#haloGlow2)" />
+            <circle cx="500" cy="740" r="300" fill="none" stroke="url(#goldLineGrad)" strokeWidth="1" strokeDasharray="6 10" />
+            <circle cx="500" cy="740" r="420" fill="none" stroke="url(#goldLineGrad)" strokeWidth="0.7" strokeDasharray="3 9" />
+            {/* Delicate gold-leaf celestial sparks */}
+            <path d="M500 40 L503 54 L517 57 L503 60 L500 74 L497 60 L483 57 L497 54 Z" fill="#d4af37" opacity="0.35" />
+            <path d="M140 220 L142 230 L152 232 L142 234 L140 244 L138 234 L128 232 L138 230 Z" fill="#d4af37" opacity="0.28" />
+            <path d="M860 220 L862 230 L872 232 L862 234 L860 244 L858 234 L848 232 L858 230 Z" fill="#d4af37" opacity="0.28" />
+            <path d="M120 760 L122 770 L132 772 L122 774 L120 784 L118 774 L108 772 L118 770 Z" fill="#d4af37" opacity="0.25" />
+            <path d="M880 760 L882 770 L892 772 L882 774 L880 784 L878 774 L868 772 L878 770 Z" fill="#d4af37" opacity="0.25" />
+          </svg>
+          <div className="bg-golden-orb bg-orb-1"></div>
+          <div className="bg-golden-orb bg-orb-2"></div>
+        </div>
         <div className="tree-copy">
           <p className="tree-kicker">{birthdayContent.tree.kicker}</p>
           <h2 className="tree-title">
