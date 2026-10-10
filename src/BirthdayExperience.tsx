@@ -290,10 +290,18 @@ function GiftModal({ onClose }: { onClose: () => void }) {
 }
 
 function CartoonySection() {
+  const [candlesLit, setCandlesLit] = useState([true, true, true]);
+
+  const toggleCandle = (index: number) => {
+    const newCandles = [...candlesLit];
+    newCandles[index] = false;
+    setCandlesLit(newCandles);
+  };
+
   return (
     <section className="cartoony-section" aria-label="Birthday celebration decorations">
       <div className="bunting-flags">
-        {[...Array(7)].map((_, i) => (
+        {[...Array(10)].map((_, i) => (
           <div key={i} className={`flag flag-${i % 3}`}></div>
         ))}
       </div>
@@ -302,12 +310,54 @@ function CartoonySection() {
         <p className="cartoony-text">
           A touch of fun and whimsy for your special golden day. 
           Balloons, confetti, and everything bright to bring out your beautiful smile!
+          Hover over the candles below to blow them out and make a wish!
         </p>
+        
+        <div className="interactive-cake">
+          <div className="cake-tier top-tier">
+            {candlesLit.map((lit, i) => (
+              <div key={i} className={`candle ${lit ? 'lit' : ''}`} onMouseEnter={() => toggleCandle(i)}>
+                {lit && <div className="flame"></div>}
+              </div>
+            ))}
+          </div>
+          <div className="cake-tier bottom-tier"></div>
+        </div>
+
         <div className="cartoony-graphics">
            <div className="balloon red-balloon"></div>
            <div className="balloon yellow-balloon"></div>
            <div className="balloon blue-balloon"></div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function FunGamesSection() {
+  const [popped, setPopped] = useState<number[]>([]);
+
+  const popBalloon = (id: number) => {
+    if (!popped.includes(id)) {
+      setPopped([...popped, id]);
+    }
+  };
+
+  return (
+    <section className="fun-games-section">
+      <h2 className="cartoony-title">Pop the Balloons!</h2>
+      <p className="cartoony-text">Click to pop them for a fun surprise!</p>
+      
+      <div className="pop-balloons-container">
+        {[1, 2, 3, 4, 5].map(id => (
+          <div 
+            key={id} 
+            className={`poppable-balloon ${popped.includes(id) ? 'popped' : ''}`}
+            onClick={() => popBalloon(id)}
+          >
+            {popped.includes(id) ? '✨' : '🎈'}
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -431,9 +481,10 @@ function BirthdayExperience() {
         <TreeIllustration revealed={treeRevealed} />
         <a className="scroll-cue" href="#memories">{birthdayContent.tree.scrollCue}</a>
       </section>
-      <CartoonySection />
       <Memories />
       <LetterSection onOpenGift={() => setGiftOpen(true)} />
+      <CartoonySection />
+      <FunGamesSection />
     </>}
     {giftOpen && <GiftModal onClose={() => setGiftOpen(false)} />}
   </main>;
