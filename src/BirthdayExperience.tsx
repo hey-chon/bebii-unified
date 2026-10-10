@@ -289,6 +289,30 @@ function GiftModal({ onClose }: { onClose: () => void }) {
   </div>;
 }
 
+function CartoonySection() {
+  return (
+    <section className="cartoony-section" aria-label="Birthday celebration decorations">
+      <div className="bunting-flags">
+        {[...Array(7)].map((_, i) => (
+          <div key={i} className={`flag flag-${i % 3}`}></div>
+        ))}
+      </div>
+      <div className="cartoony-content">
+        <h2 className="cartoony-title">Let's Celebrate!</h2>
+        <p className="cartoony-text">
+          A touch of fun and whimsy for your special golden day. 
+          Balloons, confetti, and everything bright to bring out your beautiful smile!
+        </p>
+        <div className="cartoony-graphics">
+           <div className="balloon red-balloon"></div>
+           <div className="balloon yellow-balloon"></div>
+           <div className="balloon blue-balloon"></div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Memories() {
   return <section className="memories" id="memories">
     <Floaties />
@@ -407,6 +431,7 @@ function BirthdayExperience() {
         <TreeIllustration revealed={treeRevealed} />
         <a className="scroll-cue" href="#memories">{birthdayContent.tree.scrollCue}</a>
       </section>
+      <CartoonySection />
       <Memories />
       <LetterSection onOpenGift={() => setGiftOpen(true)} />
     </>}
