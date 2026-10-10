@@ -291,77 +291,175 @@ function GiftModal({ onClose }: { onClose: () => void }) {
 
 function CartoonySection() {
   const [candlesLit, setCandlesLit] = useState([true, true, true]);
+  const [confettiBatches, setConfettiBatches] = useState<number[]>([]);
+  const [allBlown, setAllBlown] = useState(false);
+  const batchId = useRef(0);
 
   const toggleCandle = (index: number) => {
     const newCandles = [...candlesLit];
     newCandles[index] = false;
     setCandlesLit(newCandles);
+    if (newCandles.every(c => !c)) setAllBlown(true);
   };
+
+  const triggerConfetti = () => {
+    const id = batchId.current++;
+    setConfettiBatches(prev => [...prev, id]);
+    setTimeout(() => {
+      setConfettiBatches(prev => prev.filter(b => b !== id));
+    }, 4000);
+  };
+
+  /* SVG bunting flag colors */
+  const flagColors = ['#e74c3c','#e67e22','#f1c40f','#2ecc71','#1abc9c','#3498db','#9b59b6','#e84393'];
 
   return (
     <section className="cartoony-section" aria-label="Birthday celebration decorations">
-      <div className="bunting-flags">
-        {[...Array(10)].map((_, i) => (
-          <div key={i} className={`flag flag-${i % 3}`}></div>
-        ))}
-      </div>
+      {/* SVG Bunting - curved rope with hanging flags */}
+      <svg className="bunting-svg" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M-10 15 Q250 85 500 55 Q750 25 1010 70" fill="none" stroke="#b8976a" strokeWidth="2.5" strokeLinecap="round" />
+        {flagColors.map((color, i) => {
+          const t = (i + 0.5) / flagColors.length;
+          const x = -10 + t * 1020;
+          const y = 15 + Math.sin(t * Math.PI) * 45 + (t < 0.5 ? t * 80 : (1 - t) * 80) * 0.3;
+          const rot = -8 + i * 2.5;
+          return (
+            <g key={i} className="bunting-flag-g" style={{ animationDelay: `${i * 0.12}s` }}>
+              <polygon
+                points={`${x - 28},${y} ${x + 28},${y} ${x},${y + 52}`}
+                fill={color}
+                transform={`rotate(${rot} ${x} ${y + 26})`}
+                opacity="0.92"
+              />
+              {/* Chalk texture effect */}
+              <polygon
+                points={`${x - 22},${y + 5} ${x + 22},${y + 5} ${x},${y + 44}`}
+                fill="#fff"
+                opacity="0.12"
+                transform={`rotate(${rot} ${x} ${y + 26})`}
+              />
+            </g>
+          );
+        })}
+      </svg>
+
       <div className="cartoony-content">
+        {/* SVG decorative stars floating around */}
+        <svg className="deco-stars" viewBox="0 0 600 80" aria-hidden="true">
+          {[
+            {x:50,y:30,r:8,c:'#f1c40f'},{x:140,y:55,r:5,c:'#e74c3c'},{x:260,y:20,r:6,c:'#3498db'},
+            {x:350,y:60,r:7,c:'#2ecc71'},{x:460,y:25,r:5,c:'#9b59b6'},{x:550,y:50,r:8,c:'#e67e22'},
+          ].map((s, i) => (
+            <g key={i} className="deco-star-g" style={{ animationDelay: `${i * 0.4}s` }}>
+              <path d={`M${s.x} ${s.y - s.r} L${s.x + s.r * 0.36} ${s.y - s.r * 0.36} L${s.x + s.r} ${s.y - s.r * 0.12} L${s.x + s.r * 0.5} ${s.y + s.r * 0.32} L${s.x + s.r * 0.6} ${s.y + s.r} L${s.x} ${s.y + s.r * 0.56} L${s.x - s.r * 0.6} ${s.y + s.r} L${s.x - s.r * 0.5} ${s.y + s.r * 0.32} L${s.x - s.r} ${s.y - s.r * 0.12} L${s.x - s.r * 0.36} ${s.y - s.r * 0.36}Z`} fill={s.c} />
+            </g>
+          ))}
+        </svg>
+
         <h2 className="cartoony-title">Let's Celebrate!</h2>
         <p className="cartoony-text">
-          A touch of fun and whimsy for your special golden day. 
-          Balloons, confetti, and everything bright to bring out your beautiful smile!
-          Hover over the candles below to blow them out and make a wish!
+          Hover over the candles to blow them out and make a wish!
         </p>
-        
-        <div className="interactive-cake">
-          <div className="cake-tier top-tier">
-            {candlesLit.map((lit, i) => (
-              <div key={i} className={`candle ${lit ? 'lit' : ''}`} onMouseEnter={() => toggleCandle(i)}>
-                {lit && <div className="flame"></div>}
-              </div>
+
+        {/* SVG Birthday Cake */}
+        <div className="svg-cake-wrap">
+          <svg viewBox="0 0 300 280" className="svg-cake" aria-label="Birthday cake">
+            {/* Plate */}
+            <ellipse cx="150" cy="255" rx="140" ry="18" fill="#d4af37" opacity="0.3" />
+            <ellipse cx="150" cy="250" rx="130" ry="15" fill="#e8d48b" />
+
+            {/* Bottom tier */}
+            <rect x="40" y="190" width="220" height="60" rx="12" fill="#ffe082" />
+            <rect x="40" y="190" width="220" height="15" rx="8" fill="#fff3c4" />
+            {[60, 90, 120, 150, 180, 210, 240].map((dx, i) => (
+              <ellipse key={`bd${i}`} cx={dx} cy={195} rx={8} ry={12 + (i % 3) * 4} fill="#fff" opacity="0.85" />
             ))}
-          </div>
-          <div className="cake-tier bottom-tier"></div>
+            {[65, 95, 125, 155, 185, 215, 240].map((dx, i) => (
+              <circle key={`dot${i}`} cx={dx} cy={225} r="4" fill={['#ff7675','#74b9ff','#a29bfe','#55efc4','#ffeaa7','#fd79a8','#fdcb6e'][i]} />
+            ))}
+
+            {/* Top tier */}
+            <rect x="75" y="130" width="150" height="65" rx="10" fill="#ffecb3" />
+            <rect x="75" y="130" width="150" height="12" rx="6" fill="#fff8e1" />
+            {[95, 120, 150, 180, 205].map((dx, i) => (
+              <ellipse key={`td${i}`} cx={dx} cy={136} rx={7} ry={10 + (i % 2) * 5} fill="#fff" opacity="0.9" />
+            ))}
+            {[90, 110, 130, 160, 180, 200].map((dx, i) => (
+              <rect key={`sp${i}`} x={dx} y={155 + (i % 3) * 8} width="3" height="8" rx="1.5" fill={['#ff7675','#74b9ff','#a29bfe','#55efc4','#ffeaa7','#fd79a8'][i]} transform={`rotate(${-30 + i * 20} ${dx} ${155 + (i % 3) * 8})`} />
+            ))}
+
+            {/* Candles */}
+            {candlesLit.map((lit, i) => {
+              const cx = 120 + i * 30;
+              return <g key={`candle-${i}`} className="svg-candle" onMouseEnter={() => toggleCandle(i)} style={{ cursor: 'pointer' }}>
+                <rect x={cx - 4} y={100} width={8} height={32} rx={3} fill={['#ff7675','#74b9ff','#ffeaa7'][i]} />
+                <rect x={cx - 4} y={100} width={8} height={5} rx={2} fill="#fff" opacity="0.5" />
+                {lit && <>
+                  <ellipse cx={cx} cy={94} rx={5} ry={9} fill="#ff9f43" className="candle-flame">
+                    <animate attributeName="ry" values="9;7;9" dur="0.4s" repeatCount="indefinite" />
+                    <animate attributeName="rx" values="5;4;5" dur="0.5s" repeatCount="indefinite" />
+                  </ellipse>
+                  <ellipse cx={cx} cy={91} rx={2.5} ry={5} fill="#feca57">
+                    <animate attributeName="ry" values="5;3.5;5" dur="0.3s" repeatCount="indefinite" />
+                  </ellipse>
+                  <circle cx={cx} cy={88} r="2" fill="#fff8e1" opacity="0.8">
+                    <animate attributeName="r" values="2;1.5;2" dur="0.35s" repeatCount="indefinite" />
+                  </circle>
+                </>}
+              </g>;
+            })}
+
+            <text x="150" y="175" textAnchor="middle" fill="#d4af37" fontSize="22" fontFamily="'Playfair Display', serif" fontWeight="700">17</text>
+          </svg>
+
+          {allBlown && <p className="wish-made">Your wish has been made!</p>}
         </div>
 
-        <div className="cartoony-graphics">
-           <div className="balloon red-balloon"></div>
-           <div className="balloon yellow-balloon"></div>
-           <div className="balloon blue-balloon"></div>
+        {/* SVG Balloons left and right of cake */}
+        <div className="balloon-pair">
+          {[
+            {cx:45,color:'#e74c3c',delay:0},{cx:85,color:'#f39c12',delay:0.6},{cx:65,color:'#3498db',delay:1.2},
+          ].map((b,i) => (
+            <svg key={`bl${i}`} className="svg-balloon" viewBox="0 0 60 120" style={{ animationDelay: `${b.delay}s` }}>
+              <line x1="30" y1="78" x2="30" y2="115" stroke="#999" strokeWidth="1" />
+              <ellipse cx="30" cy="45" rx="22" ry="32" fill={b.color} />
+              <ellipse cx="30" cy="78" rx="4" ry="3" fill={b.color} />
+              <ellipse cx="22" cy="34" rx="6" ry="10" fill="#fff" opacity="0.25" transform="rotate(-15 22 34)" />
+            </svg>
+          ))}
+          <div style={{ width: 60 }}></div>
+          {[
+            {cx:45,color:'#2ecc71',delay:0.3},{cx:85,color:'#9b59b6',delay:0.9},{cx:65,color:'#e84393',delay:1.5},
+          ].map((b,i) => (
+            <svg key={`br${i}`} className="svg-balloon" viewBox="0 0 60 120" style={{ animationDelay: `${b.delay}s` }}>
+              <line x1="30" y1="78" x2="30" y2="115" stroke="#999" strokeWidth="1" />
+              <ellipse cx="30" cy="45" rx="22" ry="32" fill={b.color} />
+              <ellipse cx="30" cy="78" rx="4" ry="3" fill={b.color} />
+              <ellipse cx="22" cy="34" rx="6" ry="10" fill="#fff" opacity="0.25" transform="rotate(-15 22 34)" />
+            </svg>
+          ))}
         </div>
-      </div>
-    </section>
-  );
-}
 
-function FunGamesSection() {
-  const [popped, setPopped] = useState<number[]>([]);
+        <button className="confetti-btn" onClick={triggerConfetti}>
+          Pop Confetti!
+        </button>
 
-  const popBalloon = (id: number) => {
-    if (!popped.includes(id)) {
-      setPopped([...popped, id]);
-    }
-  };
-
-  return (
-    <section className="fun-games-section">
-      <h2 className="cartoony-title">Pop the Balloons!</h2>
-      <p className="cartoony-text">Click to pop them for a fun surprise!</p>
-      
-      <div className="pop-balloons-container">
-        {[1, 2, 3, 4, 5].map(id => (
-          <div 
-            key={id} 
-            className={`poppable-balloon ${popped.includes(id) ? 'popped' : ''}`}
-            onClick={() => popBalloon(id)}
-          >
-            {popped.includes(id) ? '✨' : '🎈'}
+        {confettiBatches.map(id => (
+          <div key={id} className="confetti-overlay">
+            {[...Array(60)].map((_, i) => (
+              <div key={i} className={`confetti-piece piece-${i % 6}`} style={{
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 0.6}s`,
+                animationDuration: `${2.2 + Math.random() * 2}s`,
+              }}></div>
+            ))}
           </div>
         ))}
       </div>
     </section>
   );
 }
+
 
 function Memories() {
   return <section className="memories" id="memories">
@@ -484,7 +582,6 @@ function BirthdayExperience() {
       <Memories />
       <LetterSection onOpenGift={() => setGiftOpen(true)} />
       <CartoonySection />
-      <FunGamesSection />
     </>}
     {giftOpen && <GiftModal onClose={() => setGiftOpen(false)} />}
   </main>;
