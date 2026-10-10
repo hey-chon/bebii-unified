@@ -77,7 +77,7 @@ function PhotoFrame({ id, x, y, width, height, rotation, tint, src, alt, label, 
   </g>;
 }
 
-function TreeIllustration({ revealed }: { revealed: boolean }) {
+function TreeIllustration({ revealed, children }: { revealed: boolean; children?: React.ReactNode }) {
   return <div className={`tree-art picture-tree ${revealed ? 'is-revealed' : ''}`} role="img" aria-label={revealed ? birthdayContent.tree.bloomedLabel : birthdayContent.tree.unbloomedLabel}>
     <svg viewBox="0 0 600 650" aria-hidden="true">
       <defs>
@@ -114,6 +114,7 @@ function TreeIllustration({ revealed }: { revealed: boolean }) {
         portrait
       />
     </svg>
+    {children}
   </div>;
 }
 
@@ -574,39 +575,91 @@ function BirthdayExperience() {
         <div className="tree-copy">
           <p className="tree-kicker">{birthdayContent.tree.kicker}</p>
           <h2 className="tree-title">
-            Happy<br />
-            Birthday<br />
             <span style={{ position: 'relative', display: 'inline-block' }}>
-              Bebii!
               <svg 
-                style={{ 
-                  position: 'absolute', 
-                  top: '-32px', 
-                  right: '-18px', 
-                  width: '45px', 
-                  height: '45px', 
-                  transform: 'rotate(20deg)',
-                  pointerEvents: 'none'
-                }} 
-                viewBox="0 0 100 100" 
+                className="title-crown-svg"
+                style={{
+                  position: 'absolute',
+                  top: '-25px',
+                  left: '-16px',
+                  width: '32px',
+                  height: '32px',
+                  transform: 'rotate(-18deg)',
+                  pointerEvents: 'none',
+                  filter: 'drop-shadow(0 4px 8px rgba(180,140,50,0.35))'
+                }}
+                viewBox="0 0 64 64"
                 aria-hidden="true"
               >
-                {/* Hat cone */}
-                <path d="M50 15 L85 90 L15 90 Z" fill="#f1c40f" />
-                {/* Pom pom */}
-                <circle cx="50" cy="15" r="12" fill="#e74c3c" />
-                {/* Bottom trim */}
-                <path d="M15 90 Q 50 100 85 90" fill="none" stroke="#e74c3c" strokeWidth="8" strokeLinecap="round" />
-                {/* Polka dots */}
-                <circle cx="35" cy="60" r="5" fill="#3498db" />
-                <circle cx="65" cy="70" r="4.5" fill="#9b59b6" />
-                <circle cx="50" cy="40" r="4" fill="#2ecc71" />
+                <defs>
+                  <linearGradient id="tiaraGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#fff8dd" />
+                    <stop offset="40%" stopColor="#dfb746" />
+                    <stop offset="75%" stopColor="#b88b22" />
+                    <stop offset="100%" stopColor="#e5c567" />
+                  </linearGradient>
+                </defs>
+                <path d="M10 48 Q32 52 54 48" fill="none" stroke="url(#tiaraGold)" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M12 44 Q32 47 52 44" fill="none" stroke="url(#tiaraGold)" strokeWidth="1.2" strokeLinecap="round" />
+                <path d="M12 44 L16 26 L26 38 L32 16 L38 38 L48 26 L52 44 Z" fill="rgba(245, 215, 125, 0.22)" stroke="url(#tiaraGold)" strokeWidth="1.8" strokeLinejoin="round" />
+                <circle cx="32" cy="15" r="3.2" fill="#ffffff" stroke="url(#tiaraGold)" strokeWidth="1.5" />
+                <circle cx="32" cy="15" r="1.4" fill="url(#tiaraGold)" />
+                <circle cx="16" cy="25" r="2.2" fill="#ffffff" stroke="url(#tiaraGold)" strokeWidth="1.2" />
+                <circle cx="48" cy="25" r="2.2" fill="#ffffff" stroke="url(#tiaraGold)" strokeWidth="1.2" />
+                <circle cx="26" cy="38" r="1.5" fill="url(#tiaraGold)" />
+                <circle cx="38" cy="38" r="1.5" fill="url(#tiaraGold)" />
+              </svg>
+              Happy
+              <span className="title-celestial title-celestial-left" aria-hidden="true">✦</span>
+            </span><br />
+            Birthday<br />
+            <span style={{ position: 'relative', display: 'inline-block' }}>
+              <span className="title-celestial title-celestial-right" aria-hidden="true">✧</span>
+              Bebii!
+              <svg 
+                className="title-hat-svg"
+                style={{ 
+                  position: 'absolute', 
+                  top: '-34px', 
+                  right: '-20px', 
+                  width: '44px', 
+                  height: '50px', 
+                  transform: 'rotate(20deg)',
+                  pointerEvents: 'none',
+                  filter: 'drop-shadow(0 4px 10px rgba(180,140,50,0.3))'
+                }} 
+                viewBox="0 0 64 72" 
+                aria-hidden="true"
+              >
+                <defs>
+                  <linearGradient id="coneGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#fff8dd" />
+                    <stop offset="35%" stopColor="#dfb746" />
+                    <stop offset="70%" stopColor="#b0831a" />
+                    <stop offset="100%" stopColor="#e8c75d" />
+                  </linearGradient>
+                  <linearGradient id="foilPinstripe" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9" />
+                    <stop offset="100%" stopColor="#dfb746" stopOpacity="0.4" />
+                  </linearGradient>
+                </defs>
+                <path d="M32 14 L54 62 Q32 67 10 62 Z" fill="rgba(255, 246, 218, 0.45)" stroke="url(#coneGold)" strokeWidth="1.8" strokeLinejoin="round" />
+                <path d="M32 15 L20 62" stroke="url(#foilPinstripe)" strokeWidth="1.2" strokeLinecap="round" />
+                <path d="M32 15 L28 64" stroke="url(#foilPinstripe)" strokeWidth="1.2" strokeLinecap="round" />
+                <path d="M32 15 L36 64" stroke="url(#foilPinstripe)" strokeWidth="1.2" strokeLinecap="round" />
+                <path d="M32 15 L44 62" stroke="url(#foilPinstripe)" strokeWidth="1.2" strokeLinecap="round" />
+                <path d="M10 62 Q32 68 54 62" fill="none" stroke="url(#coneGold)" strokeWidth="2.4" strokeLinecap="round" />
+                <path d="M12 60 Q32 65 52 60" fill="none" stroke="#ffffff" strokeWidth="1" strokeLinecap="round" opacity="0.8" />
+                <path d="M32 6 L33.6 11.4 L39 13 L33.6 14.6 L32 20 L30.4 14.6 L25 13 L30.4 11.4 Z" fill="url(#coneGold)" />
+                <circle cx="32" cy="13" r="1.5" fill="#ffffff" />
               </svg>
             </span>
           </h2>
-          <p className="tree-sub">{birthdayContent.tree.subtitle}</p>
+          <p className="tree-sub tree-sub-desktop">{birthdayContent.tree.subtitle}</p>
         </div>
-        <TreeIllustration revealed={treeRevealed} />
+        <TreeIllustration revealed={treeRevealed}>
+          <p className="tree-sub-mobile">{birthdayContent.tree.subtitle}</p>
+        </TreeIllustration>
         <a className="scroll-cue" href="#memories">{birthdayContent.tree.scrollCue}</a>
       </section>
       <Memories />
