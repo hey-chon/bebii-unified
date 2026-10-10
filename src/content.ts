@@ -5,30 +5,27 @@
  * Set treePortrait.src to show your girlfriend's photo in the center of the tree.
  */
 export const birthdayContent = {
-  opener: 'a little something, for you',
   opening: {
+    title: 'Happy Golden Birthday',
+    subtitle: 'a little something, for you',
     ariaLabel: 'Birthday surprise opening',
     bowLabel: 'Pull back the bowstring and release the arrow toward the heart',
     dragLabel: 'Drag bowstring',
-    pullInstruction: 'PULL & RELEASE',
-    pullHint: 'Draw the string back, then let go',
-    keyboardPrompt: 'OR PRESS ENTER TO RELEASE',
-    releaseButtonLabel: 'Accessible alternative: pull and release the arrow',
   },
   wish: {
     ariaLabel: 'Birthday wish',
-    overline: 'make a wish…',
+    overline: 'welcome bebii…',
     title: 'Happy Birthday',
-    subtitle: 'to someone worth celebrating',
+    subtitle: 'a little something for you',
   },
   tree: {
     unbloomedLabel: 'A cozy memory tree ready for photos',
     bloomedLabel: 'A keepsake tree with miniature photo frames and a portrait spot',
     photoFramePlaceholder: 'Add a memory photo',
     portraitPlaceholder: 'HER PHOTO',
-    kicker: 'and… make it count',
-    title: 'Happy Birthday',
-    subtitle: 'here’s to a year that blooms',
+    kicker: 'and… here we go!',
+    title: 'Happy Birthday Bebii!',
+    subtitle: 'a golden surprise for someone who turns 17th today...',
     scrollCue: 'SCROLL FOR MEMORIES',
   },
   treePortrait: {
@@ -37,7 +34,6 @@ export const birthdayContent = {
   },
   memoriesTitle: 'Beautiful Memories',
   memoriesEyebrow: 'A collection of us',
-  memoriesSubtitle: 'little moments, kept close',
   photoPlaceholder: 'Add your photo here',
   photos: [
     { src: '', caption: 'A day worth keeping' },

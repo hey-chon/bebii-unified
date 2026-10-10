@@ -196,46 +196,49 @@ function Opening({ onRelease }: { onRelease: (origin: RevealOrigin) => void }) {
   return <section className={`opening ${flying ? 'is-flying' : ''}`} aria-label={birthdayContent.opening.ariaLabel}>
     <Floaties />
     <div className="opening-content" ref={stageRef}>
-      <p className="intro-kicker">{birthdayContent.opener}</p>
-      <div className={`hero-heart-wrap ${hit ? 'heart-hit' : ''}`} ref={heartRef} aria-hidden="true">
-        <span className="heart-aura" />
-        <div className="hero-heart">
-          <svg viewBox="0 0 24 24" width="100%" height="100%">
-            <defs>
-              <radialGradient id="heartGrad" cx="35%" cy="28%">
-                <stop offset="0%" stopColor="#ffffff" />
-                <stop offset="38%" stopColor="#fff7b0" />
-                <stop offset="72%" stopColor="#ffd700" />
-                <stop offset="100%" stopColor="#e6ac00" />
-              </radialGradient>
-            </defs>
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="url(#heartGrad)" />
+      <div className="hero-typography">
+        <h1 className="hero-title">{birthdayContent.opening.title}</h1>
+        <p className="hero-subtitle">{birthdayContent.opening.subtitle}</p>
+      </div>
+      
+      <div className="opening-interactive">
+        <div className="bow-stage">
+          <svg className="bow-svg" ref={bowSvgRef} viewBox="0 0 280 190" role="img" aria-label={birthdayContent.opening.bowLabel}>
+            <path className="bow-wood" d="M54 17 C113 38 113 151 54 173" />
+            <path className="bow-string" d={`M54 17 L${80 - pull * .65} 95 L54 173`} />
+            <g style={{ transform: travel, transition: flying ? 'transform .82s cubic-bezier(.12,.8,.18,1)' : 'transform .12s ease-out' }}>
+              <line className="arrow-trail" x1="16" y1="95" x2="190" y2="95" />
+              <line className="arrow-shaft" x1="72" y1="95" x2="192" y2="95" />
+              <path className="arrow-tip" d="M203 95 L187 88 L190 95 L187 102 Z" />
+              <path className="arrow-feather" d="M79 95 L67 87 M80 95 L66 95 M79 95 L67 103" />
+            </g>
+            <circle className="drag-handle" cx={80 - pull * .65} cy="95" r="13" fill="transparent" aria-label={birthdayContent.opening.dragLabel} onPointerDown={beginPull} onPointerMove={movePull} onPointerUp={release} onPointerCancel={release} />
           </svg>
-          <span className="heart-glint" />
         </div>
-        {hit && <>
-          <span className="heart-shockwave shockwave-one" />
-          <span className="heart-shockwave shockwave-two" />
-          <span className="impact-flash" />
-          <span className="heart-burst">{Array.from({ length: 24 }, (_, index) => <i key={index} style={{ '--angle': `${index * 15}deg`, '--distance': `${92 + (index % 5) * 15}px`, '--tone': ['#ffffff','#ffeb3b','#ffd700','#fff3e0'][index % 4], '--wait': `${(index % 4) * .035}s` } as React.CSSProperties}>{index % 4 === 0 ? <b>✦</b> : <HeartMark />}</i>)}</span>
-        </>}
-      </div>
-      <div className="bow-stage">
-        <svg className="bow-svg" ref={bowSvgRef} viewBox="0 0 280 190" role="img" aria-label={birthdayContent.opening.bowLabel}>
-          <path className="bow-wood" d="M54 17 C113 38 113 151 54 173" />
-          <path className="bow-string" d={`M54 17 L${80 - pull * .65} 95 L54 173`} />
-          <g style={{ transform: travel, transition: flying ? 'transform .82s cubic-bezier(.12,.8,.18,1)' : 'transform .12s ease-out' }}>
-            <line className="arrow-trail" x1="16" y1="95" x2="190" y2="95" />
-            <line className="arrow-shaft" x1="72" y1="95" x2="192" y2="95" />
-            <path className="arrow-tip" d="M203 95 L187 88 L190 95 L187 102 Z" />
-            <path className="arrow-feather" d="M79 95 L67 87 M80 95 L66 95 M79 95 L67 103" />
-          </g>
-          <circle className="drag-handle" cx={80 - pull * .65} cy="95" r="13" fill="transparent" aria-label={birthdayContent.opening.dragLabel} onPointerDown={beginPull} onPointerMove={movePull} onPointerUp={release} onPointerCancel={release} />
-        </svg>
-      </div>
-      <div className="pull-copy">{birthdayContent.opening.pullInstruction}
-        <span>{birthdayContent.opening.pullHint}</span>
-        <button className="launch-button" onKeyDown={keyboardRelease} onClick={() => { if (pull > 10) launch(); }} aria-label={birthdayContent.opening.releaseButtonLabel}>{birthdayContent.opening.keyboardPrompt}</button>
+
+        <div className={`hero-heart-wrap ${hit ? 'heart-hit' : ''}`} ref={heartRef} aria-hidden="true">
+          <span className="heart-aura" />
+          <div className="hero-heart">
+            <svg viewBox="0 0 24 24" width="100%" height="100%">
+              <defs>
+                <radialGradient id="heartGrad" cx="35%" cy="28%">
+                  <stop offset="0%" stopColor="#ffffff" />
+                  <stop offset="38%" stopColor="#fff7b0" />
+                  <stop offset="72%" stopColor="#ffd700" />
+                  <stop offset="100%" stopColor="#e6ac00" />
+                </radialGradient>
+              </defs>
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="url(#heartGrad)" />
+            </svg>
+            <span className="heart-glint" />
+          </div>
+          {hit && <>
+            <span className="heart-shockwave shockwave-one" />
+            <span className="heart-shockwave shockwave-two" />
+            <span className="impact-flash" />
+            <span className="heart-burst">{Array.from({ length: 24 }, (_, index) => <i key={index} style={{ '--angle': `${index * 15}deg`, '--distance': `${92 + (index % 5) * 15}px`, '--tone': ['#ffffff','#ffeb3b','#ffd700','#fff3e0'][index % 4], '--wait': `${(index % 4) * .035}s` } as React.CSSProperties}>{index % 4 === 0 ? <b>✦</b> : <HeartMark />}</i>)}</span>
+          </>}
+        </div>
       </div>
     </div>
   </section>;
@@ -292,7 +295,6 @@ function Memories() {
     <header className="section-heading">
       <p className="eyebrow">{birthdayContent.memoriesEyebrow}</p>
       <h2>{birthdayContent.memoriesTitle}</h2>
-      <p>{birthdayContent.memoriesSubtitle}</p>
     </header>
     <div className="memory-grid">
       {birthdayContent.photos.map((photo, index) => <figure className="memory-card" key={`${photo.caption}-${index}`}>
