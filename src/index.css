@@ -366,82 +366,78 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 /* ── Cartoony Celebrate Section ── */
 .cartoony-section {
   position: relative;
-  background: #fffdf5;
-  padding: 100px 20px 80px;
+  background: linear-gradient(180deg, #fffef8 0%, #fffdf0 50%, #fff8da 100%);
+  padding: 140px 20px 80px;
   overflow: hidden;
   text-align: center;
 }
 
-/* Bunting rope with triangle flags */
-.bunting-rope {
-  position: absolute;
-  top: 0;
-  left: -2%;
-  width: 104%;
-  display: flex;
-  justify-content: space-evenly;
-  padding: 0 10px;
-}
-.bunting-flag {
-  width: 48px;
-  height: 56px;
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  transform-origin: top center;
-  animation: bunting-swing 2.5s ease-in-out infinite alternate;
-  box-shadow: 0 2px 4px rgba(0,0,0,.08);
-}
-.bf-0 { background: #ff7675; }
-.bf-1 { background: #ffd166; }
-.bf-2 { background: #74b9ff; }
-.bf-3 { background: #a29bfe; }
-@keyframes bunting-swing {
-  0% { transform: rotate(-6deg); }
-  100% { transform: rotate(6deg); }
-}
-.bunting-rope::before {
-  content: '';
+/* SVG Bunting across top */
+.bunting-svg {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: 3px;
-  background: #d4af37;
+  width: 100%;
+  height: 120px;
   z-index: 1;
+}
+.bunting-flag-g {
+  transform-origin: top center;
+  animation: bunting-sway 3s ease-in-out infinite alternate;
+}
+@keyframes bunting-sway {
+  0% { transform: rotate(-2deg); }
+  100% { transform: rotate(2deg); }
+}
+
+/* Decorative stars */
+.deco-stars {
+  width: 100%;
+  max-width: 600px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+.deco-star-g {
+  animation: star-twinkle 2s ease-in-out infinite alternate;
+}
+@keyframes star-twinkle {
+  0% { opacity: 0.5; transform: scale(0.85); }
+  100% { opacity: 1; transform: scale(1.15); }
 }
 
 .cartoony-content {
   position: relative;
   z-index: 2;
-  max-width: 600px;
+  max-width: 640px;
   margin: 0 auto;
 }
 .cartoony-title {
   font-family: var(--app-font-serif);
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
   color: #000;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
 }
 .cartoony-text {
   font-family: var(--app-font-sans);
   font-size: 1.05rem;
   line-height: 1.6;
-  color: #000;
-  margin-bottom: 10px;
+  color: #222;
+  margin-bottom: 5px;
 }
 
 /* SVG Cake */
 .svg-cake-wrap {
-  margin: 30px auto 20px;
+  margin: 20px auto 15px;
   max-width: 320px;
 }
 .svg-cake {
   width: 100%;
   height: auto;
   display: block;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.08));
 }
-.svg-candle {
-  cursor: pointer;
-}
+.svg-candle { cursor: pointer; }
 .wish-made {
   font-family: var(--app-font-serif);
   font-size: 1.3rem;
@@ -450,27 +446,47 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   animation: fade-in 0.6s ease-out both;
 }
 
+/* SVG Balloons */
+.balloon-pair {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 4px;
+  margin: 15px auto 20px;
+}
+.svg-balloon {
+  width: 48px;
+  height: 96px;
+  animation: balloon-bob 3.5s ease-in-out infinite alternate;
+}
+@keyframes balloon-bob {
+  0% { transform: translateY(0) rotate(-3deg); }
+  100% { transform: translateY(-14px) rotate(3deg); }
+}
+
 /* Confetti button */
 .confetti-btn {
-  background: #d4af37;
+  background: linear-gradient(135deg, #d4af37, #c49e29);
   color: #fff;
   border: none;
-  padding: 14px 32px;
+  padding: 16px 36px;
   border-radius: 30px;
   font-size: 1.1rem;
   font-family: var(--app-font-sans);
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.05em;
   cursor: pointer;
-  box-shadow: 0 6px 18px rgba(212,175,55,0.35);
-  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 6px 20px rgba(212,175,55,0.35);
+  transition: transform 0.15s, box-shadow 0.15s;
   margin-top: 10px;
 }
 .confetti-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(212,175,55,0.5);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 28px rgba(212,175,55,0.5);
 }
 .confetti-btn:active {
-  transform: translateY(0);
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 3px 10px rgba(212,175,55,0.3);
 }
 
 /* Confetti overlay */
@@ -483,19 +499,20 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 }
 .confetti-piece {
   position: absolute;
-  top: -20px;
+  top: -24px;
   width: 10px;
   height: 18px;
   border-radius: 2px;
   animation: confetti-fall 3s linear forwards;
 }
-.piece-0 { background: #ff7675; width: 8px; }
-.piece-1 { background: #ffd166; height: 12px; width: 12px; border-radius: 50%; }
-.piece-2 { background: #74b9ff; }
-.piece-3 { background: #a29bfe; width: 6px; height: 22px; }
-.piece-4 { background: #55efc4; width: 12px; height: 8px; }
+.piece-0 { background: #e74c3c; width: 8px; }
+.piece-1 { background: #f1c40f; height: 12px; width: 12px; border-radius: 50%; }
+.piece-2 { background: #3498db; }
+.piece-3 { background: #9b59b6; width: 6px; height: 22px; }
+.piece-4 { background: #2ecc71; width: 12px; height: 8px; }
+.piece-5 { background: #e84393; width: 7px; height: 14px; border-radius: 50%; }
 @keyframes confetti-fall {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  80% { opacity: 1; }
-  100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+  0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: translateY(105vh) rotate(900deg) scale(0.6); opacity: 0; }
 }
