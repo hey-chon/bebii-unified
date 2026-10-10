@@ -205,8 +205,33 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
  .tree-section{min-height:max(100svh,860px);display:block;padding:max(88px,calc(env(safe-area-inset-top,0px) + 48px)) 26px 80px}.tree-copy{width:100%;max-width:340px}.tree-title{font-size:4.2rem}.tree-art{height:64%;width:108%;right:-4%;min-height:480px;bottom:24px}.scroll-cue{left:26px;bottom:19px}
  .memories{padding:84px 22px 100px}.section-heading{margin-bottom:42px}.memory-grid{grid-template-columns:repeat(6,1fr);gap:15px}.memory-card:nth-child(1){grid-column:1/span 4}.memory-card:nth-child(2){grid-column:4/span 3;margin-top:54px}.memory-card:nth-child(3){grid-column:1/span 3;margin-top:-20px}.memory-card:nth-child(4){grid-column:4/span 3;margin-top:0}.memory-card:nth-child(5){grid-column:1/span 4;margin-top:4px}.memory-card:nth-child(6){grid-column:4/span 3;margin-top:40px}.memory-card{padding:8px 8px 36px}.photo-caption{font-size:.85rem;bottom:9px}
  .letter-section{padding:86px 20px 100px}.letter-card{padding:42px 25px}.gift-modal{padding:46px 25px 34px}
+ .cartoony-section{padding:120px 16px 60px}
+ .bunting-svg{height:80px}
+ .svg-cake-wrap{max-width:260px}
+ .balloon-pair{gap:2px}
+ .svg-balloon{width:36px;height:72px}
+ .deco-stars{height:40px}
+ .cartoony-title{font-size:clamp(1.8rem,6vw,2.8rem)}
+ .confetti-btn{padding:12px 24px;font-size:1rem}
+ .envelope-wrapper{width:min(480px,92vw);height:clamp(200px,35vw,280px)}
+ .envelope-scene{margin-top:120px!important}
 }
-@media(max-width:420px){.bow-stage{left:12px;}.hero-heart-wrap{margin-left:12%;}.tree-title{font-size:clamp(3rem,14vw,3.5rem)}.memory-grid{gap:11px}.memory-card{padding:7px 7px 32px}.photo-placeholder{font-size:.78rem}.photo-placeholder svg{width:25px;height:25px}}
+@media(max-width:420px){.bow-stage{left:12px;}.hero-heart-wrap{margin-left:12%;}.tree-title{font-size:clamp(3rem,14vw,3.5rem)}.memory-grid{gap:11px}.memory-card{padding:7px 7px 32px}.photo-placeholder{font-size:.78rem}.photo-placeholder svg{width:25px;height:25px}
+ .cartoony-section{padding:100px 12px 50px}
+ .bunting-svg{height:65px}
+ .svg-cake-wrap{max-width:220px;margin:15px auto 10px}
+ .balloon-pair{gap:0}
+ .svg-balloon{width:30px;height:60px}
+ .deco-stars{height:30px;margin-bottom:5px}
+ .cartoony-title{font-size:1.6rem}
+ .cartoony-text{font-size:.92rem}
+ .confetti-btn{padding:10px 20px;font-size:.9rem}
+ .envelope-wrapper{width:95vw;height:clamp(180px,50vw,240px)}
+ .envelope-scene{margin-top:80px!important}
+ .beautiful-letter{padding:20px 15px!important}
+ .beautiful-letter .letter-title{font-size:1.6rem!important}
+ .beautiful-letter .letter-copy{font-size:.9rem!important}
+}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
 .envelope-wrapper {
@@ -515,4 +540,42 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
   70% { opacity: 1; }
   100% { transform: translateY(105vh) rotate(900deg) scale(0.6); opacity: 0; }
+}
+
+/* ── Extra responsive: very small phones ── */
+@media(max-width:360px){
+  .cartoony-section{padding:90px 10px 40px}
+  .bunting-svg{height:55px}
+  .svg-cake-wrap{max-width:190px}
+  .svg-balloon{width:24px;height:48px}
+  .cartoony-title{font-size:1.4rem}
+  .cartoony-text{font-size:.85rem}
+  .confetti-btn{padding:9px 16px;font-size:.82rem;border-radius:20px}
+  .opening-interactive{flex-direction:column;gap:20px}
+  .hero-title{font-size:2.4rem!important}
+  .hero-subtitle{font-size:.7rem!important}
+  .tree-copy{transform:none!important}
+  .section-heading h2{font-size:2rem!important}
+  .letter-section{padding:60px 14px 80px!important}
+  .letter-card{padding:28px 16px!important}
+  .gift-modal{width:min(340px,96vw)!important;padding:30px 18px 24px!important}
+}
+
+/* ── Tablet landscape ── */
+@media(min-width:761px) and (max-width:1024px){
+  .tree-section{padding:10vh 4vw 0}
+  .tree-copy{width:38%;transform:translateY(-5vh)}
+  .tree-art{width:58%}
+  .cartoony-section{padding:130px 24px 70px}
+  .svg-cake-wrap{max-width:300px}
+  .envelope-wrapper{width:min(550px,85vw)}
+}
+
+/* ── Large desktop ── */
+@media(min-width:1400px){
+  .cartoony-section{padding:160px 40px 100px}
+  .cartoony-content{max-width:720px}
+  .svg-cake-wrap{max-width:380px}
+  .svg-balloon{width:56px;height:112px}
+  .bunting-svg{height:140px}
 }
