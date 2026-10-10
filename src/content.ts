@@ -24,7 +24,7 @@ export const birthdayContent = {
     photoFramePlaceholder: 'Add a memory photo',
     portraitPlaceholder: 'HER PHOTO',
     kicker: 'and… here we go!',
-    title: 'Happy Birthday Bebii!',
+    title: 'Happy Birthday',
     subtitle: 'a golden surprise for someone who turns 17th today...',
     scrollCue: 'SCROLL FOR MEMORIES',
   },

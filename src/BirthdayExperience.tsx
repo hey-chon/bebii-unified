@@ -573,7 +573,37 @@ function BirthdayExperience() {
       <section className="tree-section" ref={treeRef} aria-label="Birthday wishes and photo memories">
         <div className="tree-copy">
           <p className="tree-kicker">{birthdayContent.tree.kicker}</p>
-          <h2 className="tree-title">{birthdayContent.tree.title}</h2>
+          <h2 className="tree-title">
+            Happy<br />
+            Birthday<br />
+            <span style={{ position: 'relative', display: 'inline-block' }}>
+              Bebii!
+              <svg 
+                style={{ 
+                  position: 'absolute', 
+                  top: '-32px', 
+                  right: '-18px', 
+                  width: '45px', 
+                  height: '45px', 
+                  transform: 'rotate(20deg)',
+                  pointerEvents: 'none'
+                }} 
+                viewBox="0 0 100 100" 
+                aria-hidden="true"
+              >
+                {/* Hat cone */}
+                <path d="M50 15 L85 90 L15 90 Z" fill="#f1c40f" />
+                {/* Pom pom */}
+                <circle cx="50" cy="15" r="12" fill="#e74c3c" />
+                {/* Bottom trim */}
+                <path d="M15 90 Q 50 100 85 90" fill="none" stroke="#e74c3c" strokeWidth="8" strokeLinecap="round" />
+                {/* Polka dots */}
+                <circle cx="35" cy="60" r="5" fill="#3498db" />
+                <circle cx="65" cy="70" r="4.5" fill="#9b59b6" />
+                <circle cx="50" cy="40" r="4" fill="#2ecc71" />
+              </svg>
+            </span>
+          </h2>
           <p className="tree-sub">{birthdayContent.tree.subtitle}</p>
         </div>
         <TreeIllustration revealed={treeRevealed} />
