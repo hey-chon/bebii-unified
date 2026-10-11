@@ -25,7 +25,7 @@ export function Terminal({ onOpenBirthday }: Props) {
   const [draft, setDraft] = useState('');
   const [installed, setInstalled] = useState(() => localStorage.getItem('birthday_installed') === 'true');
   const [artInstalled, setArtInstalled] = useState(() => localStorage.getItem('art_installed') === 'true');
-  const [label, setLabel] = useState(() => localStorage.getItem('birthday_installed') === 'true' ? 'bebii@birthday-os:~ $' : 'bebii@termux:~ $');
+  const [label, setLabel] = useState(() => localStorage.getItem('birthday_installed') === 'true' ? 'imsocute@birthday-os:~ $' : 'imsocute@termux:~ $');
   const [busy, setBusy] = useState(false);
   const screenRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -65,7 +65,7 @@ export function Terminal({ onOpenBirthday }: Props) {
           localStorage.setItem('birthday_installed', 'true');
           append(ASCII, 'ascii');
           append('open birthday', 'output muted');
-          setLabel('bebii@birthday-os:~ $');
+          setLabel('imsocute@birthday-os:~ $');
         }
         inputRef.current?.focus();
         return;
@@ -111,7 +111,7 @@ export function Terminal({ onOpenBirthday }: Props) {
       setArtInstalled(false);
       localStorage.removeItem('birthday_installed');
       localStorage.removeItem('art_installed');
-      setLabel('bebii@termux:~ $');
+      setLabel('imsocute@termux:~ $');
       clearScreen();
       append('System factory reset. Developer mode activated.', 'output muted');
       return;
@@ -134,7 +134,7 @@ export function Terminal({ onOpenBirthday }: Props) {
       append(ASCII, 'ascii');
       append(
         [
-          'bebii@birthday-os',
+          'imsocute@birthday-os',
           '-----------------',
           'OS: BebiiOS 1.0.0 birthday-edition',
           'Host: browser-shell',
@@ -250,7 +250,7 @@ export function Terminal({ onOpenBirthday }: Props) {
   return (
     <div className="terminal-app" onClick={() => inputRef.current?.focus()}>
       <header className="brand">
-        bebii<span>.os</span>
+        pkg<span>.osInstaller</span>
       </header>
       <div className="window">
         <div className="window-bar">
@@ -259,13 +259,13 @@ export function Terminal({ onOpenBirthday }: Props) {
             <i />
             <i />
           </span>
-          <span>bebii@termux: ~</span>
+          <span>helloworld@termux: ~</span>
           <span aria-hidden="true">−</span>
         </div>
         <div className="screen" ref={screenRef} role="log" aria-live="polite">
           <div className="entry">
-            <p>Welcome to Birthday OS, bebii.</p>
-            <p className="muted">A little birthday surprise for October 17, 2026.</p>
+            <p>Welcome to OS Installer, bebii.</p>
+            <p className="muted">Install Carefully, this operating system can destroy your device :D</p>
             <p className="muted">
               Type <span className="pink">guide</span> below and press Enter to see the commands.
             </p>

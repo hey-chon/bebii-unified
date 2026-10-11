@@ -386,7 +386,7 @@ function CartoonySection() {
               <ellipse key={`td${i}`} cx={dx} cy={136} rx={7} ry={10 + (i % 2) * 5} fill="#fff" opacity="0.9" />
             ))}
             {[90, 110, 130, 160, 180, 200].map((dx, i) => (
-              <rect key={`sp${i}`} x={dx} y={155 + (i % 3) * 8} width="3" height="8" rx="1.5" fill={['#ff7675','#74b9ff','#a29bfe','#55efc4','#ffeaa7','#fd79a8'][i]} transform={`rotate(${-30 + i * 20} ${dx} ${155 + (i % 3) * 8})`} />
+              <rect key={`sp${i}`} x={dx} y={155 + (i % 3) * 8} width="3" height="8" rx="1.5" fill={['#ff7675x','#74b9ff','#a29bfe','#55efc4','#ffeaa7','#fd79a8'][i]} transform={`rotate(${-30 + i * 20} ${dx} ${155 + (i % 3) * 8})`} />
             ))}
 
             {/* Candles */}

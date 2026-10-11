@@ -7,16 +7,15 @@
 export const birthdayContent = {
   opening: {
     title: 'Happy Golden Birthday',
-    subtitle: 'a little something, for you',
+    subtitle: 'a little surprise, for you',
     ariaLabel: 'Birthday surprise opening',
     bowLabel: 'Pull back the bowstring and release the arrow toward the heart',
     dragLabel: 'Drag bowstring',
   },
   wish: {
     ariaLabel: 'Birthday wish',
-    overline: 'welcome bebii…',
     title: 'Happy Birthday',
-    subtitle: 'a little something for you',
+    subtitle: 'enjoy and explore this surprise',
   },
   tree: {
     unbloomedLabel: 'A cozy memory tree ready for photos',
