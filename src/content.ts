@@ -25,11 +25,11 @@ export const birthdayContent = {
     kicker: 'and… here we go!',
     title: 'Happy Birthday',
     subtitle: 'a golden surprise for someone who turns 17th today...',
-    scrollCue: 'SCROLL FOR MEMORIES',
+    scrollCue: 'SCROLL FOR MORE',
   },
   treePortrait: {
     src: '',
-    alt: 'A placeholder for your girlfriend’s portrait',
+    alt: 'A placeholder for my bebii’s portrait',
   },
   memoriesTitle: 'Beautiful Memories',
   memoriesEyebrow: 'A collection of us',
