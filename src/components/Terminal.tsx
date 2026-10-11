@@ -136,7 +136,7 @@ export function Terminal({ onOpenBirthday }: Props) {
         [
           'imsocute@birthday-os',
           '-----------------',
-          'OS: BebiiOS 1.0.0 birthday-edition',
+          'OS: BebiiOS 1.0.0 birthday-surprise',
           'Host: browser-shell',
           'Shell: pogiNgASAWAmo12345',
           'Theme: pink-heart',
