@@ -138,7 +138,7 @@ export function Terminal({ onOpenBirthday }: Props) {
           '-----------------',
           'OS: BebiiOS 1.0.0 birthday-edition',
           'Host: browser-shell',
-          'Shell: love',
+          'Shell: pogiNgASAWAmo12345',
           'Theme: pink-heart',
           'Birthday: October 17, 2026',
         ].join('\n'),
