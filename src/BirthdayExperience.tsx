@@ -505,32 +505,56 @@ function CartoonySection() {
 
 
 /**
- * Heart grid cell coordinates [row, col] (0-indexed, 7-col × 6-row grid).
- * These positions form a heart shape matching the reference screenshot.
- * Row 0 = top, Col 0 = left.
+ * Exact 18 tiles forming the heart shape matching the reference image.
+ * Uses a 7-column × 6-row CSS grid (1-indexed for CSS Grid).
+ * Three special tiles are 2×2 (spanning 2 rows and 2 columns), and 15 tiles are 1×1.
  */
-const HEART_CELLS: [number, number][] = [
-  // Row 0 — two lobes separated by a gap
-  [0,1],[0,2],           [0,4],[0,5],
-  // Row 1 — full width
-  [1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],
-  // Row 2 — full width
-  [2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6],
-  // Row 3 — narrowing
-       [3,1],[3,2],[3,3],[3,4],[3,5],
-  // Row 4 — narrowing more
-            [4,2],[4,3],[4,4],
-  // Row 5 — tip
-                  [5,3],
+interface HeartTileConfig {
+  row: number;
+  col: number;
+  rowSpan?: number;
+  colSpan?: number;
+}
+
+const HEART_TILES: HeartTileConfig[] = [
+  // ── Row 1 (top lobes) ──
+  { row: 1, col: 2 },
+  { row: 1, col: 3 },
+  { row: 1, col: 5, rowSpan: 2, colSpan: 2 }, // Top-right lobe: big 2×2 photo
+
+  // ── Row 2 ──
+  { row: 2, col: 1 },
+  { row: 2, col: 2, rowSpan: 2, colSpan: 2 }, // Left lobe: big 2×2 photo
+  { row: 2, col: 4 },                          // Cleft / dip in top center
+  { row: 2, col: 7 },                          // Far right outer
+
+  // ── Row 3 ──
+  { row: 3, col: 1 },                          // Far left outer
+  { row: 3, col: 4, rowSpan: 2, colSpan: 2 }, // Center heart: big 2×2 photo
+  { row: 3, col: 6 },
+  { row: 3, col: 7 },
+
+  // ── Row 4 (tapers) ──
+  { row: 4, col: 2 },
+  { row: 4, col: 3 },
+  { row: 4, col: 6 },
+
+  // ── Row 5 (tapers more) ──
+  { row: 5, col: 3 },
+  { row: 5, col: 4 },
+  { row: 5, col: 5 },
+
+  // ── Row 6 (bottom tip) ──
+  { row: 6, col: 4 },
 ];
 
 /** Peek stack offsets (cards 1-5 behind the front card) */
 const PEEK_STACK: { tx: string; ty: string; rot: number; scale: number; z: number }[] = [
-  { tx: '-22px', ty: '8px',  rot: -13, scale: 0.89, z: 5 },
-  { tx:  '20px', ty: '10px', rot:  11, scale: 0.89, z: 4 },
-  { tx: '-10px', ty: '18px', rot:  -7, scale: 0.82, z: 3 },
-  { tx:  '12px', ty: '22px', rot:   8, scale: 0.82, z: 2 },
-  { tx:   '0px', ty: '28px', rot:   3, scale: 0.76, z: 1 },
+  { tx: '-24px', ty: '10px', rot: -13, scale: 0.90, z: 5 },
+  { tx:  '22px', ty: '12px', rot:  11, scale: 0.90, z: 4 },
+  { tx: '-12px', ty: '20px', rot:  -7, scale: 0.83, z: 3 },
+  { tx:  '14px', ty: '24px', rot:   8, scale: 0.83, z: 2 },
+  { tx:   '2px', ty: '30px', rot:   3, scale: 0.77, z: 1 },
 ];
 
 function Memories() {
@@ -547,39 +571,41 @@ function Memories() {
         <h2>{birthdayContent.memoriesTitle}</h2>
       </header>
 
-      <p className="memories-hint" aria-live="polite">
-        {expanded ? '✦ tap anywhere to fold back ✦' : '✦ tap to reveal all memories ✦'}
-      </p>
+      {/* Main interactive container with rounded shape and white + light yellow scheme */}
+      <div className={`memories-container-card ${expanded ? 'is-expanded' : 'is-collapsed'}`}>
+        <p className="memories-hint" aria-live="polite">
+          {expanded ? '✦ tap anywhere to fold back ✦' : '✦ tap to unfold our heart ✦'}
+        </p>
 
-      {/* Outer click zone */}
-      <div
-        className="memory-stage"
-        onClick={toggle}
-        role="button"
-        tabIndex={0}
-        aria-label={expanded ? 'Collapse memory heart' : 'Expand memories into a heart'}
-        onKeyDown={e => e.key === 'Enter' && toggle()}
-      >
-        {/* ── COLLAPSED: stacked peek cards ── */}
-        {!expanded && (
-          <div className="peek-stack">
-            {photos.map((photo, i) => (
-              <figure
-                key={i}
-                className="peek-card"
-                style={{
-                  '--tx': i === 0 ? '0px' : PEEK_STACK[i - 1].tx,
-                  '--ty': i === 0 ? '0px' : PEEK_STACK[i - 1].ty,
-                  '--rot': `${i === 0 ? -2 : PEEK_STACK[i - 1].rot}deg`,
-                  '--sc': i === 0 ? 1 : PEEK_STACK[i - 1].scale,
-                  zIndex: i === 0 ? 6 : PEEK_STACK[i - 1].z,
-                } as React.CSSProperties}
-                aria-hidden={i > 0}
-              >
-                <div className="peek-photo">
-                  {photo.src
-                    ? <img src={photo.src} alt={photo.caption} loading="lazy" draggable={false} />
-                    : <div className="peek-placeholder">
+        <div
+          className="memories-stage"
+          onClick={toggle}
+          role="button"
+          tabIndex={0}
+          aria-label={expanded ? 'Fold memories back into card deck' : 'Expand memories into a heart'}
+          onKeyDown={e => e.key === 'Enter' && toggle()}
+        >
+          {/* ── COLLAPSED: 1 Front Memory Card with Sneak Peek Stack Behind ── */}
+          {!expanded && (
+            <div className="peek-stack">
+              {photos.map((photo, i) => (
+                <figure
+                  key={i}
+                  className={`peek-card ${i === 0 ? 'is-front' : 'is-peek'}`}
+                  style={{
+                    '--tx': i === 0 ? '0px' : PEEK_STACK[i - 1].tx,
+                    '--ty': i === 0 ? '0px' : PEEK_STACK[i - 1].ty,
+                    '--rot': `${i === 0 ? -1 : PEEK_STACK[i - 1].rot}deg`,
+                    '--sc': i === 0 ? 1 : PEEK_STACK[i - 1].scale,
+                    zIndex: i === 0 ? 10 : PEEK_STACK[i - 1].z,
+                  } as React.CSSProperties}
+                  aria-hidden={i > 0}
+                >
+                  <div className="peek-photo">
+                    {photo.src ? (
+                      <img src={photo.src} alt={photo.caption} loading="lazy" draggable={false} />
+                    ) : (
+                      <div className="peek-placeholder">
                         <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
                           <rect x="3.5" y="5.5" width="25" height="21" rx="2" stroke="currentColor" />
                           <circle cx="11" cy="12" r="2.2" stroke="currentColor" />
@@ -587,48 +613,56 @@ function Memories() {
                         </svg>
                         <span>{birthdayContent.photoPlaceholder}</span>
                       </div>
-                  }
-                </div>
-                {i === 0 && (
-                  <figcaption className="peek-caption">{photo.caption}</figcaption>
-                )}
-              </figure>
-            ))}
-            {/* Faint heart watermark on front card */}
-            <div className="peek-heart-mark" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.8 8.8c0 5.1-8.8 11-8.8 11s-8.8-5.9-8.8-11A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.4Z" />
-              </svg>
-            </div>
-          </div>
-        )}
-
-        {/* ── EXPANDED: heart photo grid ── */}
-        {expanded && (
-          <div className="heart-grid-wrap">
-            <div className="heart-grid">
-              {HEART_CELLS.map(([row, col], idx) => {
-                const photo = photos[idx % photos.length];
-                return (
-                  <div
-                    key={idx}
-                    className="heart-cell"
-                    style={{
-                      gridRow: row + 1,
-                      gridColumn: col + 1,
-                      animationDelay: `${idx * 0.03}s`,
-                    }}
-                  >
-                    {photo.src
-                      ? <img src={photo.src} alt={photo.caption} loading="lazy" draggable={false} />
-                      : <div className="heart-cell-blank" />
-                    }
+                    )}
                   </div>
-                );
-              })}
+                  {i === 0 && (
+                    <figcaption className="peek-caption">
+                      <span>{photo.caption}</span>
+                      <span className="peek-heart-icon" aria-hidden="true">💛</span>
+                    </figcaption>
+                  )}
+                </figure>
+              ))}
+              <div className="peek-tap-badge">
+                <span>Tap to reveal</span>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+
+          {/* ── EXPANDED: 18-Tile Heart Mosaic Matching Reference Photo ── */}
+          {expanded && (
+            <div className="heart-mosaic-wrap">
+              <div className="heart-mosaic-grid">
+                {HEART_TILES.map((tile, idx) => {
+                  const photo = photos[idx % photos.length];
+                  const isLarge = Boolean(tile.rowSpan && tile.rowSpan > 1);
+                  return (
+                    <div
+                      key={idx}
+                      className={`heart-tile ${isLarge ? 'is-large' : ''}`}
+                      style={{
+                        gridRow: `${tile.row} / span ${tile.rowSpan || 1}`,
+                        gridColumn: `${tile.col} / span ${tile.colSpan || 1}`,
+                        animationDelay: `${idx * 0.025}s`,
+                      }}
+                      title={photo.caption}
+                    >
+                      {photo.src ? (
+                        <img src={photo.src} alt={photo.caption} loading="lazy" draggable={false} />
+                      ) : (
+                        <div className="heart-tile-placeholder">
+                          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
