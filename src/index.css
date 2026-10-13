@@ -442,15 +442,13 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   top: 0;
   left: 0;
   width: 100%;
-  height: 120px;
+  height: clamp(90px, 15vw, 155px);
   z-index: 1;
+  pointer-events: none;
+  overflow: visible;
 }
 .bunting-flag-g {
-  transform-origin: top center;
-}
-@keyframes bunting-sway {
-  0% { transform: rotate(-2deg); }
-  100% { transform: rotate(2deg); }
+  /* Static 3D pennants matching reference - no animation */
 }
 
 /* Decorative stars */

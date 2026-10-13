@@ -322,37 +322,61 @@ function CartoonySection() {
     }, 4000);
   };
 
-  /* SVG bunting flag colors */
-  const flagColors = ['#e74c3c','#e67e22','#f1c40f','#2ecc71','#1abc9c','#3498db','#9b59b6','#e84393'];
+  /* SVG bunting flags matching screenshot reference */
+  const buntingFlags = [
+    { t: 0.062, left: '#ee4d47', right: '#d7352f' }, // Red
+    { t: 0.188, left: '#f58733', right: '#dc6e1a' }, // Orange
+    { t: 0.316, left: '#f8c832', right: '#e3b11e' }, // Yellow
+    { t: 0.444, left: '#32be69', right: '#23a355' }, // Green
+    { t: 0.572, left: '#17bea7', right: '#0da38e' }, // Teal
+    { t: 0.700, left: '#459cf4', right: '#2e83de' }, // Blue
+    { t: 0.828, left: '#9762c9', right: '#7e49b0' }, // Purple
+    { t: 0.952, left: '#ed4d8e', right: '#d53476' }, // Pink
+  ];
 
   return (
     <section className="cartoony-section" aria-label="Birthday celebration decorations">
-      {/* SVG Bunting - curved rope with hanging flags */}
-      <svg className="bunting-svg" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M-10 15 Q250 85 500 55 Q750 25 1010 70" fill="none" stroke="#b8976a" strokeWidth="2.5" strokeLinecap="round" />
-        {flagColors.map((color, i) => {
-          const t = (i + 0.5) / flagColors.length;
-          const x = -10 + t * 1020;
-          const y = 15 + Math.sin(t * Math.PI) * 45 + (t < 0.5 ? t * 80 : (1 - t) * 80) * 0.3;
-          const rot = -8 + i * 2.5;
+      {/* SVG Bunting - curved rope with 3D pennant flags matching reference */}
+      <svg className="bunting-svg" viewBox="0 0 1000 190" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <filter id="bunting-shadow" x="-30%" y="-10%" width="160%" height="180%">
+            <feDropShadow dx="0" dy="4" stdDeviation="3.5" floodColor="#000000" floodOpacity="0.16" />
+          </filter>
+        </defs>
+
+        {/* 8 Bunting flags with 3D paper fold */}
+        {buntingFlags.map((flag, i) => {
+          const t = flag.t;
+          // Quadratic bezier: P0=(-20, 28), P1=(500, 185), P2=(1020, 18)
+          const x = (1 - t) * (1 - t) * (-20) + 2 * (1 - t) * t * 500 + t * t * 1020;
+          const y = (1 - t) * (1 - t) * 28 + 2 * (1 - t) * t * 185 + t * t * 18;
+          const dx = 2 * (1 - t) * (500 - (-20)) + 2 * t * (1020 - 500);
+          const dy = 2 * (1 - t) * (185 - 28) + 2 * t * (18 - 185);
+          const angleDeg = (Math.atan2(dy, dx) * 180) / Math.PI;
+
           return (
-            <g key={i} className="bunting-flag-g" style={{ animationDelay: `${i * 0.12}s` }}>
-              <polygon
-                points={`${x - 28},${y} ${x + 28},${y} ${x},${y + 52}`}
-                fill={color}
-                transform={`rotate(${rot} ${x} ${y + 26})`}
-                opacity="0.92"
-              />
-              {/* Chalk texture effect */}
-              <polygon
-                points={`${x - 22},${y + 5} ${x + 22},${y + 5} ${x},${y + 44}`}
-                fill="#fff"
-                opacity="0.12"
-                transform={`rotate(${rot} ${x} ${y + 26})`}
-              />
+            <g
+              key={i}
+              className="bunting-flag-g"
+              transform={`translate(${x.toFixed(1)}, ${y.toFixed(1)}) rotate(${angleDeg.toFixed(1)})`}
+              filter="url(#bunting-shadow)"
+            >
+              {/* Left facet (lighter) */}
+              <polygon points="-29,0 0,0 0,72" fill={flag.left} />
+              {/* Right facet (shaded) */}
+              <polygon points="0,0 29,0 0,72" fill={flag.right} />
             </g>
           );
         })}
+
+        {/* Hanging rope across top of flags */}
+        <path
+          d="M -20 28 Q 500 185 1020 18"
+          fill="none"
+          stroke="#bfa37c"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+        />
       </svg>
 
       <div className="cartoony-content">
