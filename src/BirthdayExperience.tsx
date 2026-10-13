@@ -1,6 +1,24 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { birthdayContent } from './content';
+import fahhhSound from './fahhh/fahhh_KcgAXfs.mp3';
+
+gsap.registerPlugin(ScrollTrigger);
+
+/**
+ * Plays the funny fahhh prank sound effect.
+ * Creates a fresh Audio instance per call to support rapid overlapping spam clicks!
+ */
+const playFahhh = () => {
+  try {
+    const audio = new Audio(fahhhSound || '/fahhh/fahhh_KcgAXfs.mp3');
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+  } catch {
+    // ignore
+  }
+};
 
 type Phase = 'opening' | 'wish' | 'story';
 type RevealOrigin = { x: number; y: number };
@@ -301,6 +319,180 @@ function GiftModal({ onClose }: { onClose: () => void }) {
   </div>;
 }
 
+function EndlessFireworks() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animId: number;
+    let width = (canvas.width = canvas.parentElement?.offsetWidth || window.innerWidth);
+    let height = (canvas.height = canvas.parentElement?.offsetHeight || 650);
+
+    const handleResize = () => {
+      if (!canvas || !canvas.parentElement) return;
+      width = canvas.width = canvas.parentElement.offsetWidth;
+      height = canvas.height = canvas.parentElement.offsetHeight;
+    };
+    window.addEventListener('resize', handleResize);
+
+    const colors = [
+      '#ffd700', '#ffb703', '#ff4d6d', '#ff758f', '#a06cd5',
+      '#3a86ff', '#00f5d4', '#fee440', '#ff0054', '#ffffff'
+    ];
+
+    interface Particle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      alpha: number;
+      decay: number;
+      color: string;
+      size: number;
+      gravity: number;
+      flicker: boolean;
+    }
+
+    interface Rocket {
+      x: number;
+      y: number;
+      targetY: number;
+      vy: number;
+      color: string;
+      trail: { x: number; y: number; alpha: number }[];
+    }
+
+    const particles: Particle[] = [];
+    const rockets: Rocket[] = [];
+
+    const createBurst = (x: number, y: number, baseColor?: string) => {
+      const color = baseColor || colors[Math.floor(Math.random() * colors.length)];
+      const count = 48 + Math.floor(Math.random() * 32);
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.4;
+        const speed = 2.2 + Math.random() * 5.2;
+        particles.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          alpha: 1,
+          decay: 0.012 + Math.random() * 0.016,
+          color: Math.random() > 0.25 ? color : colors[Math.floor(Math.random() * colors.length)],
+          size: 1.8 + Math.random() * 2.2,
+          gravity: 0.07,
+          flicker: Math.random() > 0.4,
+        });
+      }
+    };
+
+    const launchRocket = () => {
+      const x = width * (0.12 + Math.random() * 0.76);
+      const targetY = height * (0.12 + Math.random() * 0.45);
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      rockets.push({
+        x,
+        y: height,
+        targetY,
+        vy: - (6.5 + Math.random() * 4.5),
+        color,
+        trail: [],
+      });
+    };
+
+    createBurst(width * 0.25, height * 0.28);
+    createBurst(width * 0.75, height * 0.24);
+
+    let lastLaunch = 0;
+    let nextInterval = 400 + Math.random() * 450;
+
+    const render = (time: number) => {
+      animId = requestAnimationFrame(render);
+
+      if (time - lastLaunch > nextInterval) {
+        lastLaunch = time;
+        nextInterval = 380 + Math.random() * 520;
+        launchRocket();
+        if (Math.random() > 0.6) {
+          launchRocket();
+        }
+      }
+
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = rockets.length - 1; i >= 0; i--) {
+        const r = rockets[i];
+        r.y += r.vy;
+        r.trail.push({ x: r.x, y: r.y, alpha: 0.8 });
+        if (r.trail.length > 5) r.trail.shift();
+
+        for (const t of r.trail) {
+          ctx.beginPath();
+          ctx.arc(t.x, t.y, 1.5, 0, Math.PI * 2);
+          ctx.fillStyle = r.color;
+          ctx.globalAlpha = t.alpha;
+          ctx.fill();
+        }
+
+        ctx.beginPath();
+        ctx.arc(r.x, r.y, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff';
+        ctx.globalAlpha = 1;
+        ctx.fill();
+
+        if (r.y <= r.targetY || r.vy >= 0) {
+          createBurst(r.x, r.y, r.color);
+          rockets.splice(i, 1);
+        }
+      }
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += p.gravity;
+        p.vx *= 0.985;
+        p.vy *= 0.985;
+        p.alpha -= p.decay;
+
+        if (p.alpha <= 0) {
+          particles.splice(i, 1);
+          continue;
+        }
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.flicker && Math.random() > 0.5 ? p.alpha * 0.4 : p.alpha;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = p.color;
+        ctx.fill();
+        ctx.restore();
+      }
+    };
+
+    animId = requestAnimationFrame(render);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="cartoony-fireworks-canvas"
+      aria-hidden="true"
+    />
+  );
+}
+
 function CartoonySection() {
   const [candlesLit, setCandlesLit] = useState([true, true, true]);
   const [confettiBatches, setConfettiBatches] = useState<number[]>([]);
@@ -336,6 +528,7 @@ function CartoonySection() {
 
   return (
     <section className="cartoony-section" aria-label="Birthday celebration decorations">
+      <EndlessFireworks />
       {/* SVG Bunting - curved rope with 3D pennant flags matching reference */}
       <svg className="bunting-svg" viewBox="0 0 1000 190" preserveAspectRatio="none" aria-hidden="true">
         <defs>
@@ -559,9 +752,22 @@ const PEEK_STACK: { tx: string; ty: string; rot: number; scale: number; z: numbe
 
 function Memories() {
   const [expanded, setExpanded] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   const photos = birthdayContent.photos;
-  const toggle = () => setExpanded(v => !v);
+
+  const toggle = () => {
+    if (isClosing) return;
+    if (expanded) {
+      setIsClosing(true);
+      setTimeout(() => {
+        setExpanded(false);
+        setIsClosing(false);
+      }, 430);
+    } else {
+      setExpanded(true);
+    }
+  };
 
   return (
     <section className="memories" id="memories">
@@ -574,7 +780,10 @@ function Memories() {
       {/* Main interactive container with rounded shape and white + light yellow scheme */}
       <div className={`memories-container-card ${expanded ? 'is-expanded' : 'is-collapsed'}`}>
         <p className="memories-hint" aria-live="polite">
-          {expanded ? '✦ tap anywhere to fold back ✦' : '✦ tap to unfold our heart ✦'}
+          {expanded
+            ? (isClosing ? '✦ gathering memories… ✦' : '✦ tap anywhere to fold back ✦')
+            : '✦ tap to unfold our heart ✦'
+          }
         </p>
 
         <div
@@ -631,11 +840,15 @@ function Memories() {
 
           {/* ── EXPANDED: 18-Tile Heart Mosaic Matching Reference Photo ── */}
           {expanded && (
-            <div className="heart-mosaic-wrap">
+            <div className={`heart-mosaic-wrap ${isClosing ? 'is-closing' : 'is-opening'}`}>
               <div className="heart-mosaic-grid">
                 {HEART_TILES.map((tile, idx) => {
                   const photo = photos[idx % photos.length];
                   const isLarge = Boolean(tile.rowSpan && tile.rowSpan > 1);
+                  const animDelay = isClosing
+                    ? (HEART_TILES.length - 1 - idx) * 0.016
+                    : idx * 0.025;
+
                   return (
                     <div
                       key={idx}
@@ -643,7 +856,7 @@ function Memories() {
                       style={{
                         gridRow: `${tile.row} / span ${tile.rowSpan || 1}`,
                         gridColumn: `${tile.col} / span ${tile.colSpan || 1}`,
-                        animationDelay: `${idx * 0.025}s`,
+                        animationDelay: `${animDelay}s`,
                       }}
                       title={photo.caption}
                     >
@@ -675,21 +888,50 @@ function LetterSection({ onOpenGift }: { onOpenGift: () => void }) {
   const paperRef = useRef<HTMLDivElement>(null);
 
   const toggleLetter = () => {
+    playFahhh();
     if (!isOpen) {
       setIsOpen(true);
+      gsap.killTweensOf([flapRef.current, paperRef.current]);
       const tl = gsap.timeline();
-      tl.to(flapRef.current, { rotationX: 180, duration: 0.6, ease: 'power2.inOut', transformOrigin: 'top center' }, 0)
-        .set(flapRef.current, { zIndex: 1 }, 0.3)
-        .to(paperRef.current, { y: '-60%', duration: 0.7, ease: 'power2.out' }, 0.4)
-        .set(paperRef.current, { zIndex: 10 })
-        .to(paperRef.current, { y: '5%', scale: 1.05, duration: 0.6, ease: 'power3.out' });
+      tl.to(flapRef.current, {
+        rotationX: 180,
+        transformPerspective: 800,
+        duration: 0.4,
+        ease: 'power2.inOut',
+        transformOrigin: 'top center',
+      }, 0)
+      .set(flapRef.current, { zIndex: 1 }, 0.2)
+      .to(paperRef.current, {
+        y: '-70px',
+        duration: 0.38,
+        ease: 'power2.out',
+      }, 0.2)
+      .set(paperRef.current, { zIndex: 30 })
+      .to(paperRef.current, {
+        y: '-25px',
+        scale: 1.02,
+        duration: 0.32,
+        ease: 'power3.out',
+      });
     } else {
-      const tl = gsap.timeline({ onComplete: () => setIsOpen(false) });
-      tl.to(paperRef.current, { y: '-60%', scale: 1, duration: 0.6, ease: 'power2.inOut' }, 0)
-        .set(paperRef.current, { zIndex: 2 })
-        .to(paperRef.current, { y: '0%', duration: 0.7, ease: 'power2.in' }, 0.6)
-        .set(flapRef.current, { zIndex: 4 }, 1.0)
-        .to(flapRef.current, { rotationX: 0, duration: 0.6, ease: 'power2.inOut', transformOrigin: 'top center' }, 1.0);
+      setIsOpen(false);
+      gsap.killTweensOf([flapRef.current, paperRef.current]);
+      const tl = gsap.timeline();
+      tl.to(paperRef.current, {
+        y: 0,
+        scale: 1,
+        duration: 0.3,
+        ease: 'power2.inOut',
+      }, 0)
+      .set(paperRef.current, { zIndex: 2 }, 0.15)
+      .set(flapRef.current, { zIndex: 6 }, 0.15)
+      .to(flapRef.current, {
+        rotationX: 0,
+        transformPerspective: 800,
+        duration: 0.3,
+        ease: 'power2.inOut',
+        transformOrigin: 'top center',
+      }, 0.15);
     }
   };
 
@@ -697,7 +939,7 @@ function LetterSection({ onOpenGift }: { onOpenGift: () => void }) {
     <section className="letter-section" id="letter">
       <Floaties />
       
-      <div className="envelope-scene" style={{ position: 'relative', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '180px' }}>
+      <div className="envelope-scene">
         <div className="envelope-wrapper" ref={envelopeRef} onClick={toggleLetter}>
           <div className="envelope-back"></div>
           <div className="envelope-paper-wrap" ref={paperRef}>
@@ -750,6 +992,105 @@ function BirthdayExperience() {
 
   useEffect(() => {
     if (phase === 'story') window.setTimeout(() => treeRef.current?.scrollIntoView({ behavior: 'smooth' }), 80);
+  }, [phase]);
+
+  useEffect(() => {
+    if (phase !== 'story') return;
+
+    const timer = window.setTimeout(() => {
+      ScrollTrigger.refresh();
+
+      // Memories heading & card stage entrance
+      gsap.fromTo(
+        '.memories .section-heading',
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.memories',
+            start: 'top 80%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+
+      gsap.fromTo(
+        '.memories-stage',
+        { opacity: 0, scale: 0.94, y: 25 },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.95,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.memories-stage',
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+
+      // Leveled envelope entrance with subtle rise & soft scale
+      gsap.fromTo(
+        '.envelope-scene',
+        { opacity: 0, y: 40, scale: 0.96 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.envelope-scene',
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+
+      // Cartoony celebratory section & cake entrance
+      gsap.fromTo(
+        '.cartoony-content',
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.cartoony-section',
+            start: 'top 75%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+
+      gsap.fromTo(
+        '.svg-cake-wrap',
+        { opacity: 0, scale: 0.88, y: 25 },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 1,
+          ease: 'back.out(1.5)',
+          scrollTrigger: {
+            trigger: '.svg-cake-wrap',
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    }, 120);
+
+    return () => {
+      window.clearTimeout(timer);
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
   }, [phase]);
 
   return <main>
