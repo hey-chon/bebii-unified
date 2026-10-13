@@ -504,25 +504,142 @@ function CartoonySection() {
 }
 
 
+/* Heart positions: 6 cards arranged in a heart shape (as % of container) */
+const HEART_POSITIONS = [
+  { x: 28, y: 18, rot: -8  }, // top-left lobe
+  { x: 58, y: 18, rot:  8  }, // top-right lobe
+  { x: 13, y: 40, rot: -14 }, // left side
+  { x: 73, y: 40, rot:  14 }, // right side
+  { x: 28, y: 62, rot: -6  }, // lower-left
+  { x: 58, y: 62, rot:  6  }, // lower-right
+] as const;
+
+/* Sneak-peek offsets for the back cards (index 1–5) when collapsed */
+const PEEK_OFFSETS = [
+  { dx: -28, dy:  10, rot: -14, scale: 0.88 }, // behind, left
+  { dx:  28, dy:  10, rot:  12, scale: 0.88 }, // behind, right
+  { dx: -14, dy:  22, rot: -8,  scale: 0.82 },
+  { dx:  14, dy:  22, rot:  8,  scale: 0.82 },
+  { dx:   0, dy:  30, rot:  4,  scale: 0.76 },
+] as const;
+
 function Memories() {
-  return <section className="memories" id="memories">
-    <Floaties />
-    <header className="section-heading">
-      <p className="eyebrow">{birthdayContent.memoriesEyebrow}</p>
-      <h2>{birthdayContent.memoriesTitle}</h2>
-    </header>
-    <div className="memory-grid">
-      {birthdayContent.photos.map((photo, index) => <figure className="memory-card" key={`${photo.caption}-${index}`}>
-        <div className="photo-slot">
-          {photo.src ? <img src={photo.src} alt={photo.caption} loading="lazy" /> : <div className="photo-placeholder">
-            <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="3.5" y="5.5" width="25" height="21" rx="2" stroke="currentColor" /><circle cx="11" cy="12" r="2.2" stroke="currentColor" /><path d="m5 24 7-7 4 4 4-5 7 8" stroke="currentColor" strokeLinejoin="round" /></svg>
-            <span>{birthdayContent.photoPlaceholder}</span>
-          </div>}
-        </div>
-        <figcaption className="photo-caption">{photo.caption}</figcaption>
-      </figure>)}
-    </div>
-  </section>;
+  const [expanded, setExpanded] = useState(false);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const toggle = () => setExpanded(v => !v);
+
+  useEffect(() => {
+    const cards = cardRefs.current;
+    if (!containerRef.current) return;
+
+    if (expanded) {
+      /* Animate each card to its heart-shape position */
+      cards.forEach((el, i) => {
+        if (!el || !containerRef.current) return;
+        const cw = containerRef.current.offsetWidth;
+        const ch = containerRef.current.offsetHeight || cw * 0.85;
+        const { x, y, rot } = HEART_POSITIONS[i];
+        const targetX = (x / 100) * cw - cw * 0.5;
+        const targetY = (y / 100) * ch - ch * 0.5;
+        gsap.to(el, {
+          x: targetX,
+          y: targetY,
+          rotation: rot,
+          scale: 1,
+          opacity: 1,
+          zIndex: i + 1,
+          duration: 0.7 + i * 0.07,
+          ease: 'back.out(1.4)',
+          delay: i * 0.06,
+        });
+      });
+    } else {
+      /* Collapse: front card at center, others peek from behind */
+      cards.forEach((el, i) => {
+        if (!el) return;
+        if (i === 0) {
+          gsap.to(el, { x: 0, y: 0, rotation: -2, scale: 1, opacity: 1, zIndex: 6, duration: 0.55, ease: 'power3.out' });
+        } else {
+          const { dx, dy, rot, scale } = PEEK_OFFSETS[i - 1];
+          gsap.to(el, { x: dx, y: dy, rotation: rot, scale, opacity: 1, zIndex: 6 - i, duration: 0.55, ease: 'power3.out', delay: (i - 1) * 0.04 });
+        }
+      });
+    }
+  }, [expanded]);
+
+  /* Set initial peek positions without GSAP on mount */
+  useEffect(() => {
+    const cards = cardRefs.current;
+    cards.forEach((el, i) => {
+      if (!el) return;
+      if (i === 0) {
+        gsap.set(el, { x: 0, y: 0, rotation: -2, scale: 1, opacity: 1, zIndex: 6 });
+      } else {
+        const { dx, dy, rot, scale } = PEEK_OFFSETS[i - 1];
+        gsap.set(el, { x: dx, y: dy, rotation: rot, scale, opacity: 1, zIndex: 6 - i });
+      }
+    });
+  }, []);
+
+  return (
+    <section className="memories" id="memories">
+      <Floaties />
+      <header className="section-heading">
+        <p className="eyebrow">{birthdayContent.memoriesEyebrow}</p>
+        <h2>{birthdayContent.memoriesTitle}</h2>
+      </header>
+
+      {/* Hint text */}
+      <p className="memories-hint" aria-live="polite">
+        {expanded ? '✦ tap to fold back ✦' : '✦ tap to reveal all memories ✦'}
+      </p>
+
+      {/* Stack / Heart container */}
+      <div
+        className={`memory-stack-wrap${expanded ? ' is-heart' : ''}`}
+        ref={containerRef}
+        onClick={toggle}
+        role="button"
+        tabIndex={0}
+        aria-label={expanded ? 'Collapse memories' : 'Expand memories into heart shape'}
+        onKeyDown={e => e.key === 'Enter' && toggle()}
+      >
+        {birthdayContent.photos.map((photo, index) => (
+          <figure
+            className="memory-card-new"
+            key={`${photo.caption}-${index}`}
+            ref={el => { cardRefs.current[index] = el; }}
+          >
+            <div className="photo-slot-new">
+              {photo.src
+                ? <img src={photo.src} alt={photo.caption} loading="lazy" />
+                : <div className="photo-placeholder-new">
+                    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                      <rect x="3.5" y="5.5" width="25" height="21" rx="2" stroke="currentColor" />
+                      <circle cx="11" cy="12" r="2.2" stroke="currentColor" />
+                      <path d="m5 24 7-7 4 4 4-5 7 8" stroke="currentColor" strokeLinejoin="round" />
+                    </svg>
+                    <span>{birthdayContent.photoPlaceholder}</span>
+                  </div>
+              }
+            </div>
+            <figcaption className="photo-caption-new">{photo.caption}</figcaption>
+          </figure>
+        ))}
+
+        {/* Heart outline hint shown when collapsed */}
+        {!expanded && (
+          <div className="memory-heart-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M20.8 8.8c0 5.1-8.8 11-8.8 11s-8.8-5.9-8.8-11A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.4Z" stroke="currentColor" strokeWidth="1" fill="none" />
+            </svg>
+          </div>
+        )}
+      </div>
+    </section>
+  );
 }
 
 function LetterSection({ onOpenGift }: { onOpenGift: () => void }) {
