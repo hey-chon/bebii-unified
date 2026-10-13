@@ -256,8 +256,8 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   .scroll-cue{position:absolute;left:50%;transform:translateX(-50%);bottom:24px;white-space:nowrap;z-index:5}
  .memories{padding:84px 22px 100px}.section-heading{margin-bottom:42px}.memory-grid{grid-template-columns:repeat(6,1fr);gap:15px}.memory-card:nth-child(1){grid-column:1/span 4}.memory-card:nth-child(2){grid-column:4/span 3;margin-top:54px}.memory-card:nth-child(3){grid-column:1/span 3;margin-top:-20px}.memory-card:nth-child(4){grid-column:4/span 3;margin-top:0}.memory-card:nth-child(5){grid-column:1/span 4;margin-top:4px}.memory-card:nth-child(6){grid-column:4/span 3;margin-top:40px}.memory-card{padding:8px 8px 36px}.photo-caption{font-size:.85rem;bottom:9px}
  .letter-section{padding:86px 20px 100px}.letter-card{padding:42px 25px}.gift-modal{padding:46px 25px 34px}
- .cartoony-section{padding:120px 16px 60px}
- .bunting-svg{height:80px}
+ .cartoony-section{padding:130px 16px 60px}
+ .bunting-svg{height:95px}
  .svg-cake-wrap{max-width:260px}
  .deco-stars{height:40px}
  .cartoony-title{font-size:clamp(1.8rem,6vw,2.8rem)}
@@ -266,8 +266,8 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
  .envelope-scene{margin-top:120px!important}
 }
 @media(max-width:420px){.bow-stage{left:12px;}.hero-heart-wrap{margin-left:12%;}.tree-title{font-size:clamp(3.3rem,14vw,4.5rem)}.memory-grid{gap:11px}.memory-card{padding:7px 7px 32px}.photo-placeholder{font-size:.78rem}.photo-placeholder svg{width:25px;height:25px}.tree-copy{padding:30px 16px}.tree-art{padding:14px 4px 60px}.tree-art svg{width:98vw;max-width:500px;max-height:81svh;transform:scale(1.15);transform-origin:center center}
- .cartoony-section{padding:100px 12px 50px}
- .bunting-svg{height:65px}
+ .cartoony-section{padding:115px 12px 50px}
+ .bunting-svg{height:80px}
  .svg-cake-wrap{max-width:220px;margin:15px auto 10px}
  .deco-stars{height:30px;margin-bottom:5px}
  .cartoony-title{font-size:1.6rem}
@@ -421,7 +421,7 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 .cartoony-section {
   position: relative;
   background: radial-gradient(ellipse at 50% 42%, #fff9d1 0%, #ffea91 35%, #f0d56a 70%, #e5c44a 100%);
-  padding: 140px 20px 80px;
+  padding: 155px 20px 80px;
   overflow: hidden;
   text-align: center;
 }
@@ -629,8 +629,8 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 
 /* ── Extra responsive: very small phones ── */
 @media(max-width:360px){
-  .cartoony-section{padding:90px 10px 40px}
-  .bunting-svg{height:55px}
+  .cartoony-section{padding:95px 10px 40px}
+  .bunting-svg{height:68px}
   .svg-cake-wrap{max-width:190px}
   .cartoony-title{font-size:1.4rem}
   .cartoony-text{font-size:.85rem}
@@ -657,8 +657,8 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 
 /* ── Large desktop ── */
 @media(min-width:1400px){
-  .cartoony-section{padding:160px 40px 100px}
+  .cartoony-section{padding:170px 40px 100px}
   .cartoony-content{max-width:720px}
   .svg-cake-wrap{max-width:380px}
-  .bunting-svg{height:140px}
+  .bunting-svg{height:165px}
 }
