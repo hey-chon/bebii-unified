@@ -101,9 +101,9 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 .pull-copy span { display:block; font-size:.6rem; letter-spacing:.12em; margin-top:9px; opacity:.7; }
 .launch-button { border:1px solid rgba(150,85,94,.34); background:rgba(255,247,238,.56); color: #000000; border-radius:50px; padding:10px 18px; letter-spacing:.13em; font-size:.63rem; cursor:pointer; margin-top:15px; transition:background .25s,transform .25s; }
 .launch-button:hover { background:#fff7ed; transform:translateY(-2px); }
-.wish-interlude { min-height:100svh; display:grid; place-items:center; text-align:center; color: #000000; background:radial-gradient(ellipse at 50% 42%,#fff9d1 0%,#ffea91 47%,#ebd163 100%); overflow:hidden; }
+.wish-interlude { min-height:100svh; display:grid; place-items:center; text-align:center; color: #000000; background:radial-gradient(ellipse at 20% 25%,#ffe9a0 0%,#f5d978 30%,#e8c94e 60%,#dfc043 100%); overflow:hidden; }
 .wish-interlude { animation:maroon-reveal 2.4s cubic-bezier(.22,.61,.36,1) both; }
-.wish-interlude::after { content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at var(--reveal-x,50%) var(--reveal-y,42%),rgba(255,238,201,.46),rgba(242,192,174,.14) 12%,transparent 39%);mix-blend-mode:screen;animation:wish-afterglow 2.1s ease-out both; }
+.wish-interlude::after { content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 8% 12%,rgba(255,255,255,0.5) 0%,rgba(255,248,200,0.2) 30%,transparent 55%),radial-gradient(circle at var(--reveal-x,50%) var(--reveal-y,42%),rgba(255,238,201,.3),transparent 39%);}
 .tree-section { animation:fade-in .85s both; }
 .wish-content { position:relative; z-index:1; padding:50px 24px; }
 .wish-content::before { content:'';position:absolute;z-index:0;pointer-events:none;left:50%;top:50%;width:min(82vw,720px);aspect-ratio:1;border:1px solid rgba(255,223,184,.2);border-radius:50%;box-shadow:0 0 0 28px rgba(255,223,184,.035),0 0 0 72px rgba(255,223,184,.025);transform:translate(-50%,-50%) scale(.78);animation:wish-halo 2.4s .12s cubic-bezier(.18,.72,.2,1) both; }
@@ -113,6 +113,37 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 .gold-rule { width:118px;height:1px;background:#ebd28f;margin:30px auto;position:relative;transform:scaleX(0);transform-origin:center;animation:wish-rule-in .82s .62s cubic-bezier(.2,.8,.2,1) both; }
 .gold-rule::after {content:'âœ¦';position:absolute;left:50%;top:50%;transform:translate(-50%,-55%);font-size:12px;color: #000000;background:#ffea91;padding:0 8px;}
 .wish-subtitle { font:italic 1.25rem var(--app-font-serif);color: #000000;margin:0;opacity:0;animation:wish-line-in .9s .72s cubic-bezier(.2,.8,.2,1) both; }
+
+/* Wish sparkle particles */
+.wish-sparkles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+.wish-sparkle-dot {
+  position: absolute;
+  left: var(--wsd-left);
+  top: var(--wsd-top);
+  width: var(--wsd-size, 3px);
+  height: var(--wsd-size, 3px);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 8px 3px rgba(255, 245, 200, 0.5), 0 0 3px 1px rgba(255, 255, 255, 0.7);
+  animation: wish-sparkle-twinkle var(--wsd-dur) ease-in-out infinite;
+  animation-delay: var(--wsd-delay);
+}
+@keyframes wish-sparkle-twinkle {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(0.4);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.6);
+  }
+}
 .tree-section { min-height:100svh; display:flex; align-items:center; justify-content:space-between; background:radial-gradient(ellipse at 69% 56%,#ffffff 0%,transparent 53%),linear-gradient(115deg,#fffdf5,#fff8da); padding:12vh max(5vw,24px) 0; scroll-margin-top:24px; position:relative; overflow:hidden; }
 .tree-copy { position:relative;z-index:2;width:40%;max-width:480px; transform: translateY(-10vh); }
 .eyebrow { font-size:.67rem;letter-spacing:.22em;text-transform:uppercase;color: #000000; }
@@ -228,8 +259,6 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
  .cartoony-section{padding:120px 16px 60px}
  .bunting-svg{height:80px}
  .svg-cake-wrap{max-width:260px}
- .balloon-pair{gap:2px}
- .svg-balloon{width:36px;height:72px}
  .deco-stars{height:40px}
  .cartoony-title{font-size:clamp(1.8rem,6vw,2.8rem)}
  .confetti-btn{padding:12px 24px;font-size:1rem}
@@ -240,8 +269,6 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
  .cartoony-section{padding:100px 12px 50px}
  .bunting-svg{height:65px}
  .svg-cake-wrap{max-width:220px;margin:15px auto 10px}
- .balloon-pair{gap:0}
- .svg-balloon{width:30px;height:60px}
  .deco-stars{height:30px;margin-bottom:5px}
  .cartoony-title{font-size:1.6rem}
  .cartoony-text{font-size:.92rem}
@@ -393,10 +420,20 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 /* ── Cartoony Celebrate Section ── */
 .cartoony-section {
   position: relative;
-  background: linear-gradient(180deg, #fffef8 0%, #fffdf0 50%, #fff8da 100%);
+  background: radial-gradient(ellipse at 50% 42%, #fff9d1 0%, #ffea91 35%, #f0d56a 70%, #e5c44a 100%);
   padding: 140px 20px 80px;
   overflow: hidden;
   text-align: center;
+}
+/* Warm glow overlay like reference photo */
+.cartoony-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 12% 18%, rgba(255,255,255,0.45) 0%, transparent 50%),
+              radial-gradient(ellipse at 88% 82%, rgba(255,255,255,0.25) 0%, transparent 40%);
+  z-index: 0;
 }
 
 /* SVG Bunting across top */
@@ -410,7 +447,6 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 }
 .bunting-flag-g {
   transform-origin: top center;
-  animation: bunting-sway 3s ease-in-out infinite alternate;
 }
 @keyframes bunting-sway {
   0% { transform: rotate(-2deg); }
@@ -473,22 +509,71 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   animation: fade-in 0.6s ease-out both;
 }
 
-/* SVG Balloons */
-.balloon-pair {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 4px;
-  margin: 15px auto 20px;
+/* Floating golden hearts */
+.cartoony-floaty-hearts {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
 }
-.svg-balloon {
-  width: 48px;
-  height: 96px;
-  animation: balloon-bob 3.5s ease-in-out infinite alternate;
+.cartoony-float-heart {
+  position: absolute;
+  left: var(--cfh-left);
+  top: var(--cfh-top);
+  color: #c9a030;
+  opacity: 0.35;
+  animation: cartoony-heart-drift var(--cfh-dur) ease-in-out infinite alternate;
+  animation-delay: var(--cfh-delay);
 }
-@keyframes balloon-bob {
-  0% { transform: translateY(0) rotate(-3deg); }
-  100% { transform: translateY(-14px) rotate(3deg); }
+.cartoony-float-heart svg {
+  width: var(--cfh-size);
+  height: var(--cfh-size);
+  filter: drop-shadow(0 2px 6px rgba(180,140,40,0.25));
+}
+@keyframes cartoony-heart-drift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-12deg) scale(0.9);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate3d(15px, -25px, 0) rotate(12deg) scale(1.1);
+    opacity: 0.3;
+  }
+}
+
+/* Sparkle particles */
+.cartoony-sparkles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+.cartoony-sparkle-dot {
+  position: absolute;
+  left: var(--csd-left);
+  top: var(--csd-top);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 6px 2px rgba(255, 240, 180, 0.6);
+  animation: cartoony-sparkle-pulse var(--csd-dur) ease-in-out infinite;
+  animation-delay: var(--csd-delay);
+}
+@keyframes cartoony-sparkle-pulse {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.8);
+  }
 }
 
 /* Confetti button */
@@ -549,7 +634,6 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   .cartoony-section{padding:90px 10px 40px}
   .bunting-svg{height:55px}
   .svg-cake-wrap{max-width:190px}
-  .svg-balloon{width:24px;height:48px}
   .cartoony-title{font-size:1.4rem}
   .cartoony-text{font-size:.85rem}
   .confetti-btn{padding:9px 16px;font-size:.82rem;border-radius:20px}
@@ -578,6 +662,5 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   .cartoony-section{padding:160px 40px 100px}
   .cartoony-content{max-width:720px}
   .svg-cake-wrap{max-width:380px}
-  .svg-balloon{width:56px;height:112px}
   .bunting-svg{height:140px}
 }

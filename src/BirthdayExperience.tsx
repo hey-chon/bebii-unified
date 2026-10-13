@@ -252,8 +252,19 @@ function WishInterlude({ onAutoAdvance, revealOrigin }: { onAutoAdvance: () => v
   }, [onAutoAdvance]);
   return <section className="wish-interlude" aria-label={birthdayContent.wish.ariaLabel} style={{ '--reveal-x': `${revealOrigin.x}%`, '--reveal-y': `${revealOrigin.y}%` } as React.CSSProperties}>
     <Floaties />
+    {/* Sparkle particles matching golden atmosphere */}
+    <div className="wish-sparkles" aria-hidden="true">
+      {Array.from({ length: 30 }, (_, i) => (
+        <span key={`wsp-${i}`} className="wish-sparkle-dot" style={{
+          '--wsd-left': `${3 + (i * 19) % 94}%`,
+          '--wsd-top': `${5 + (i * 27) % 88}%`,
+          '--wsd-delay': `${(i * 0.29) % 4}s`,
+          '--wsd-dur': `${2 + (i % 5) * 0.6}s`,
+          '--wsd-size': `${2 + (i % 3)}px`
+        } as React.CSSProperties} />
+      ))}
+    </div>
     <div className="wish-content">
-      <p className="wish-overline">{birthdayContent.wish.overline}</p>
       <h1 className="wish-title">{birthdayContent.wish.title}</h1>
       <div className="gold-rule" />
       <p className="wish-subtitle">{birthdayContent.wish.subtitle}</p>
@@ -416,28 +427,35 @@ function CartoonySection() {
           {allBlown && <p className="wish-made">Your wish has been made!</p>}
         </div>
 
-        {/* SVG Balloons left and right of cake */}
-        <div className="balloon-pair">
+        {/* Floating golden hearts */}
+        <div className="cartoony-floaty-hearts" aria-hidden="true">
           {[
-            {cx:45,color:'#e74c3c',delay:0},{cx:85,color:'#f39c12',delay:0.6},{cx:65,color:'#3498db',delay:1.2},
-          ].map((b,i) => (
-            <svg key={`bl${i}`} className="svg-balloon" viewBox="0 0 60 120" style={{ animationDelay: `${b.delay}s` }}>
-              <line x1="30" y1="78" x2="30" y2="115" stroke="#999" strokeWidth="1" />
-              <ellipse cx="30" cy="45" rx="22" ry="32" fill={b.color} />
-              <ellipse cx="30" cy="78" rx="4" ry="3" fill={b.color} />
-              <ellipse cx="22" cy="34" rx="6" ry="10" fill="#fff" opacity="0.25" transform="rotate(-15 22 34)" />
-            </svg>
+            {left:5,top:18,size:22,delay:0,dur:6},{left:12,top:72,size:16,delay:1.2,dur:5},
+            {left:25,top:35,size:20,delay:2.4,dur:7},{left:42,top:80,size:14,delay:0.6,dur:5.5},
+            {left:58,top:15,size:24,delay:1.8,dur:6.5},{left:72,top:65,size:18,delay:3.0,dur:5},
+            {left:85,top:28,size:15,delay:0.9,dur:7},{left:93,top:55,size:20,delay:2.1,dur:6},
+            {left:35,top:50,size:12,delay:3.6,dur:5.5},{left:78,top:42,size:17,delay:1.5,dur:6},
+            {left:50,top:10,size:19,delay:0.3,dur:7.5},{left:18,top:58,size:13,delay:2.7,dur:5},
+          ].map((h, i) => (
+            <span key={`cfh-${i}`} className="cartoony-float-heart" style={{
+              '--cfh-left': `${h.left}%`, '--cfh-top': `${h.top}%`,
+              '--cfh-size': `${h.size}px`, '--cfh-delay': `${-h.delay}s`,
+              '--cfh-dur': `${h.dur}s`
+            } as React.CSSProperties}>
+              <HeartMark />
+            </span>
           ))}
-          <div style={{ width: 60 }}></div>
-          {[
-            {cx:45,color:'#2ecc71',delay:0.3},{cx:85,color:'#9b59b6',delay:0.9},{cx:65,color:'#e84393',delay:1.5},
-          ].map((b,i) => (
-            <svg key={`br${i}`} className="svg-balloon" viewBox="0 0 60 120" style={{ animationDelay: `${b.delay}s` }}>
-              <line x1="30" y1="78" x2="30" y2="115" stroke="#999" strokeWidth="1" />
-              <ellipse cx="30" cy="45" rx="22" ry="32" fill={b.color} />
-              <ellipse cx="30" cy="78" rx="4" ry="3" fill={b.color} />
-              <ellipse cx="22" cy="34" rx="6" ry="10" fill="#fff" opacity="0.25" transform="rotate(-15 22 34)" />
-            </svg>
+        </div>
+
+        {/* Sparkle particles */}
+        <div className="cartoony-sparkles" aria-hidden="true">
+          {Array.from({ length: 20 }, (_, i) => (
+            <span key={`csp-${i}`} className="cartoony-sparkle-dot" style={{
+              '--csd-left': `${5 + (i * 23) % 90}%`,
+              '--csd-top': `${8 + (i * 31) % 80}%`,
+              '--csd-delay': `${(i * 0.37) % 4}s`,
+              '--csd-dur': `${2.5 + (i % 4) * 0.5}s`
+            } as React.CSSProperties} />
           ))}
         </div>
 
