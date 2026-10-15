@@ -13,17 +13,6 @@ const CONFIG = {
   nickname: "Bebii", // used in the adventure game greetings
 };
 
-const NAV = [
-  { id: "wish", label: "Wish", icon: "star" },
-  { id: "memories", label: "Memories", icon: "camera" },
-  { id: "jar", label: "Jar", icon: "heart" },
-  { id: "gifts", label: "Gifts", icon: "gift" },
-  { id: "songs", label: "Songs", icon: "music" },
-  { id: "game", label: "Game", icon: "sparkles" },
-  { id: "adventure", label: "Adventure", icon: "chain" },
-  { id: "letter", label: "Letter", icon: "mail" },
-];
-
 // Set `photo` to an image URL to replace the pixel icon with a real picture.
 const MEMORIES = [
   { title: "The day we met", date: "Chapter one", icon: "coffee", bg: "#FFC4D6", rot: 0, photo: null,
@@ -123,14 +112,6 @@ const CSS = `
 .btn{cursor:pointer;display:inline-flex;align-items:center;justify-content:center;text-align:center;min-height:50px;gap:12px;padding:12px 20px;font-size:18px;font-weight:600;line-height:1.15;border:4px solid var(--line);background:var(--pink-lt);color:var(--ink);box-shadow:5px 5px 0 var(--line)}
 .btn:active{transform:translate(5px,5px);box-shadow:0 0 0 var(--line)}
 .btn.mint,.btn.pink{background:var(--pink-dk)}
-
-.nav{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:60;display:flex;gap:4px;padding:6px;background:var(--pink-lt);border:4px solid var(--line);box-shadow:5px 5px 0 var(--shd);max-width:calc(100vw - 16px);overflow-x:auto;scrollbar-width:none}
-.nav::-webkit-scrollbar{display:none}
-.nav button{display:inline-flex;align-items:center;gap:8px;border:0;background:transparent;font-size:16px;font-weight:500;color:var(--ink);min-height:44px;padding:0 12px;cursor:pointer;white-space:nowrap}
-.nav button:active{background:var(--pink-dp)}
-@media(max-width:899px){.nav{gap:2px}.nav .lb{display:none}.nav button{padding:0 12px}}
-@media(max-width:480px){.nav button{padding:0 9px}}
-@media(max-width:359px){.nav button{padding:0 7px}}
 
 /* hero (background kept exactly as before) */
 .hero{position:relative;min-height:100vh;min-height:100svh;padding:clamp(88px,14vw,108px) var(--gut) 0;background:radial-gradient(ellipse at 50% 22%,rgba(255,255,255,.72) 0%,rgba(255,255,255,0) 56%),linear-gradient(180deg,#FFE9F0 0%,#FFD6E2 48%,#FFC4D6 100%);text-align:center;overflow:hidden;display:flex;flex-direction:column;align-items:center;color:var(--ink)}
@@ -344,7 +325,6 @@ const CSS = `
 
 @media (hover:hover){
   .btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--line)}
-  .nav button:hover{background:var(--pink-dp)}
   .polaroid:hover,.gbtn:hover{transform:translateY(-6px)}
   .track:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--shd)}
   .mcard:hover:not(.up) .mflip{transform:translateY(-4px)}
@@ -390,11 +370,6 @@ function usePrefersReduced() {
     }
   }, []);
   return r;
-}
-
-function goTo(id) {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function Confetti({ burst }) {
@@ -2488,15 +2463,6 @@ export default function BirthdaySite() {
     <div className="bd">
       <style>{CSS}</style>
       <Confetti burst={burst} />
-
-      <nav className="nav" aria-label="Sections">
-        {NAV.map(({ id, label, icon }) => (
-          <button key={id} onClick={() => goTo(id)} aria-label={label}>
-            <Ico n={icon} px={2} />
-            <span className="lb">{label}</span>
-          </button>
-        ))}
-      </nav>
 
       <Hero fire={fire} />
 
