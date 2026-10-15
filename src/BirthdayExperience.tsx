@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { birthdayContent } from './content';
+import PixelBirthdaySite from './PixelBirthdaySite';
 import fahhhSound from './fahhh/fahhh_KcgAXfs.mp3';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -1230,6 +1231,7 @@ function BirthdayExperience() {
       <Memories />
       <LetterSection onOpenGift={() => setGiftOpen(true)} />
       <CartoonySection />
+      <PixelBirthdaySite />
     </>}
     {giftOpen && <GiftModal onClose={() => setGiftOpen(false)} />}
   </main>;
