@@ -39,8 +39,8 @@ const REASONS = [
 
 const GIFTS = [
   { text: "Flower bouquet poo hehe, kahit nabigay koo napo sayo nung nag moa us hehe :>", icon: "star", c: "#B9A6FF", r: "#FFF0F4" },
-  { text: "A Birthday Surprise website you can visit anytime bebii koo hehe, I made this for you poo :>.", icon: "star", c: "#8FD9B6", r: "#FFF0F4" },
-  { text: "Siyempre ang napaka pogi mo poo na bebii habii, akooooooooo :>", icon: "star", c: "#FFC15E", r: "#FFF0F4" },
+  { text: "A Birthday Surprise website you can visit anytime bebii koo hehe, I made this for you poo :>", icon: "star", c: "#8FD9B6", r: "#FFF0F4" },
+  { text: "Siyempre ang napaka pogi mo poo na bebii habii pa-birthday gift koo rin poo sayo ay akooooo :>", icon: "star", c: "#FFC15E", r: "#FFF0F4" },
 ];
 
 const TRACKS = [
