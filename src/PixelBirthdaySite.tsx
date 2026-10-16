@@ -1305,7 +1305,7 @@ function Footer() {
         <Pixel rows={SP_CAT_SLEEP} pal={CAT_PAL} px={10} className="breathe" />
       </div>
       <h2>Happy birthday, {CONFIG.name}.</h2>
-      <p className="hand">Made with love by {CONFIG.from}</p>
+      <p className="hand">Made with love by <a href="https://chon-dev.vercel.app" target="_blank">Jimson</a></p>
     </footer>
   );
 }
