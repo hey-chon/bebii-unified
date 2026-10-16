@@ -801,7 +801,7 @@ function Memories() {
           {/* ── COLLAPSED: 1 Front Memory Card with Sneak Peek Stack Behind ── */}
           {!expanded && (
             <div className="peek-stack">
-              {photos.map((photo, i) => (
+              {photos.slice(0, PEEK_STACK.length + 1).map((photo, i) => (
                 <figure
                   key={i}
                   className={`peek-card ${i === 0 ? 'is-front' : 'is-peek'}`}
@@ -824,7 +824,7 @@ function Memories() {
                           <circle cx="11" cy="12" r="2.2" stroke="currentColor" />
                           <path d="m5 24 7-7 4 4 4-5 7 8" stroke="currentColor" strokeLinejoin="round" />
                         </svg>
-                        <span>{birthdayContent.photoPlaceholder}</span>
+                        <span>📷</span>
                       </div>
                     )}
                   </div>
