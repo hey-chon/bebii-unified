@@ -6,7 +6,7 @@ import React, { useState, useEffect, useMemo, useCallback, useRef } from "react"
 /*  EDIT THIS BLOCK: names, dates, and all the personal copy           */
 /* ------------------------------------------------------------------ */
 const CONFIG = {
-  name: "My Lovely Bebii",
+  name: "My Bebii",
   from: "Your handsome bebii",
   birthday: new Date(2026, 9, 17, 0, 0, 0),
   dateLabel: "October 17, 2026",
@@ -50,7 +50,7 @@ const TRACKS = [
   { title: "Midnight Snack", note: "For the best conversations of the week.", c: "#C9B6FF" },
 ];
 
-const LETTER = `Happy birthday, ${CONFIG.name}.
+const LETTER = `Happy Birthday, ${CONFIG.name}.
 
 I wanted to make you something that feels the way you feel to me: warm, a little silly, and impossible to rush through. So here is a tiny cozy corner of the internet where every tap is a small present.
 
@@ -62,8 +62,8 @@ Always yours,
 ${CONFIG.from}`;
 
 const PAIRS = [
-  { k: "coffee", icon: "coffee" }, { k: "cat", icon: "cat" }, { k: "flower", icon: "flower" },
   { k: "cookie", icon: "cookie" }, { k: "moon", icon: "moon" }, { k: "star", icon: "star" },
+  { k: "coffee", icon: "coffee" }, { k: "cat", icon: "cat" }, { k: "flower", icon: "flower" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -801,7 +801,7 @@ function Wishes() {
   return (
     <>
       <div className="sky" aria-live="polite">
-        {items.length === 0 && <p className="empty hand">Type a wish below and release it into the sky.</p>}
+        {items.length === 0 && <p className="empty hand">Type a wish below and send it to the container!</p>}
         {items.map((it) => (
           <div className="lantern" key={it.id} style={{ left: it.x + "%", "--h": it.h + "%", "--c": it.c }}>
             <div className="lbody" />
@@ -2468,7 +2468,7 @@ export default function BirthdaySite() {
 
       <Section
         id="wish" icon="star"
-        title="Send a wish to the sky" sub="Every lantern carries one wish. Write as many as you like."
+        title="Make a wish" sub="Every type carries one wish. Write as many as you like."
         decor={[["star", "18%", ["left", "5%"], 5, "#FFC15E", 0], ["moon", "60%", ["right", "6%"], 5, "#FFF0C2", 1.5]]}
       >
         <Wishes />
