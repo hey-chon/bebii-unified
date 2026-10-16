@@ -44,11 +44,14 @@ const GIFTS = [
 ];
 
 const TRACKS = [
-  { title: "About You", note: "The 1975", c: "#7FD0F5" },
-  { title: "Just the Way You Are", note: "Bruno Mars", c: "#8FD9B6" },
-  { title: "Iris", note: "Goo Goo Dolls", c: "#FFC15E" },
-  { title: "Perfect", note: "Ed Sheeran", c: "#C9B6FF" },
+  { title: "About You", note: "The 1975", c: "#7FD0F5", src: "/music/The 1975 - About You (Official) (1).mp3" },
+  { title: "Just the Way You Are", note: "Bruno Mars", c: "#8FD9B6", src: "/music/Bruno Mars - Just The Way You Are (Lyrics).mp3" },
+  { title: "Iris", note: "Goo Goo Dolls", c: "#FFC15E", src: "/music/Goo Goo Dolls - Iris.mp3" },
+  { title: "Perfect", note: "Ed Sheeran", c: "#C9B6FF", src: "/music/Ed Sheeran - Perfect.mp3" },
 ];
+
+/* reference to the background music audio so the game can pause it */
+let bgMusicAudio = null;
 
 const LETTER = `Happy Birthday, ${CONFIG.name}.
 
@@ -914,7 +917,7 @@ function Jar() {
       <div>
         {cur === null ? (
           <div className="notecard sticker idle">
-            <p className="hand">Pull a note from the jar to read your first reason.</p>
+            <p className="hand">Pull a note from the jar to read it hehe.</p>
           </div>
         ) : (
           <div key={tick} className="notecard sticker">
@@ -1016,6 +1019,24 @@ function Songs() {
   const [idx, setIdx] = useState(0);
   const [playing, setPlaying] = useState(false);
   const t = TRACKS[idx];
+  const audio = useRef(null);
+  useEffect(() => {
+    if (!audio.current) {
+      audio.current = new Audio(t.src);
+      bgMusicAudio = audio.current;
+    } else {
+      audio.current.src = t.src;
+    }
+    if (playing) {
+      audio.current.play().catch(() => {});
+    } else {
+      audio.current.pause();
+    }
+    return () => {
+      audio.current.pause();
+      audio.current.src = "";
+    };
+  }, [t.src, playing]);
   const choose = (i) => {
     setIdx(i);
     setPlaying(true);
@@ -1213,18 +1234,23 @@ function Letter({ fire }) {
     }, 26);
     return () => clearInterval(t);
   }, [open, reduced]);
-  const doOpen = () => {
-    if (open) return;
+  const toggleLetter = () => {
+    setN(0);
+    if (open) {
+      setOpen(false);
+      return;
+    }
     setOpen(true);
     fire();
   };
   const typing = open && n < LETTER.length;
   return (
     <>
-      <button className={"envbtn" + (open ? " eopen" : "")} onClick={doOpen} aria-label="Open the letter">
+      <button className={"envbtn" + (open ? " eopen" : "")} onClick={toggleLetter} aria-label={open ? "Close the letter" : "Open the letter"}>
         <Envelope open={open} />
       </button>
       {!open && <p className="hand hint">Tap the envelope to open your letter</p>}
+      {open && <p className="hand hint">Tap the envelope to close your letter</p>}
       <div className={"paperwrap" + (open ? " show" : "")}>
         <div className="paperin">
           <div className="paper hand">
@@ -1272,43 +1298,20 @@ function Footer() {
 /*  ADVENTURE GAME: "Tied Together" (built by Claude)                  */
 /*  Optimized: cached glow/text sprites, pauses when off-screen,       */
 /*  steady 60 Hz stepping, compositor-only DOM updates.                */
-/*  Edit the 17 NOTES below: one memory per gem.                       */
-/* ------------------------------------------------------------------ */
 const W = 320, H = 180, G = 0.28, JUMP = -5.7, RUN = 1.7, CHAIN = 62, N = 118;
 const DEFAULT_MESSAGE = "Seventeen gems, one very long chain, and I'd climb every one of those roofs again. Happy golden birthday.";
-// Replace these with your own memories, one per gem (17 total).
-const NOTES = [
-    "Still my favorite person to be tied to.",
-    "You make ordinary days feel like they have a soundtrack.",
-    "I'd pick your side of the chain any day.",
-    "Seventeen looks good on you.",
-    "Your laugh is the best sound there is.",
-    "Quiet days with you are my favorite kind.",
-    "You make me braver.",
-    "Thank you for being so easy to love.",
-    "Another one. We make a good team.",
-    "I like who I am around you.",
-    "No rush. We've got time.",
-    "You were the best surprise.",
-    "Every road gets cozier with you on it.",
-    "Proud of you, always.",
-    "Almost at the top. Look how far we've come.",
-    "One more, then cake.",
-    "That's all seventeen. Go find the cake.",
-];
 const ROOMS = [
-    { name: "Living room", say: "Lead the way. I'll keep up.", wall: "#e6cfb0", wain: "#a9754f", floor: "#b88a5e", curt: "#c9785f", top: "#c99a68", body: "#8f6444", edge: "#6b4a37", flower: "#c97b84", lamp: "#f3d595" },
-    { name: "Kitchen", say: "Smells like cookies. Keep going.", wall: "#b8c9a6", wain: "#e8e0cc", floor: "#c9b48e", curt: "#e8c46a", top: "#f0e8d6", body: "#b5895e", edge: "#8a6446", flower: "#d9826a", lamp: "#f6dc9a" },
-    { name: "Library nook", say: "A draft from the window. Hold on!", wall: "#5f7a6c", wain: "#4a3328", floor: "#6b4a37", curt: "#8b4a52", top: "#8b6a4c", body: "#5a3f33", edge: "#3e2b23", flower: "#e0b86a", lamp: "#f8d98d" },
-    { name: "Bedroom", say: "Soft blankets everywhere. Stay close.", wall: "#d9aeb4", wain: "#f1e4dc", floor: "#c9a27a", curt: "#a8b8d0", top: "#f1e4dc", body: "#c98f8f", edge: "#9a6a6a", flower: "#f6e3a1", lamp: "#ffe0a8" },
-    { name: "The attic", say: "Almost there. I can smell cake.", wall: "#43405e", wain: "#2f2c45", floor: "#5b4636", curt: "#d9826a", top: "#c9a45c", body: "#6b5a52", edge: "#3a2f36", flower: "#f6e1a6", lamp: "#ffe39a" },
+    { name: "The Living Room", say: "Lead the way. I'll keep up.", wall: "#e6cfb0", wain: "#a9754f", floor: "#b88a5e", curt: "#c9785f", top: "#c99a68", body: "#8f6444", edge: "#6b4a37", flower: "#c97b84", lamp: "#f3d595" },
+    { name: "The Kitchen", say: "Smells like cookies. Keep going.", wall: "#b8c9a6", wain: "#e8e0cc", floor: "#c9b48e", curt: "#e8c46a", top: "#f0e8d6", body: "#b5895e", edge: "#8a6446", flower: "#d9826a", lamp: "#f6dc9a" },
+    { name: "The Library", say: "A draft from the window. Hold on!", wall: "#5f7a6c", wain: "#4a3328", floor: "#6b4a37", curt: "#8b4a52", top: "#8b6a4c", body: "#5a3f33", edge: "#3e2b23", flower: "#e0b86a", lamp: "#f8d98d" },
+    { name: "The Bedroom", say: "Soft blankets everywhere. Stay close.", wall: "#d9aeb4", wain: "#f1e4dc", floor: "#c9a27a", curt: "#a8b8d0", top: "#f1e4dc", body: "#c98f8f", edge: "#9a6a6a", flower: "#f6e3a1", lamp: "#ffe0a8" },
+    { name: "The Attic", say: "Almost there. I can smell cake.", wall: "#43405e", wain: "#2f2c45", floor: "#5b4636", curt: "#d9826a", top: "#c9a45c", body: "#6b5a52", edge: "#3a2f36", flower: "#f6e1a6", lamp: "#ffe39a" },
 ];
 const BASE = [
-    { name: "Morning meadow", say: "Lead the way. I'll keep up.", sky: ["#f8e3c4", "#f4cfa8", "#efb995"], far: "#e6c3a6", near: "#d3a78c", top: "#8fae6e", body: "#a47b5a", edge: "#6f8a52", flower: "#f3d8a0", lamp: "#cdb48c" },
-    { name: "Rooftop hours", say: "Warm tiles. Watch your step.", sky: ["#f7d9a9", "#f1bb90", "#e69f88"], far: "#dba58e", near: "#c68578", top: "#bd6c56", body: "#dcb890", edge: "#8d4e44", flower: "#f6e0b0", lamp: "#e9c98e" },
-    { name: "Above the clouds", say: "Don't look down. I've got the chain.", sky: ["#f3cdbb", "#e9aeaa", "#cf93a8"], far: "#dba9b0", near: "#c78f9f", top: "#fbf1e6", body: "#e9ddd8", edge: "#cbbdb9", flower: "#f4c7c3", lamp: "#f1d9b0" },
-    { name: "Lantern dusk", say: "Lanterns. Stay close.", sky: ["#c48a8f", "#9a7092", "#665d86"], far: "#8b6c92", near: "#6d587f", top: "#7c9a84", body: "#4e5f68", edge: "#3e4c54", flower: "#e9b6a4", lamp: "#f8d98d" },
-    { name: "The summit", say: "Almost there. I can smell cake.", sky: ["#3b4a6b", "#2d3a58", "#222c47"], far: "#3f4d6c", near: "#33405c", top: "#e0c27c", body: "#5a5078", edge: "#9d8450", flower: "#f6e1a6", lamp: "#ffe39a" },
+    { name: "The Rooftop", say: "Warm tiles. Watch your step.", sky: ["#f7d9a9", "#f1bb90", "#e69f88"], far: "#dba58e", near: "#c68578", top: "#bd6c56", body: "#dcb890", edge: "#8d4e44", flower: "#f6e0b0", lamp: "#e9c98e" },
+    { name: "Above the Clouds", say: "Don't look down. I've got the chain.", sky: ["#f3cdbb", "#e9aeaa", "#cf93a8"], far: "#dba9b0", near: "#c78f9f", top: "#fbf1e6", body: "#e9ddd8", edge: "#cbbdb9", flower: "#f4c7c3", lamp: "#f1d9b0" },
+    { name: "The Lantern", say: "Lanterns. Stay close.", sky: ["#c48a8f", "#9a7092", "#665d86"], far: "#8b6c92", near: "#6d587f", top: "#7c9a84", body: "#4e5f68", edge: "#3e4c54", flower: "#e9b6a4", lamp: "#f8d98d" },
+    { name: "The Summit", say: "Almost there. I can smell cake.", sky: ["#3b4a6b", "#2d3a58", "#222c47"], far: "#3f4d6c", near: "#33405c", top: "#e0c27c", body: "#5a5078", edge: "#9d8450", flower: "#f6e1a6", lamp: "#ffe39a" },
 ];
 const ZONES = BASE.map((z, i) => ({ ...z, ...ROOMS[i] }));
 const CH = [[261.63, 329.63, 392, 493.88], [220, 261.63, 329.63, 392], [174.61, 220, 261.63, 329.63], [196, 246.94, 293.66, 329.63]];
@@ -2061,6 +2064,7 @@ const GAME_CSS = `
 .ct-card p{margin:.4em 0}
 .ct-card .btn{min-height:40px;padding:8px 18px;font-size:clamp(13px,2.4vw,18px);margin-top:.8em}
 .ct-again{display:flex;justify-content:center;margin-top:24px}
+.ct-end-msg{text-align:center;margin-top:20px;font-size:clamp(14px,2.5vw,20px);line-height:1.4;color:var(--ink);text-shadow:1px 1px 0 #fff;max-width:min(400px,92%);margin-left:auto;margin-right:auto}
 .ct-polaroid{position:absolute;left:3%;top:14%;width:20%;aspect-ratio:1;object-fit:cover;image-rendering:auto;background:var(--pink-lt);border:3px solid var(--line);padding:.35em .35em 1.2em;animation:ct-fade 3s both;pointer-events:none}
 @media (max-width:520px){.ct-hud,.ct-mute{min-height:24px;border-width:2px;padding:.1em .5em;box-shadow:2px 2px 0 rgba(42,31,77,.35);top:2.5%}}
 .ct-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -2096,7 +2100,6 @@ function ChainedAdventure({ herName = "love", hisName = "me", title = "Tied Toge
   const live = useRef(false); // the section is on screen
   const [count, setCount] = useState(0);
   const [bubble, setBubble] = useState("");
-  const [note, setNote] = useState("");
   const [banner, setBanner] = useState("");
   const [wish, setWish] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -2258,7 +2261,7 @@ function ChainedAdventure({ herName = "love", hisName = "me", title = "Tied Toge
               phys(him);
               s.lag = dist > CHAIN * 1.5 ? s.lag + 1 : 0;
               if (s.lag > 70 || him.y > H + 30)
-                  rescue(s, "Found you. Keep going.");
+                  rescue(s, "Let's goo bebii. Keep going.");
               if (her.y > H + 20) {
                   her.x = s.safe.x;
                   her.y = s.safe.y;
@@ -2376,6 +2379,10 @@ function ChainedAdventure({ herName = "love", hisName = "me", title = "Tied Toge
   }, [flash]);
 
   const start = () => {
+    // pause background music from the music section when the game begins
+    if (bgMusicAudio) {
+      bgMusicAudio.pause();
+    }
     window.clearTimeout(timers.current.end);
     LEVEL.p.forEach((p) => { p.c = -1; p.gone = 0; });
     st.current = fresh();
@@ -2426,7 +2433,7 @@ function ChainedAdventure({ herName = "love", hisName = "me", title = "Tied Toge
           {phase === "end" && (
             <>
               {photos.length > 0 && <img key={Math.floor(gn / 2)} className="ct-polaroid" src={photos[Math.floor(gn / 2) % photos.length]} alt="" />}
-              <span className="ct-sr">Happy 17th birthday, {herName}. {finalMessage}</span>
+              <div className="ct-end-msg">Happy 17th birthday, {herName}. {finalMessage}</div>
             </>
           )}
         </div>
