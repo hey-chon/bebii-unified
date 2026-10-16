@@ -780,13 +780,6 @@ function Memories() {
 
       {/* Main interactive container with rounded shape and white + light yellow scheme */}
       <div className={`memories-container-card ${expanded ? 'is-expanded' : 'is-collapsed'}`}>
-        <p className="memories-hint" aria-live="polite">
-          {expanded
-            ? (isClosing ? '✦ gathering memories… ✦' : '✦ tap anywhere to fold back ✦')
-            : '✦ tap to unfold our heart ✦'
-          }
-        </p>
-
         <div
           className="memories-stage"
           onClick={toggle}

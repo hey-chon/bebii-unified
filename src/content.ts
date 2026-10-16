@@ -25,7 +25,7 @@ export const birthdayContent = {
     src: '',
     alt: 'A placeholder for my bebii’s portrait',
   },
-  memoriesTitle: 'Beautiful Memories',
+  memoriesTitle: 'Crazy Beautiful You',
   memoriesEyebrow: 'A collection of us',
   photos: [
     { src: '', caption: '' },
