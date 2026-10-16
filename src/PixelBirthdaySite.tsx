@@ -44,10 +44,10 @@ const GIFTS = [
 ];
 
 const TRACKS = [
-  { title: "Slow Dance in the Kitchen", note: "For socks on the floor and nowhere to be.", c: "#7FD0F5" },
-  { title: "Rainy Window", note: "For tea, blankets, and a quiet afternoon.", c: "#8FD9B6" },
-  { title: "Golden Hour", note: "For the drive home with the windows down.", c: "#FFC15E" },
-  { title: "Midnight Snack", note: "For the best conversations of the week.", c: "#C9B6FF" },
+  { title: "About You", note: "The 1975", c: "#7FD0F5" },
+  { title: "Just the Way You Are", note: "Bruno Mars", c: "#8FD9B6" },
+  { title: "Iris", note: "Goo Goo Dolls", c: "#FFC15E" },
+  { title: "Perfect", note: "Ed Sheeran", c: "#C9B6FF" },
 ];
 
 const LETTER = `Happy Birthday, ${CONFIG.name}.
