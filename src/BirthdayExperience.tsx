@@ -201,7 +201,7 @@ function Opening({ onRelease }: { onRelease: (origin: RevealOrigin) => void }) {
   const movePull = (event: React.PointerEvent<SVGCircleElement>) => {
     if (!pointerDown.current || !stageRef.current) return;
     const rect = stageRef.current.getBoundingClientRect();
-    setPull(Math.max(0, Math.min(90, beganAt.current - event.clientX + (event.clientY - rect.top) * .08)));
+    setPull(Math.max(0, Math.min(120, beganAt.current - event.clientX + (event.clientY - rect.top) * .08)));
   };
 
   const keyboardRelease = (event: React.KeyboardEvent<HTMLButtonElement>) => {
