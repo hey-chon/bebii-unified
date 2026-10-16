@@ -26,15 +26,15 @@ const MEMORIES = [
 ];
 
 const REASONS = [
-  "You make ordinary days feel like a small celebration.",
-  "Your laugh is my favorite sound in the whole world.",
-  "You are kind to people even when no one is watching.",
-  "Being quiet next to you is my favorite way to spend an evening.",
-  "You notice the little things, and you make them matter.",
-  "You make home feel like a person, not a place.",
-  "You believe in me on the days I forget how.",
-  "Your smile fixes a bad day faster than anything else.",
-  "You are the best part of every plan I make.",
+  "Your laugh is one of my favorite sounds bebii with matching kurot grrrr.",
+  "Your presence makes my day complete bebii koo.",
+  "You make my life better bebii koo, thankyousomuch for everything.",
+  "I want you to know poo na ikaw lang ang gusto kong mayakap sa pag gising at pag tulog.",
+  "You believe in me na kaya koo poo bebii koo always and in all ways.",
+  "You make home feel like a person, not a place and it was all you.",
+  "You believe in me on the days I forget how bebii koo, and I'm very thankful to have you poo bebii.",
+  "Your smile fixes a bad day faster than anything else hehe.",
+  "I want you to know poo na you're the best part of every plan we make.",
 ];
 
 const GIFTS = [
@@ -910,7 +910,6 @@ function Jar() {
           <Ico n="heart" px={3} />
           Pull a note
         </button>
-        <span className="count">{seen.length} of {REASONS.length} notes read</span>
       </div>
       <div>
         {cur === null ? (
@@ -2468,7 +2467,7 @@ export default function BirthdaySite() {
 
       <Section
         id="wish" icon="star"
-        title="Make a wish" sub="Every type carries one wish. Write as many as you like."
+        title="Make a wish" sub="Every type carries one wish. Write as many as you want."
         decor={[["star", "18%", ["left", "5%"], 5, "#FFC15E", 0], ["moon", "60%", ["right", "6%"], 5, "#FFF0C2", 1.5]]}
       >
         <Wishes />
@@ -2488,7 +2487,7 @@ export default function BirthdaySite() {
 
       <Section
         id="jar" icon="heart"
-        title="Reasons I love you" sub="The jar never runs out. Pull a note whenever you need one."
+        title="Pull A Note" sub="The jar contains lovely notes. Pull a note to make you kilig."
         decor={[["sparkles", "16%", ["right", "6%"], 5, "#FFC15E", 0.5], ["coffee", "74%", ["left", "5%"], 5, "#FFFFFF", 2]]}
       >
         <Jar />
