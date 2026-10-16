@@ -15,14 +15,14 @@ const CONFIG = {
 
 // Set `photo` to an image URL to replace the pixel icon with a real picture.
 const MEMORIES = [
-  { title: "The day we met", date: "Chapter one", icon: "coffee", bg: "#FFC4D6", rot: 0, photo: null,
-    note: "I did not know it yet, but that was the day everything got a little softer." },
-  { title: "Our first date", date: "Chapter two", icon: "flower", bg: "#FFB4CB", rot: 0, photo: null,
-    note: "I was nervous, you were wonderful, and the evening ended far too fast." },
-  { title: "A very silly adventure", date: "Chapter three", icon: "camera", bg: "#FFD0DE", rot: 0, photo: null,
-    note: "Proof that any plan is a good plan when you are in it." },
-  { title: "Cozy nights in", date: "Chapter four", icon: "moon", bg: "#FFBCD2", rot: 0, photo: null,
-    note: "Blankets, snacks, and you. I would pick this over anywhere." },
+  { title: "Flip", date: "- Jimson", icon: "coffee", bg: "#FFC4D6", rot: 0, photo: null,
+    note: "Don't forget to eat poo sa tamang oras bebii koo, wag poo magpapalipas ng gutom."},
+  { title: "Flip", date: "- Jimson", icon: "flower", bg: "#FFB4CB", rot: 0, photo: null,
+    note: "I want you to know how enough you are for me bebii koo, you're wonderful and amazing as always." },
+  { title: "Flip", date: "- Jimson", icon: "camera", bg: "#FFD0DE", rot: 0, photo: null,
+    note: "I want you to know how pretty, gorgeous, beautiful and cutiee you are bebii koo." },
+  { title: "Flip", date: "- Jimson", icon: "moon", bg: "#FFBCD2", rot: 0, photo: null,
+    note: "I want you to know that you're the only one I've been thinking before I sleep and when I wake up." },
 ];
 
 const REASONS = [
@@ -820,7 +820,7 @@ function Wishes() {
         />
         <button className="btn" onClick={release}>
           <Ico n="send" px={4} />
-          Release lantern
+          Send the wish
         </button>
       </div>
     </>
@@ -2476,7 +2476,7 @@ export default function BirthdaySite() {
 
       <Section
         id="memories" icon="camera"
-        title="Little moments" sub="Tap a photo to flip it over and read the note."
+        title="A Cutie Reminders" sub="Tap a card to flip it over and read the note."
         decor={[["star", "12%", ["left", "4%"], 5, "#FFC15E", 0], ["flower", "70%", ["right", "4%"], 5, "#FFFFFF", 1]]}
       >
         <div className="polas">
