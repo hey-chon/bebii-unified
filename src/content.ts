@@ -27,10 +27,8 @@ export const birthdayContent = {
   },
   memoriesTitle: 'Beautiful Memories',
   memoriesEyebrow: 'A collection of us',
-  photoPlaceholder: 'Add your photo here',
   photos: [
-    { src: '', caption: 'A day worth keeping' },
-    { src: '', caption: 'Our kind of afternoon' },
+    { src: '', caption: '' },
     { src: '', caption: 'Somewhere together' },
     { src: '', caption: 'The laugh I remember' },
     { src: '', caption: 'A favorite little moment' },

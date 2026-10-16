@@ -1148,7 +1148,7 @@ function Game({ fire }) {
       </div>
       {won && (
         <div className="win sticker">
-          <p className="hand">All pairs found in {moves} moves. You always find the cozy things.</p>
+          <p className="hand">All pairs found in {moves} moves. Perfect ka talaga bebii koo, is this tagalog.</p>
         </div>
       )}
     </div>
@@ -2441,12 +2441,8 @@ function ChainedAdventure({ herName = "love", hisName = "me", title = "Tied Toge
         </div>
         <button className="ct-b" aria-label="Jump" {...hold("j")}><Ico n="up" px={4} /></button>
       </div>
-      <p className="hand ct-help">
-        <span className="ct-kb">Move with the arrow keys or A and D, and jump with Space. </span>
-        <span className="ct-touch">Use the buttons to move and jump. </span>
-        There's no timer, nothing can be missed, and you can't lose. If you slip, the chain catches you.
-      </p>
-      <p className="ct-credit"><Pixel rows={SP_HEART} pal={HEART_PAL} px={3} />Game built by Claude too</p>
+      <br></br>
+      <p className="ct-credit"><Pixel rows={SP_HEART} pal={HEART_PAL} px={3} />Game built with help from Claude</p>
     </div>
   );
 }
@@ -2503,7 +2499,7 @@ export default function BirthdaySite() {
 
       <Section
         id="songs" icon="music"
-        title="Our soundtrack" sub="Pick a record and watch it spin."
+        title="A Music for you" sub="Pick a record and watch it spin."
         decor={[["music", "14%", ["right", "5%"], 5, "#FFC15E", 0.8], ["moon", "72%", ["left", "4%"], 5, "#FFF0C2", 1.8]]}
       >
         <Songs />
@@ -2519,7 +2515,7 @@ export default function BirthdaySite() {
 
       <Section
         id="adventure" icon="chain"
-        title="Our little adventure" sub="Two people, one chain, and seventeen gems to find on the way up."
+        title="Our little adventure" sub="Please complete it until you find all the 17 hearts."
         decor={[["star", "14%", ["left", "4%"], 5, "#FFC15E", 0.4], ["heart", "70%", ["right", "4%"], 5, "#FF8FAB", 1.6]]}
       >
         <ChainedAdventure herName={CONFIG.name} hisName={CONFIG.from} nickname={CONFIG.nickname} />
