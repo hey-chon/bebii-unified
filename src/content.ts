@@ -1,9 +1,3 @@
-/**
- * Personalize the message, signature, tree portrait, and photo paths here.
- * Add images under public/photos and set each photo value to "/photos/your-image.jpg".
- * Leave a photo value empty to show a clearly marked replacement slot.
- * Set treePortrait.src to show your girlfriend's photo in the center of the tree.
- */
 export const birthdayContent = {
   opening: {
     title: 'Happy Golden Birthday',
@@ -43,15 +37,15 @@ export const birthdayContent = {
     { src: '', caption: 'More days like this' },
   ],
   messageLabel: 'A Letter for You Bebii',
-  messageTitle: 'Happy Birthday, My Love',
+  messageTitle: 'Happy Birthday, My Bebii',
   message: 'Hello bebii! Test Message Only!',
-  signature: '[Your signature]',
-  sendGiftLabel: 'Send a Gift',
+  signature: '- Your bebii :D',
+  sendGiftLabel: 'CLICK ME PLEASE',
   giftTitle: 'A Special Birthday Gift for You!',
-  giftMessage: 'May your day be overflowing with love, happiness, sweet surprises, and all the magical moments you deserve.',
-  giftBadge: 'HAPPY BIRTHDAY 2026',
+  giftMessage: 'May your day be overflowing with love, happiness, sweet surprises, and all the magical moments you deserve. I built this website for you bebii koo, to make your birthday more special and this is a personal website I made all for you bebii koo bukod sa bouquet hehe, I hope you love and like it.',
+  giftBadge: 'HELLO BIRTHDAY GIRL :D',
   giftCloseLabel: 'Close gift message',
-  claimWishesLabel: 'Claim Wishes',
-  giftClaimed: 'A little more joy is on its way.',
-  pageFooter: 'For all the lovely things still to come.',
+  claimWishesLabel: 'CLICK ME',
+  giftClaimed: 'Explore the website and enjoy bebii koo.',
+  pageFooter: 'I hope you love and like my surprise bebii koo :D',
 } as const;

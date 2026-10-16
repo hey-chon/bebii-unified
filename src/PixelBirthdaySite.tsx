@@ -38,9 +38,9 @@ const REASONS = [
 ];
 
 const GIFTS = [
-  { title: "Cozy movie night", text: "You pick the movie. I bring the blankets and every snack you like.", icon: "ticket", c: "#B9A6FF", r: "#FFF0F4" },
-  { title: "A slow morning", text: "Breakfast in bed, no alarms, and nowhere to be until we feel like it.", icon: "sun", c: "#8FD9B6", r: "#FFF0F4" },
-  { title: "One big wish", text: "Tell me one thing you have always wanted, and I will make it happen.", icon: "star", c: "#FFC15E", r: "#FFF0F4" },
+  { text: "Flower bouquet poo hehe, kahit nabigay koo napo sayo nung nag moa us hehe :>", icon: "star", c: "#B9A6FF", r: "#FFF0F4" },
+  { text: "A Birthday Surprise website you can visit anytime bebii koo hehe, I made this for you poo :>.", icon: "star", c: "#8FD9B6", r: "#FFF0F4" },
+  { text: "Siyempre ang napaka pogi mo poo na bebii habii, akooooooooo :>", icon: "star", c: "#FFC15E", r: "#FFF0F4" },
 ];
 
 const TRACKS = [
@@ -715,7 +715,7 @@ function Hero({ fire }) {
         <Pixel rows={SP_SPARKLE} pal={SPARK_PAL} px={3} className="spk s3" style={{ left: "5%", bottom: "-10%" }} />
         <Pixel rows={SP_SPARKLE} pal={SPARK_PAL} px={4} className="spk s4" style={{ right: "12%", bottom: "-14%" }} />
         <h1 className="h1">
-          <SplitText text="Happy Birthday," />
+          <SplitText text="Happy Birthday" />
           <br />
           <SplitText text={CONFIG.name} start={0.7} />
         </h1>

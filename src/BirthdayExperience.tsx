@@ -586,7 +586,7 @@ function CartoonySection() {
           ))}
         </svg>
 
-        <h2 className="cartoony-title">Let's Celebrate!</h2>
+        <h2 className="cartoony-title">Blow your Cake!</h2>
         <p className="cartoony-text">
           Hover over the candles to blow them out and make a wish!
         </p>
@@ -678,7 +678,7 @@ function CartoonySection() {
         </div>
 
         <button className="confetti-btn" onClick={triggerConfetti}>
-          Pop Confetti!
+          CELEBRATE
         </button>
 
         {confettiBatches.map(id => (
