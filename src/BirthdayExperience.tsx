@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-const MOBILE_BOW_BREAKPOINT = 480;
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { birthdayContent } from './content';
@@ -144,20 +143,12 @@ function Opening({ onRelease }: { onRelease: (origin: RevealOrigin) => void }) {
   const [flying, setFlying] = useState(false);
   const [hit, setHit] = useState(false);
   const [flightVector, setFlightVector] = useState({ x: 0, y: 0 });
-  const [isMobileBow, setIsMobileBow] = useState(false);
   const pointerDown = useRef(false);
   const launchStarted = useRef(false);
   const stageRef = useRef<HTMLDivElement>(null);
   const heartRef = useRef<HTMLDivElement>(null);
   const bowSvgRef = useRef<SVGSVGElement>(null);
   const beganAt = useRef(0);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobileBow(window.innerWidth <= MOBILE_BOW_BREAKPOINT);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   const launch = () => {
     if (launchStarted.current) return;
@@ -168,22 +159,15 @@ function Opening({ onRelease }: { onRelease: (origin: RevealOrigin) => void }) {
     const bowBounds = bowSvgRef.current?.getBoundingClientRect();
     const heartBounds = heartRef.current?.getBoundingClientRect();
     if (bowBounds && heartBounds && bowBounds.width > 0 && bowBounds.height > 0) {
-      const arrowTip = isMobileBow
-        ? {
-            x: bowBounds.left + (54 / 280) * bowBounds.width,
-            y: bowBounds.top + (173 / 190) * bowBounds.height,
-          }
-        : {
-            x: bowBounds.left + (203 / 280) * bowBounds.width,
-            y: bowBounds.top + (95 / 190) * bowBounds.height,
-          };
+      const arrowTip = {
+        x: bowBounds.left + (203 / 280) * bowBounds.width,
+        y: bowBounds.top + (95 / 190) * bowBounds.height,
+      };
       const impactPoint = {
         x: heartBounds.left + heartBounds.width * .52,
         y: heartBounds.top + heartBounds.height * .5,
       };
-      // Account for pull distance: arrow starts from pulled-back position
-      const pullOffset = isMobileBow ? pull : 0;
-      setFlightVector({ x: impactPoint.x - arrowTip.x, y: impactPoint.y - arrowTip.y + pullOffset });
+      setFlightVector({ x: impactPoint.x - arrowTip.x, y: impactPoint.y - arrowTip.y });
       revealOrigin = {
         x: Math.max(0, Math.min(100, (impactPoint.x / window.innerWidth) * 100)),
         y: Math.max(0, Math.min(100, (impactPoint.y / window.innerHeight) * 100)),
@@ -210,19 +194,14 @@ function Opening({ onRelease }: { onRelease: (origin: RevealOrigin) => void }) {
     if (flying) return;
     event.preventDefault();
     pointerDown.current = true;
-    beganAt.current = isMobileBow ? event.clientY : event.clientX;
+    beganAt.current = event.clientX;
     event.currentTarget.setPointerCapture(event.pointerId);
   };
 
   const movePull = (event: React.PointerEvent<SVGCircleElement>) => {
     if (!pointerDown.current || !stageRef.current) return;
     const rect = stageRef.current.getBoundingClientRect();
-    if (isMobileBow) {
-      // Mobile: bow points down, so pull is measured by dragging UP (toward the bow handle)
-      setPull(Math.max(0, Math.min(90, beganAt.current - event.clientY)));
-    } else {
-      setPull(Math.max(0, Math.min(90, beganAt.current - event.clientX + (event.clientY - rect.top) * .08)));
-    }
+    setPull(Math.max(0, Math.min(90, beganAt.current - event.clientX + (event.clientY - rect.top) * .08)));
   };
 
   const keyboardRelease = (event: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -233,7 +212,7 @@ function Opening({ onRelease }: { onRelease: (origin: RevealOrigin) => void }) {
     }
   };
 
-  const travel = flying ? `translate(${flightVector.x}px, ${flightVector.y}px)` : `translate(0, ${isMobileBow ? -pull : 0}px)`;
+  const travel = flying ? `translate(${flightVector.x}px, ${flightVector.y}px)` : `translate(${pull}px, 0)`;
 
   return <section className={`opening ${flying ? 'is-flying' : ''}`} aria-label={birthdayContent.opening.ariaLabel}>
     <Floaties />
@@ -246,15 +225,15 @@ function Opening({ onRelease }: { onRelease: (origin: RevealOrigin) => void }) {
       <div className="opening-interactive">
         <div className="bow-stage">
           <svg className="bow-svg" ref={bowSvgRef} viewBox="0 0 280 190" role="img" aria-label={birthdayContent.opening.bowLabel}>
-            <path className="bow-wood" d={isMobileBow ? 'M17 54 C38 113 151 113 173 54' : 'M54 17 C113 38 113 151 54 173'} />
-            <path className="bow-string" d={isMobileBow ? `M17 54 L95 ${80 - pull * .65} L173 54` : `M54 17 L${80 - pull * .65} 95 L54 173`} />
+            <path className="bow-wood" d="M54 17 C113 38 113 151 54 173" />
+            <path className="bow-string" d={`M54 17 L${80 - pull * .65} 95 L54 173`} />
             <g style={{ transform: travel, transition: flying ? 'transform .82s cubic-bezier(.12,.8,.18,1)' : 'transform .12s ease-out' }}>
-              <line className="arrow-trail" x1={isMobileBow ? 95 : 16} y1={isMobileBow ? 16 : 95} x2={isMobileBow ? 95 : 190} y2={isMobileBow ? 190 : 95} />
-              <line className="arrow-shaft" x1={isMobileBow ? 95 : 72} y1={isMobileBow ? 72 : 95} x2={isMobileBow ? 95 : 192} y2={isMobileBow ? 192 : 95} />
-              <path className="arrow-tip" d={isMobileBow ? 'M95 203 L88 187 L95 190 L102 187 Z' : 'M203 95 L187 88 L190 95 L187 102 Z'} />
-              <path className="arrow-feather" d={isMobileBow ? 'M95 79 L87 67 M95 80 L95 66 M103 79 L103 91' : 'M79 95 L67 87 M80 95 L66 95 M79 95 L67 103'} />
+              <line className="arrow-trail" x1="16" y1="95" x2="190" y2="95" />
+              <line className="arrow-shaft" x1="72" y1="95" x2="192" y2="95" />
+              <path className="arrow-tip" d="M203 95 L187 88 L190 95 L187 102 Z" />
+              <path className="arrow-feather" d="M79 95 L67 87 M80 95 L66 95 M79 95 L67 103" />
             </g>
-            <circle className="drag-handle" cx={isMobileBow ? 95 : 80 - pull * .65} cy={isMobileBow ? 80 - pull * .65 : 95} r="13" fill="transparent" aria-label={birthdayContent.opening.dragLabel} onPointerDown={beginPull} onPointerMove={movePull} onPointerUp={release} onPointerCancel={release} />
+            <circle className="drag-handle" cx={80 - pull * .65} cy="95" r="13" fill="transparent" aria-label={birthdayContent.opening.dragLabel} onPointerDown={beginPull} onPointerMove={movePull} onPointerUp={release} onPointerCancel={release} />
           </svg>
         </div>
 
