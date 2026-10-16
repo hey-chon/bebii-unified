@@ -491,7 +491,7 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 .letter-card::before {top:20px;left:24px}.letter-card::after {bottom:20px;right:24px}
 .letter-label {font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color: #000000;margin:0 0 25px;}
 .letter-title {font:400 clamp(2.5rem,6vw,4.25rem)/1.08 var(--app-font-serif);letter-spacing:-.035em;color: #000000;margin:0;}
-.letter-copy {font:400 clamp(1.02rem,1.5vw,1.18rem)/1.9 var(--app-font-serif);color: #000000;white-space:pre-line;margin:27px auto 30px;max-width:490px;}
+.letter-copy {font:400 clamp(1.02rem,1.5vw,1.18rem)/1.9 var(--app-font-serif);color: #000000;white-space:pre-line;margin:27px auto 30px;max-width:490px;text-align:justify}
 .letter-signature {font:italic 1.35rem var(--app-font-serif);color: #000000;margin:0;}
 .gift-button {margin-top:35px;border:0;background:#d4af37;color:#ffffff;border-radius:40px;padding:16px 32px;letter-spacing:.12em;font-size:.7rem;text-transform:uppercase;cursor:pointer;box-shadow:0 12px 25px rgba(179,150,57,.22);transition:transform .25s,box-shadow .25s,background .25s;}
 .gift-button:hover {transform:translateY(-3px);box-shadow:0 17px 30px rgba(179,150,57,.28);background:#c49e29;}
@@ -693,6 +693,7 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   margin: 0 auto 35px;
   max-width: 520px;
   white-space: pre-line;
+  text-align: justify;
 }
 .beautiful-letter .letter-signature {
   font-family: var(--app-font-serif);

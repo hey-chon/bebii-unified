@@ -55,14 +55,25 @@ let bgMusicAudio = null;
 
 const LETTER = `Happy Birthday, ${CONFIG.name}.
 
-I wanted to make you something that feels the way you feel to me: warm, a little silly, and impossible to rush through. So here is a tiny cozy corner of the internet where every tap is a small present.
 
-Thank you for the quiet nights, the loud laughs, and every ordinary day you turned into a favorite one. I hope this next year is soft with you and full of everything you deserve.
+Happyy happy happyy happyy birthday to you bebii wifeyy koo! You're 17 now bebii koo and ang laki laki napo ng bebii wifeyy koo nayan, you're big girl napo hehe. I wish you a very very good health and a happy happy happy birthday poo bebii koo. This day is one of the most special day for me, eversince nung dumating poo ikaw sa life koo bebii wifeyy koo. This is the second time na makakapag celebrate poo tayo ng birthday mo together bebii koo at may mga mas susunod pa poo at mas bongga the more nq lumalaki tayo hehe. I wanna grow with you bebii koo, gusto koo poo na tumanda tayo nang magkasama bebii koo, hindi man poo perfect yung relationship natin, we're still thankful na kasama parin poo natin ang isa't isa even if we're not perfect bebii koo. Grabe bebii koo sobrang saya ma-witness how both of us grow, we celebrate and cherish every moment like this bebii koo and we always make it memorable poo bebii koo hehe, malala man po minsan ang mga sitwasyon we're still here naka-kapit sa kamay ng isa't isa papunta sa buhay na ikaw lang ang tanging makakasamq bebii koo. I will forever lovee lovee lovee lovee lovee you poo bebii koo, I lovee lovee lovee youu not because it's your day, your birthday, I lovee lovee lovee you bebii because you're worth it bebii koo ka-mahal mahal ka bebii koo and you're more than enough bebii, you made my life pretty because you're the most pretiest kind of woman in this entire universe bebii koo.
 
-Blow out the candle, make your wish, and know I will be right here helping it come true.
+
+I wanna thank you bebii koo for everything you've done for us, you never give up on me bebii koo even though sobrang hirap ko napo intindihin at mahalin, you stayed and you're still here for me and our relationship bebii koo. I want you to know na kahit mag-away pa man poo tayo nang ilang beses, hindi parin poo tayo maghihiwalay nang totoo just like what other relationships do. I know poo na hindi ako perfect na boyfriend bebii koo but I will always give my all para lang poo sayo bebii koo, everything I'm doing is worth it because I know that you're worth it, hindi sayang yung lahat ng ginagawa koo na effort because para sa bebii koo na deserve na deserve ang lahat ng magagandqng bagay lang sa mundo bebii koo because you're soo pretty prettyy prettyy bebii wifeyy koo. Ang laki mo na bebii koo, dati bebii bebii pa lang ikaw ngayon ate koo nanaman poo ikaw bebii wifeyy koo, gg nanaman akoo ba-batain mo nanaman poo ako niyan bebii koo. You're big girl now bebii koo and it's so sweet na masubaybayan ang birthday natin parehas bebii koo hehe, ang galing natin bebii koo hehe umabot na tayo sa ganitong katagal at mas tatagal pa poo hehe, marami pang birthday, surprise, celebrations at iba pa poo ang mangyayari sa susunod bebii wifeyy koo hehe.
+
+
+I'm soo proud of myself bebii koo because I made everything smooth evem though nakaka pressure poo sometimes hehe, I managed poo na magawan koo ikaw ng sobrang prettyy na bouquet and also a pretty prettyy website poo na talagang dedicated lang poo for you bebii koo hehe, talagang personal website mo lang bebii koo hehe. And yeyyy it's your golden birthday napo bebii koo, I lovee lovee lovee poo na isipin na grabee we're soo tagal napo at mas tatagal pa bebii koo, we'll celebrate more birthdays and accasions together bebii wifeyy koo hehe.
+
+I wanna say sorry rin poo bebii koo for every bad thing I've done poo sayo bebii koo, I regret doing every part of it bebii koo and I never mean those things bebii koo even the smallest one from it. You never deserve that treatment bebii koo, you only deserve good and pretty things like you in this whole wide universe bebii koo. Only if I could give you my eyes, you'll see how much I lovee lovee lovee you even if we felt uneasy sometimes inside this wonderful relationship bebii koo. Away bati man poo ang nangyayari bebii koo, ang mahalaga kasama parin poo natin ang isa't isa at magpapatuloy pang tumagal at magsama bebjj wifeyy koo.
+
+I hope you lovee, likee and appreciate everything na ginawa koo poo to make your birthday more special hehe, ginagawa koo poo lahat yan to make you the happiest girlfriend in this whole wide universe bebii wifeyy koo hehe, mahal na mahal na mahal na mahal na mahal na mahal na mahal na mahal koo poo ikaw bebii wifeyy koo at mas mamahalin pa sa hirap man poo o sa ginhawa bebii wifeyy koo. You're more than enough my pretty prettyyy, beautiful, gorgeouss, cutieee, sweet lovinggg and caring adorable hot sexyyy super perfect na bebii wifeyy, girlfriend, asawa, bestfriend, and my everything. Lovee na lovee na lovee koo poo ikaw bebii koo always and in all ways bebii koo hehe. I wish you a happy happyy happpyyy birthdayy, and a good health and more birthdays to come bebii wifeyy koo hehe, and may God bless you more bebii wifeyy koo.
+
+Happyyy happyy happyy 17th golden birthday to you bebii wifeyy koo, mahal na mahal na mahal na mahal na mahal koo poo ikaw bebii wifeyy koo kahit minsan poo away bati na us na halos minsan araw araw poo mangyayari bebii wifeyy koo but that doesn't change the fact kung gaano natin kamahal ang isa't isa bebii wifeyy koo. You're the best bebii koo, you're the most wonderful woman na nag e-exist sa buong universe bebii wifeyy koo hehe, I'm soo grateful and thankful to have you in my whole life bebii koo, mahal na mahal na mahal na mahal koo poo ikaq bebii koo I mean everything I'm saying rn bebii koo sa letter koo poo na ito hehe. You made my life better bebii koo, you gave all the colors I need to lighten up my life bebii koo and I'm soo grateful because I met someone like youu bebii koo hehe. I wanna let you know na ikaw lang poo ang mahal at mamahalin koo sa buong buhay koo bebii koo, I will only lovee you bebii koo until the eternity and ti'll our hair turns white, hanggang ma-dedzz both of us bebii koo hehe. May God give you all the wishes you've been wishing bebii koo, sana poo matupad lahat ng wish at gusto mo sa life mo bebii koo while kasama poo natin ang isa't isa hehe, I want you to know poo na I'm veryy veryy proud of you poo bebii koo sa pinaka maliit man poo or pinaka malaking nakakamit mo sa life mo bebii koo hehe, I'm your number one and biggest supporter bebii wifeyy koo hehe nandito lang poo ako always para sayo bebii koo, forever and until the eternity bebii koo. I'm always here for you bebii wifeyy koo, ikaw lang poo habang buhay wala na pong iba kundi ikaw lang bebii koo na super duperrr prettyyyyy.
+
+For the closing message of this wonderful lovely 17th golden birthday of my bebii wifeyy, Happyyy happyy happyy birthdayy to you bebii wifeyy koo may God bless youu more, a veryy veryy veryy good health and kalakasan bebii koo sa lahat nang oras and more birthdays to came poo bebii wifeyy koo, mahal na mahal na mahal na mahal koo poo ikaw bebii wifeyy koo and sana ma-appreciate mo poo lahat ng efforts koo sa gifts and surprise koo poo sayo on your 17th birthday bebii wifeyy koo hehe lovee na lovee na lovee na lovee koo poo ikaw kaya sobrang worth it poo lahat ito bebii koo. I hope you lovee and likee everything bebii koo and sana balik balikan mo poo itong website nato bebii koo hehe, iloveyouuuuuuusomuch poo bebii koo and iloveyouuuuuuuuusomuchieee, lovee koo poo ikaw iloveyouuuuuuuuusomuchmore and from the moon and back bebii wifeyy koo happyyy happyyy happyyy happyy 17th golden birthday my golden birthday pretty prettyyy girl, mahal na mahal na mahal na mahal na mahal na mahal koo poo ikaw bebii wifeyy koo.
 
 Always yours,
-${CONFIG.from}`;
+Jimson, your handsome bebii :>`;
 
 const PAIRS = [
   { k: "cookie", icon: "cookie" }, { k: "moon", icon: "moon" }, { k: "star", icon: "star" },
@@ -302,9 +313,9 @@ const CSS = `
 .paperwrap.show{grid-template-rows:1fr;margin-top:30px}
 .paperin{overflow:hidden;min-height:0}
 .paper{--pp:clamp(18px,5vw,30px);position:relative;padding:34px var(--pp);background:var(--pink-lt);border:4px solid var(--line);box-shadow:6px 6px 0 var(--shd);color:var(--ink);font-size:27px;line-height:34px;background-image:linear-gradient(transparent 32px,rgba(255,143,171,.55) 33px);background-size:100% 34px;background-position:0 32px}
-.paper p{margin:0;white-space:pre-wrap}
-.paper .ghost{visibility:hidden}
-.paper .typed{position:absolute;left:var(--pp);right:var(--pp);top:34px}
+.paper p{margin:0;white-space:pre-wrap;text-align:justify}
+.paper .ghost{visibility:hidden;text-align:justify}
+.paper .typed{position:absolute;left:var(--pp);right:var(--pp);top:34px;text-align:justify}
 .caret{display:inline-block;width:10px;height:22px;background:var(--ink);margin-left:2px;vertical-align:-4px;animation:blink .8s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 .skip{margin-top:20px;text-align:center}
@@ -2055,7 +2066,6 @@ const GAME_CSS = `
 .ct-bub{position:absolute;left:0;top:0;transform:translate(-50%,calc(-100% - 8px));background:var(--pink-lt);color:var(--ink);border:3px solid var(--line);padding:.3em .7em;font-size:clamp(10px,1.9vw,15px);width:max-content;max-width:min(62vw,240px);text-align:center;line-height:1.25;box-shadow:3px 3px 0 rgba(42,31,77,.35)}
 .ct-bub small{display:block;color:var(--rose);font-size:.85em}
 .ct-bub:after{content:"";position:absolute;left:50%;top:100%;margin-left:-6px;border:6px solid transparent;border-top-color:var(--line)}
-.ct-note{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);background:var(--pink-lt);color:var(--ink);border:3px solid var(--line);padding:.45em .9em;font-size:clamp(11px,2.1vw,17px);text-align:center;width:max-content;max-width:88%;line-height:1.3;animation:ct-fade 4.6s both;pointer-events:none;box-shadow:3px 3px 0 rgba(42,31,77,.35)}
 .ct-prog{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,233,240,.25);pointer-events:none}
 .ct-prog div{height:100%;background:var(--blush);transform-origin:0 50%;transform:scaleX(0);will-change:transform}
 .ct-ov{position:absolute;inset:0;display:grid;place-items:center;background:rgba(75,55,112,.55);padding:3%}
@@ -2078,7 +2088,7 @@ const GAME_CSS = `
 @media (pointer:coarse){.ct-kb{display:none}.ct-touch{display:inline}}
 .ct-credit{display:flex;align-items:center;justify-content:center;gap:10px;margin:16px 0 0;font-size:17px;color:var(--rose)}
 @media (prefers-reduced-motion:reduce){
-  .bd .ct-banner,.bd .ct-note,.bd .ct-polaroid{animation:none !important}
+  .bd .ct-banner,.bd .ct-polaroid{animation:none !important}
 }
 `;
 
@@ -2278,7 +2288,6 @@ function ChainedAdventure({ herName = "love", hisName = "me", title = "Tied Toge
                       s.got++;
                       setCount(s.got);
                       puff(g.x, g.y, "#ffb3c7", 10);
-                      flash("n", setNote, NOTES[i], 4600);
                       SND.tone(784, 0.6, "sine", 0.07);
                       window.setTimeout(() => SND.tone(1175, 0.8, "sine", 0.06), 110);
                       window.setTimeout(() => SND.tone(1568, 1, "sine", 0.04), 230);
@@ -2298,7 +2307,6 @@ function ChainedAdventure({ herName = "love", hisName = "me", title = "Tied Toge
                   s.gems.forEach((g) => { g.got = true; });
                   s.got = 17;
                   setCount(17);
-                  flash("n", setNote, "All seventeen are yours. None can ever be missed.", 5000);
                   puff(LEVEL.cake, LEVEL.cakeY - 20, "#f4cf6a", 24);
                   SND.tone(660, 0.5, "sine", 0.08);
               }
@@ -2388,7 +2396,7 @@ function ChainedAdventure({ herName = "love", hisName = "me", title = "Tied Toge
     st.current = fresh();
     st.current.gr = greets.map((g) => g.toUpperCase());
     st.current.msg = wrap(finalMessage, 36);
-    setCount(0); setNote(""); setWish(false); setPhase("play");
+    setCount(0); setWish(false); setPhase("play");
     SND.init(); SND.music();
     // bring the whole game into view so nothing is cut off while playing
     const el = stage.current;
@@ -2420,7 +2428,6 @@ function ChainedAdventure({ herName = "love", hisName = "me", title = "Tied Toge
           <div className="ct-prog"><div ref={prog} /></div>
           {banner && <div className="ct-banner" key={banner}>{banner}</div>}
           <div ref={at} className="ct-at">{bubble && <div className="ct-bub"><small>{hisName}</small>{bubble}</div>}</div>
-          {note && <div className="ct-note" key={note}>{note}</div>}
           {phase === "title" && (
             <div className="ct-ov">
               <div className="ct-card">

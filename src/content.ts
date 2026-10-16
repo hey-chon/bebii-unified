@@ -55,7 +55,7 @@ export const birthdayContent = {
   ],
   messageLabel: 'A Letter for You Bebii',
   messageTitle: 'Happy Birthday, My Bebii',
-  message: 'Hello bebii! Test Message Only!',
+  message: 'Happyy happy happyy happyy birthday to you bebii wifeyy koo! You\'re 17 now bebii koo and ang laki laki napo ng bebii wifeyy koo nayan, you\'re big girl napo hehe. I wish you a very very good health and a happy happy happy birthday poo bebii koo. This day is one of the most special day for me, eversince nung dumating poo ikaw sa life koo bebii wifeyy koo. This is the second time na makakapag celebrate poo tayo ng birthday mo together bebii koo at may mga mas susunod pa poo at mas bongga the more nq lumalaki tayo hehe. I wanna grow with you bebii koo, gusto koo poo na tumanda tayo nang magkasama bebii koo, hindi man poo perfect yung relationship natin, we\'re still thankful na kasama parin poo natin ang isa\'t isa even if we\'re not perfect bebii koo. Grabe bebii koo sobrang saya ma-witness how both of us grow, we celebrate and cherish every moment like this bebii koo and we always make it memorable poo bebii koo hehe, malala man po minsan ang mga sitwasyon we\'re still here naka-kapit sa kamay ng isa\'t isa papunta sa buhay na ikaw lang ang tanging makakasamq bebii koo. I will forever lovee lovee lovee lovee lovee you poo bebii koo, I lovee lovee lovee youu not because it\'s your day, your birthday, I lovee lovee lovee you bebii because you\'re worth it bebii koo ka-mahal mahal ka bebii koo and you\'re more than enough bebii, you made my life pretty because you\'re the most pretiest kind of woman in this entire universe bebii koo.',
   signature: '- Your bebii :D',
   sendGiftLabel: 'CLICK ME PLEASE',
   giftTitle: 'A Special Birthday Gift for You!',
