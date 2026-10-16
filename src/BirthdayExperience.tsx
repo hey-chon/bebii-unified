@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { birthdayContent } from './content';
@@ -757,6 +757,16 @@ function Memories() {
 
   const photos = birthdayContent.photos;
 
+  // Shuffle all photos and pick one per heart tile (18 tiles, 24 photos available)
+  const shuffledPhotos = useMemo(() => {
+    const arr = [...photos];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }, []);
+
   const toggle = () => {
     if (isClosing) return;
     if (expanded) {
@@ -837,7 +847,7 @@ function Memories() {
             <div className={`heart-mosaic-wrap ${isClosing ? 'is-closing' : 'is-opening'}`}>
               <div className="heart-mosaic-grid">
                 {HEART_TILES.map((tile, idx) => {
-                  const photo = photos[idx % photos.length];
+                  const photo = shuffledPhotos[idx % shuffledPhotos.length];
                   const isLarge = Boolean(tile.rowSpan && tile.rowSpan > 1);
                   const animDelay = isClosing
                     ? (HEART_TILES.length - 1 - idx) * 0.016
