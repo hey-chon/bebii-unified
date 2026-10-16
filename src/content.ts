@@ -35,7 +35,7 @@ export const birthdayContent = {
     { src: '/BabyPics/att.tSoFl4vaN5BfIeVgrbgDXrqJvxSrFksD0-DgALkjUMc.jpg', caption: 'Baby memory' },
   ],
   memoriesTitle: 'Crazy Beautiful You',
-  memoriesEyebrow: 'A collection of us',
+  memoriesEyebrow: 'A collection of YOU',
   photos: [
     { src: '/wifey/IMG_5745.jpg', caption: 'My beautiful bebii' },
     { src: '/wifey/IMG_5777.jpg', caption: 'Somewhere together' },
