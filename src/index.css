@@ -1,5 +1,38 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* ── Global mobile/responsive safety (iOS/Android/tablets, always) ── */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
+}
+/* Disable double-tap zoom everywhere (pinch zoom is still allowed by the OS),
+   so gestures never accidentally shrink the page. Scroll/pan still works. */
+*, *::before, *::after {
+  touch-action: manipulation;
+}
+/* Prevent iOS auto-zoom when focusing form fields (<16px triggers it). */
+@media (pointer: coarse) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+/* Stable viewport heights: plain vh fallback for older browsers,
+   then svh/dvh for mobile URL-bar handling. */
+.min-vh { min-height: 100vh; }
+.min-svh { min-height: 100svh; min-height: 100dvh; }
+
+
 
 :root {
   --background: 36 51% 95%;
