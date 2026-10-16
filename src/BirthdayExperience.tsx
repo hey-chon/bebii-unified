@@ -107,7 +107,7 @@ function TreeIllustration({ revealed, children }: { revealed: boolean; children?
       <path className="tree-trunk" d="M304 665 C300 555 304 483 296 404 C289 331 283 269 276 208 M300 420 C256 352 206 320 143 283 M286 354 C227 293 204 236 197 173 M299 397 C363 339 411 312 475 276 M291 318 C343 269 374 219 393 156 M279 250 C246 211 241 169 246 133 M298 459 C349 416 388 393 432 378" />
       <path className="tree-bough" d="M143 283 C124 265 111 248 105 226 M143 283 C124 290 105 291 87 285 M197 173 C182 153 178 134 181 116 M197 173 C211 154 218 138 218 119 M475 276 C493 259 509 238 514 217 M475 276 C498 280 515 279 534 270 M393 156 C388 135 390 115 399 96 M393 156 C410 141 425 133 443 129 M246 133 C238 117 237 101 242 85 M432 378 C451 365 468 355 487 350" />
       {treePhotoFrames.map((frame, index) => {
-        const photo = birthdayContent.photos[index];
+        const photo = birthdayContent.treePhotos[index];
         return <PhotoFrame
           key={`memory-frame-${index}`}
           id={`memory-frame-${index}`}

@@ -15,7 +15,7 @@ export const birthdayContent = {
     unbloomedLabel: 'A cozy memory tree ready for photos',
     bloomedLabel: 'A keepsake tree with miniature photo frames and a portrait spot',
     photoFramePlaceholder: 'Add a memory photo',
-    portraitPlaceholder: 'HER PHOTO',
+    portraitPlaceholder: 'Jera',
     kicker: 'and… here we go!',
     title: 'Happy Birthday',
     subtitle: 'a golden surprise for someone who turns 17th today...',
@@ -25,6 +25,15 @@ export const birthdayContent = {
     src: '',
     alt: 'A placeholder for my bebii’s portrait',
   },
+  // BabyPics photos — used ONLY by the tree hanging frames
+  treePhotos: [
+    { src: '/BabyPics/att.0iWTYrD8ar_NTBXwGlP5dPCQa5hc3O2i--QkkjqE1mQ.jpg', caption: 'Baby memory' },
+    { src: '/BabyPics/att.9def08xDEFavYPdJedCQ2h_FsAs1FNZkIRaKMfE59jU.jpg', caption: 'Baby memory' },
+    { src: '/BabyPics/att.Ey-e15s_I_Zzry-Gxmi7EwIcoTj1pVYaCoi6j-oifK4.jpg', caption: 'Baby memory' },
+    { src: '/BabyPics/att.i71hFF2lWf6yt8m0__Nbhx5djz6Tqz59Sv04uchmkdU.jpg', caption: 'Baby memory' },
+    { src: '/BabyPics/att.Rkrw3pmd4TDEgkKzruXekrbOOHNDI6f89JOsUHXsrww.jpg', caption: 'Baby memory' },
+    { src: '/BabyPics/att.tSoFl4vaN5BfIeVgrbgDXrqJvxSrFksD0-DgALkjUMc.jpg', caption: 'Baby memory' },
+  ],
   memoriesTitle: 'Crazy Beautiful You',
   memoriesEyebrow: 'A collection of us',
   photos: [
@@ -55,7 +64,7 @@ export const birthdayContent = {
   ],
   messageLabel: 'A Letter for You Bebii',
   messageTitle: 'Happy Birthday, My Bebii',
-  message: 'Happyy happy happyy happyy birthday to you bebii wifeyy koo! You\'re 17 now bebii koo and ang laki laki napo ng bebii wifeyy koo nayan, you\'re big girl napo hehe. I wish you a very very good health and a happy happy happy birthday poo bebii koo. This day is one of the most special day for me, eversince nung dumating poo ikaw sa life koo bebii wifeyy koo. This is the second time na makakapag celebrate poo tayo ng birthday mo together bebii koo at may mga mas susunod pa poo at mas bongga the more nq lumalaki tayo hehe. I wanna grow with you bebii koo, gusto koo poo na tumanda tayo nang magkasama bebii koo, hindi man poo perfect yung relationship natin, we\'re still thankful na kasama parin poo natin ang isa\'t isa even if we\'re not perfect bebii koo. Grabe bebii koo sobrang saya ma-witness how both of us grow, we celebrate and cherish every moment like this bebii koo and we always make it memorable poo bebii koo hehe, malala man po minsan ang mga sitwasyon we\'re still here naka-kapit sa kamay ng isa\'t isa papunta sa buhay na ikaw lang ang tanging makakasamq bebii koo. I will forever lovee lovee lovee lovee lovee you poo bebii koo, I lovee lovee lovee youu not because it\'s your day, your birthday, I lovee lovee lovee you bebii because you\'re worth it bebii koo ka-mahal mahal ka bebii koo and you\'re more than enough bebii, you made my life pretty because you\'re the most pretiest kind of woman in this entire universe bebii koo.',
+  message: 'Hello bebii! This is just a test!',
   signature: '- Your bebii :D',
   sendGiftLabel: 'CLICK ME PLEASE',
   giftTitle: 'A Special Birthday Gift for You!',
