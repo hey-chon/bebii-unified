@@ -6,8 +6,8 @@ import React, { useState, useEffect, useMemo, useCallback, useRef } from "react"
 /*  EDIT THIS BLOCK: names, dates, and all the personal copy           */
 /* ------------------------------------------------------------------ */
 const CONFIG = {
-  name: "My Love",
-  from: "Chon",
+  name: "My Lovely Bebii",
+  from: "Your handsome bebii",
   birthday: new Date(2026, 9, 17, 0, 0, 0),
   dateLabel: "October 17, 2026",
   nickname: "Bebii", // used in the adventure game greetings
