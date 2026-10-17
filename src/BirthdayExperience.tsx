@@ -958,32 +958,6 @@ function LetterSection({ onOpenGift }: { onOpenGift: () => void }) {
     <section className="letter-section" id="letter">
       <Floaties />
       
-      <div className="envelope-scene">
-        <div className="envelope-wrapper" ref={envelopeRef} onClick={toggleLetter}>
-          <div className="envelope-back"></div>
-          <div className="envelope-paper-wrap" ref={paperRef}>
-            <article className={`beautiful-letter ${isOpen ? 'is-expanded' : ''}`}>
-              {isOpen && <button className="envelope-close-btn" aria-label="Close letter" onClick={(e) => { e.stopPropagation(); toggleLetter(); }}>&times;</button>}
-              <p className="letter-label">{birthdayContent.messageLabel}</p>
-              <h2 className="letter-title">{birthdayContent.messageTitle}</h2>
-              <p className="letter-copy">{birthdayContent.message}</p>
-              <p className="letter-signature">{birthdayContent.signature}</p>
-            </article>
-          </div>
-          <div className="envelope-front"></div>
-          <div className="envelope-flap" ref={flapRef}>
-             <div className="envelope-flap-seal">♥</div>
-          </div>
-        </div>
-      </div>
-
-      <div style={{ textAlign: 'center', marginTop: '80px', opacity: isOpen ? 1 : 0, transition: 'opacity 1s, transform 1s', transform: isOpen ? 'translateY(0)' : 'translateY(20px)', pointerEvents: isOpen ? 'auto' : 'none' }}>
-        <button className="gift-button" onClick={onOpenGift}>{birthdayContent.sendGiftLabel}</button>
-      </div>
-      <p className="page-footer">{birthdayContent.pageFooter}</p>
-    </section>
-  );
-}
 
 function BirthdayExperience() {
   const [phase, setPhase] = useState<Phase>('opening');
