@@ -1247,15 +1247,7 @@ function BirthdayExperience() {
           </h2>
           <p className="tree-sub tree-sub-desktop">{birthdayContent.tree.subtitle}</p>
         </div>
-        <TreeIllustration revealed={treeRevealed}>
-          <p className="tree-sub-mobile">{birthdayContent.tree.subtitle}</p>
-        </TreeIllustration>
-        <a className="scroll-cue" href="#memories">{birthdayContent.tree.scrollCue}</a>
-      </section>
-      <Memories />
-      <LetterSection onOpenGift={() => setGiftOpen(true)} />
-      <CartoonySection />
-      <PixelBirthdaySite />
+        
     </>}
     {giftOpen && <GiftModal onClose={() => setGiftOpen(false)} />}
   </main>;
