@@ -10,11 +10,29 @@ gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Plays the funny fahhh prank sound effect.
- * Creates a fresh Audio instance per call to support rapid overlapping spam clicks!
+ * Reuses a small pool of Audio instances so rapid spam clicks cannot stack up
+ * an unlimited number of overlapping sounds (which used to crash the tab).
  */
+const MAX_FAHHH = 4;
+const fahhhPool: HTMLAudioElement[] = [];
+
 const playFahhh = () => {
   try {
-    const audio = new Audio(fahhhSound || '/fahhh/fahhh_KcgAXfs.mp3');
+    let audio = fahhhPool.find((a) => a.paused || a.ended);
+    if (!audio) {
+      if (fahhhPool.length >= MAX_FAHHH) {
+        const oldest = fahhhPool.shift();
+        if (oldest) {
+          oldest.pause();
+          oldest.src = '';
+          audio = oldest;
+        }
+      }
+      if (!audio) {
+        audio = new Audio(fahhhSound || '/fahhh/fahhh_KcgAXfs.mp3');
+        fahhhPool.push(audio);
+      }
+    }
     audio.currentTime = 0;
     audio.play().catch(() => {});
   } catch {
@@ -466,15 +484,11 @@ function EndlessFireworks() {
           continue;
         }
 
-        ctx.save();
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
         ctx.globalAlpha = p.flicker && Math.random() > 0.5 ? p.alpha * 0.4 : p.alpha;
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = p.color;
         ctx.fill();
-        ctx.restore();
       }
     };
 
@@ -1002,11 +1016,13 @@ function BirthdayExperience() {
   useEffect(() => {
     if (phase !== 'story') return;
 
+    const triggers: ScrollTrigger[] = [];
     const timer = window.setTimeout(() => {
       ScrollTrigger.refresh();
+      // Only kill the ScrollTriggers created in this effect (not every trigger on the page).
 
       // Memories heading & card stage entrance
-      gsap.fromTo(
+      const st1 = gsap.fromTo(
         '.memories .section-heading',
         { opacity: 0, y: 35 },
         {
@@ -1021,8 +1037,9 @@ function BirthdayExperience() {
           },
         }
       );
+      if (st1.scrollTrigger) triggers.push(st1.scrollTrigger);
 
-      gsap.fromTo(
+      const st2 = gsap.fromTo(
         '.memories-stage',
         { opacity: 0, scale: 0.94, y: 25 },
         {
@@ -1038,9 +1055,10 @@ function BirthdayExperience() {
           },
         }
       );
+      if (st2.scrollTrigger) triggers.push(st2.scrollTrigger);
 
       // Leveled envelope entrance with subtle rise & soft scale
-      gsap.fromTo(
+      const st3 = gsap.fromTo(
         '.envelope-scene',
         { opacity: 0, y: 40, scale: 0.96 },
         {
@@ -1056,9 +1074,10 @@ function BirthdayExperience() {
           },
         }
       );
+      if (st3.scrollTrigger) triggers.push(st3.scrollTrigger);
 
       // Cartoony celebratory section & cake entrance
-      gsap.fromTo(
+      const st4 = gsap.fromTo(
         '.cartoony-content',
         { opacity: 0, y: 35 },
         {
@@ -1073,8 +1092,9 @@ function BirthdayExperience() {
           },
         }
       );
+      if (st4.scrollTrigger) triggers.push(st4.scrollTrigger);
 
-      gsap.fromTo(
+      const st5 = gsap.fromTo(
         '.svg-cake-wrap',
         { opacity: 0, scale: 0.88, y: 25 },
         {
@@ -1090,11 +1110,12 @@ function BirthdayExperience() {
           },
         }
       );
+      if (st5.scrollTrigger) triggers.push(st5.scrollTrigger);
     }, 120);
 
     return () => {
       window.clearTimeout(timer);
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      triggers.forEach((t) => t.kill());
     };
   }, [phase]);
 

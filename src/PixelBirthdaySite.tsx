@@ -1035,22 +1035,31 @@ function Songs() {
   const [idx, setIdx] = useState(0);
   const [playing, setPlaying] = useState(false);
   const t = TRACKS[idx];
-  const audio = useRef(null);
+  // One shared Audio element per instance; switching tracks reuses it so songs
+  // never stack on top of each other (old code created a new Audio every track
+  // pick and leaked them via the module-level bgMusicAudio reference).
+  const audio = useRef<HTMLAudioElement | null>(null);
   useEffect(() => {
     if (!audio.current) {
       audio.current = new Audio(t.src);
-      bgMusicAudio = audio.current;
-    } else {
-      audio.current.src = t.src;
+    }
+    const active = audio.current;
+    // Always point the module reference at the live Audio so the adventure
+    // game can pause background music when play begins.
+    bgMusicAudio = active;
+    if (active.src && !active.src.endsWith(t.src)) {
+      // Pause before switching source so two tracks never overlap.
+      active.pause();
+      active.src = t.src;
     }
     if (playing) {
-      audio.current.play().catch(() => {});
+      active.play().catch(() => {});
     } else {
-      audio.current.pause();
+      active.pause();
     }
     return () => {
-      audio.current.pause();
-      audio.current.src = "";
+      active.pause();
+      if (bgMusicAudio === active) bgMusicAudio = null;
     };
   }, [t.src, playing]);
   const choose = (i) => {
